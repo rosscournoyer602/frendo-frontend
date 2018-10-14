@@ -1,0 +1,20 @@
+// colors
+// http://paletton.com/#uid=13i050kt1o3sjvotSsqt7kVuchy
+$menu-bg-green: #0B7373;
+$white-bg: #CED6D6;
+$highlighted: #055454;
+$dark-text: #055454;
+$light-text: #9FBBBB;
+
+// typograpy
+@import url('https://fonts.googleapis.com/css?family=Lobster|Poppins:300,400,500');
+$Lobster: 'Lobster', serif;
+$Poppins: 'Poppins', sans-serif;
+html {
+	font-size: 10px;
+}
+body {
+	font-size: 1.6rem;
+	line-height: 1.4;
+	background-color: #CED6D6;
+}
