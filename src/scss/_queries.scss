@@ -1,0 +1,19 @@
+@media screen and (max-width: 700px) { 
+    .bm-burger-button {
+      visibility: visible;
+    }
+    .header-ul {
+      .logo {
+        visibility: visible !important;
+      }
+      .header-li {
+        visibility: hidden;
+      }
+    }
+}
+
+@media only screen and (min-width: 700px) { 
+    .bm-burger-button {
+      visibility: hidden;
+    }
+}

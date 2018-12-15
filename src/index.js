@@ -8,8 +8,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { BrowserRouter as Router } from 'react-router-dom'
 import reducers from './reducers';
 import App from './components/App.jsx';
-import Header from './components/Header.jsx';
-import Routes from './Routes.jsx'
 import style from './scss/main.scss';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -25,10 +23,7 @@ sagaMiddleware.run(rootSaga);
 render((
 	<Provider store={store}>
 		<Router>
-			<App style={style}>
-				<Header />
-        <Routes />
-			</App>
+			<App style={style} />
 		</Router>
 	</Provider>
 ), document.getElementById('root'));
