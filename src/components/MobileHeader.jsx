@@ -11,9 +11,9 @@ class MobileHeader extends Component {
     return (
       <div className="header">
         <ul className="header-ul">
-          <Menu right noOverlay width={ '40%' }>
-            <Link className="menu-item" to="/signup"><li className="mobile-header-li">Sign Up</li></Link>
-            <Link className="menu-item" to="/signin"><li className="mobile-header-li">Sign In</li></Link>
+          <Menu right width={ '30%' }>
+            <Link to="/signup"><li className="mobile-header-li">Sign Up</li></Link>
+            <Link to="/signin"><li className="mobile-header-li">Sign In</li></Link>
           </Menu>
         </ul>
       </div>

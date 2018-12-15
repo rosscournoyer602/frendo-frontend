@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import SignUp from './containers/SignUp';
 import SignIn from './containers/SignIn';
 
@@ -14,4 +14,4 @@ class Routes extends Component {
   }
 }
 
-export default withRouter(Routes);
+export default Routes;

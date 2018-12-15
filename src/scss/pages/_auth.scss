@@ -1,0 +1,35 @@
+.auth-form {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40vw;
+  max-width: 500px;
+  font-family: $Poppins;
+  font-size: 1.4rem;
+  color: $dark-text;
+  text-align: center;
+}
+
+.form-field {
+  margin: 5px;
+}
+
+.form-label {
+  margin-right: 100%;
+}
+
+.form-text-input {
+  margin-right: 100%;
+  width: 95%;
+  max-width: 200px;
+}
+
+.form-text-input {
+  margin-right: 100%;
+  width: 95%;
+  max-width: 200px;
+}
+
+.form-button {
+  margin-right: 100%;
+}
