@@ -19,7 +19,7 @@ const store = createStore(
 ));
 
 sagaMiddleware.run(rootSaga);
-
+// document.addEventListener("touchstart", function(){}, true);
 render((
 	<Provider store={store}>
 		<Router>

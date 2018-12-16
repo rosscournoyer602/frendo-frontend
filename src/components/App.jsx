@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './Header';
 import MobileHeader from './MobileHeader';
 import Main from './Main';
 
-export default class App extends Component {
-	render() {
-		return (
-      <>
-        <Header />
-        <MobileHeader />
-        <Main />
-      </>
-		)
-}
-}
+const App = () => (
+  <>
+    <Header />
+    <MobileHeader />
+    <Main />
+  </>
+);
+
+export default App;

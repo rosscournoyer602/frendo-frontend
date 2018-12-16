@@ -64,4 +64,5 @@
 /* Styling of overlay */
 .bm-overlay {
   background: transparent !important;
+  -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
 }

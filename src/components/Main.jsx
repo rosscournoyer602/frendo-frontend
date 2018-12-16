@@ -1,15 +1,10 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
 import Routes from '../Routes';
 
-class Main extends Component {
-  render() {
-    return (
-      <div className="main-section">
-        <Routes />
-      </div>
-    );
-  }
-}
+const Main = () => (
+  <div className="main-section">
+    <Routes />
+  </div>
+);
 
-export default withRouter(Main);
+export default Main;
