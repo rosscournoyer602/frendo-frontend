@@ -5,7 +5,7 @@ export default () => (
   <div className="header">
     <ul className="header-ul">
       <Link className="link" to="/">
-        <li className="header-li logo">Frendo</li>
+        <li className="header-li logo">Friendo</li>
       </Link>
       <Link className="link" to="/signup">
         <li className="header-li desktop">Sign Up</li>
