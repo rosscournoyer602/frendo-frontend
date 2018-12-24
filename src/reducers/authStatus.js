@@ -5,6 +5,8 @@ const authStatus = (state = false, action) => {
     case AUTH_USER:
       return true;
     case UNAUTH_USER:
+      // eslint-disable-next-line no-undef
+      localStorage.removeItem('token');
       return false;
     default:
       return state;
