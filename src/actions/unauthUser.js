@@ -1,7 +1,7 @@
 import { UNAUTH_USER } from './actionTypes';
 
-export default function unauthUser() {
-  return {
-    type: UNAUTH_USER
-  };
-}
+const unauthUser = () => ({
+  type: UNAUTH_USER
+});
+
+export default unauthUser;

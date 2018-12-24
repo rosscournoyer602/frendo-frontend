@@ -18,10 +18,10 @@ class SignUp extends Component {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
-
     // TODO - More strict field validation
     if (password === confirmPassword) {
       trySignUp(email, password, confirmPassword);
+      document.getElementById("signUpForm").reset();
     }
     if (password !== confirmPassword) {
       alert('Passwords do not match!');

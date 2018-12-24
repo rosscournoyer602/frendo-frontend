@@ -17,6 +17,7 @@ class SignIn extends Component {
     const { trySignIn } = this.props;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+    document.getElementById("signInForm").reset();
     // TODO - More strict field validation
     trySignIn(email, password);
   }

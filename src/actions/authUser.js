@@ -1,7 +1,7 @@
 import { AUTH_USER } from './actionTypes';
 
-export default function authUser() {
-  return {
-    type: AUTH_USER
-  };
-}
+const authUser = () => ({
+  type: AUTH_USER
+});
+
+export default authUser;
