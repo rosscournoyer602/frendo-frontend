@@ -9,6 +9,7 @@ function* trySignUpSaga(action) {
     const signUpResult = yield apiClient.auth.signUpUser(action.payload);
     yield put({ type: actionTypes.AUTH_USER });
     localStorage.setItem('token', signUpResult.data.token);
+    window.location.href = '/';
   } catch (error) {
     alert(error.response.data);
   }
@@ -19,6 +20,7 @@ function* trySignInSaga(action) {
     const signInResult = yield apiClient.auth.signInUser(action.payload);
     yield put({ type: actionTypes.AUTH_USER });
     localStorage.setItem('token', signInResult.data.token);
+    window.location.href = '/';
   } catch (error) {
     alert(error.response.data);
   }

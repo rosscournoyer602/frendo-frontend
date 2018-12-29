@@ -1,17 +1,36 @@
+/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import Welcome from './components/Welcome';
+import Profile from './containers/Profile';
 import SignUp from './containers/SignUp';
 import SignIn from './containers/SignIn';
 
 class Routes extends Component {
   render() {
+    const { authStatus } = this.props;
     return (
-      <>
+      <Switch>
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
-      </>
+        {!authStatus && <Route exact path="/" component={Welcome} />}
+        {authStatus && <Route exact path="/" component={Profile} />}
+      </Switch>
     );
   }
 }
 
-export default Routes;
+Routes.propTypes = {
+  authStatus: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = state => {
+  const { authStatus } = state;
+  return {
+    authStatus
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(Routes));
