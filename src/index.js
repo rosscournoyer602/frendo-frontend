@@ -11,13 +11,18 @@ import rootSaga from './sagas/sagas';
 import reducers from './reducers';
 import App from './components/App';
 import style from './scss/main.scss';
+import { AUTH_USER } from './actions/actionTypes';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(sagaMiddleware)));
 
 sagaMiddleware.run(rootSaga);
-// document.addEventListener("touchstart", function(){}, true);
+
+const token = localStorage.getItem('token');
+if (token) {
+  store.dispatch({ type: AUTH_USER });
+}
 render(
   <Provider store={store}>
     <Router>
