@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Welcome from './components/Welcome';
 import Profile from './containers/Profile';
+import FriendsList from './containers/FriendsList';
 import SignUp from './containers/SignUp';
 import SignIn from './containers/SignIn';
 
@@ -15,6 +16,7 @@ class Routes extends Component {
       <Switch>
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
+        {authStatus && <Route exact path="/friends" component={FriendsList} />}
         {!authStatus && <Route exact path="/" component={Welcome} />}
         {authStatus && <Route exact path="/" component={Profile} />}
       </Switch>

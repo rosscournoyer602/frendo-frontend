@@ -30,14 +30,10 @@ class MobileHeader extends Component {
             {authStatus && (
               <>
                 <Link className="link" to="/">
-                  <li className="mobile-header-li" onClick={() => unauthUser()}>
-                    My Profile
-                  </li>
+                  <li className="mobile-header-li">My Profile</li>
                 </Link>
-                <Link className="link" to="/">
-                  <li className="mobile-header-li" onClick={() => unauthUser()}>
-                    My Friends
-                  </li>
+                <Link className="link" to="/friends">
+                  <li className="mobile-header-li">My Friends</li>
                 </Link>
                 <Link className="link" to="/">
                   <li className="mobile-header-li" onClick={() => unauthUser()}>

@@ -44,7 +44,7 @@ class SignUp extends Component {
           <input className="form-text-input" type="password" name="password" id="password" required />
         </div>
         <div className="form-field form-field-label">
-          <label className="form-label" htmlFor="conformPassword">Confirm Password: </label>
+          <label className="form-label" htmlFor="confirmPassword">Confirm Password: </label>
         </div>
         <div className="form-field">
           <input className="form-text-input" type="password" name="confirmPassword" id="confirmPassword" required />

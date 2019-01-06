@@ -31,14 +31,10 @@ class Header extends Component {
           {authStatus && (
             <>
               <Link className="link" to="/">
-                <li className="header-li desktop" onClick={() => unauthUser()}>
-                  My Profile
-                </li>
+                <li className="header-li desktop">My Profile</li>
               </Link>
-              <Link className="link" to="/">
-                <li className="header-li desktop" onClick={() => unauthUser()}>
-                  My Friends
-                </li>
+              <Link className="link" to="/friends">
+                <li className="header-li desktop">My Friends</li>
               </Link>
               <Link className="link" to="/">
                 <li className="header-li desktop" onClick={() => unauthUser()}>
