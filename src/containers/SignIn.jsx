@@ -50,7 +50,8 @@ class SignIn extends Component {
 }
 
 SignIn.propTypes = {
-  trySignIn: PropTypes.func.isRequired
+  trySignIn: PropTypes.func.isRequired,
+  authStatus: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => {
