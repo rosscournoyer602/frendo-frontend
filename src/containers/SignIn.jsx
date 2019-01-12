@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import trySignIn from '../actions/trySignIn';
 
@@ -23,6 +24,9 @@ class SignIn extends Component {
   }
 
   render() {
+    const { authStatus } = this.props;
+    if (authStatus) return <Redirect to="/" />;
+
     return (
       <form className="auth-form" id="signInForm">
         <div className="form-field">

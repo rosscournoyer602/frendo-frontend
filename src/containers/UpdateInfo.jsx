@@ -1,30 +1,29 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-undef */
-/* eslint-disable class-methods-use-this */
 /* eslint-disable prettier/prettier */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import addPerson from '../actions/addPerson';
 
 class UpdateInfo extends Component {
 
   getFormValues() {
-    // // eslint-disable-next-line no-shadow
-    // const { trySignUp } = this.props;
-    // const email = document.getElementById("email").value;
-    // const password = document.getElementById("password").value;
-    // const confirmPassword = document.getElementById("confirmPassword").value;
-    // // TODO - More strict field validation
-    // if (password === confirmPassword) {
-    //   trySignUp(email, password, confirmPassword);
-    //   document.getElementById("signUpForm").reset();
-    // }
-    // if (password !== confirmPassword) {
-    //   alert('Passwords do not match!');
-    // }
+    const personData = {};
+    const { addPerson } = this.props;
+    personData.firstname = document.getElementById('firstname').value;
+    personData.lastname = document.getElementById('firstname').value;
+    personData.dob = document.getElementById('dob').value;
+    personData.address = document.getElementById('address').value;
+    personData.city = document.getElementById('city').value;
+    personData.state = document.getElementById('state').value;
+    personData.phone = document.getElementById('phone').value;
+    personData.email = document.getElementById('email').value;
+    // eslint-disable-next-line no-shadow
+    addPerson(personData);
   }
 
   render() {
@@ -86,20 +85,13 @@ class UpdateInfo extends Component {
   }
 }
 
-// SignUp.propTypes = {
-//   trySignUp: PropTypes.func.isRequired
-// };
+UpdateInfo.propTypes = {
+  addPerson: PropTypes.func.isRequired
+};
 
-// const mapStateToProps = state => {
-//   const { authStatus } = state;
-//   return {
-//     authStatus
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch) => bindActionCreators( { trySignUp }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators( { addPerson }, dispatch);
 
 export default connect(
-  // mapStateToProps,
-  // mapDispatchToProps
+  null,
+  mapDispatchToProps
 )(UpdateInfo);
