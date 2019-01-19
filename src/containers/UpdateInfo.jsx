@@ -14,12 +14,12 @@ class UpdateInfo extends Component {
   getFormValues() {
     const personData = {};
     const { addPerson } = this.props;
-    personData.firstname = document.getElementById('firstname').value;
-    personData.lastname = document.getElementById('firstname').value;
+    personData.first_name = document.getElementById('firstname').value;
+    personData.last_name = document.getElementById('lastname').value;
     personData.dob = document.getElementById('dob').value;
-    personData.address = document.getElementById('address').value;
+    personData.street_address = document.getElementById('address').value;
     personData.city = document.getElementById('city').value;
-    personData.state = document.getElementById('state').value;
+    personData.state_province = document.getElementById('state').value;
     personData.phone = document.getElementById('phone').value;
     personData.email = document.getElementById('email').value;
     // eslint-disable-next-line no-shadow

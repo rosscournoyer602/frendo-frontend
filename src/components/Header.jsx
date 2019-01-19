@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prefer-stateless-function */
@@ -7,11 +8,17 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import unauthUser from '../actions/unauthUser';
+import updateUser from '../actions/updateUser';
 
 class Header extends Component {
+  handleUnauth() {
+    const { unauthUser, updateUser } = this.props;
+    unauthUser();
+    updateUser({});
+  }
+
   render() {
-    // eslint-disable-next-line no-shadow
-    const { authStatus, unauthUser } = this.props;
+    const { authStatus } = this.props;
     return (
       <div className="header">
         <ul className="header-ul">
@@ -37,7 +44,7 @@ class Header extends Component {
                 <li className="header-li desktop">My Friends</li>
               </Link>
               <Link className="link" to="/">
-                <li className="header-li desktop" onClick={() => unauthUser()}>
+                <li className="header-li desktop" onClick={() => this.handleUnauth()}>
                   Sign Out
                 </li>
               </Link>
@@ -51,7 +58,8 @@ class Header extends Component {
 
 Header.propTypes = {
   authStatus: PropTypes.bool.isRequired,
-  unauthUser: PropTypes.func.isRequired
+  unauthUser: PropTypes.func.isRequired,
+  updateUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -61,7 +69,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ unauthUser }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ unauthUser, updateUser }, dispatch);
 
 export default connect(
   mapStateToProps,

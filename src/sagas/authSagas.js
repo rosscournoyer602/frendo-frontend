@@ -7,8 +7,12 @@ import apiClient from './apiClient';
 function* trySignUpSaga(action) {
   try {
     const signUpResult = yield apiClient.auth.signUpUser(action.payload);
-    yield put({ type: actionTypes.AUTH_USER });
-    window.localStorage.setItem('token', signUpResult.data.token);
+    if (signUpResult.status === 200) {
+      const { email } = action.payload;
+      yield put({ type: actionTypes.AUTH_USER });
+      yield put({ type: actionTypes.UPDATE_USER, payload: { email } });
+      window.localStorage.setItem('token', signUpResult.data.token);
+    }
   } catch (error) {
     alert(error.response.data);
   }
@@ -17,8 +21,12 @@ function* trySignUpSaga(action) {
 function* trySignInSaga(action) {
   try {
     const signInResult = yield apiClient.auth.signInUser(action.payload);
-    yield put({ type: actionTypes.AUTH_USER });
-    window.localStorage.setItem('token', signInResult.data.token);
+    if (signInResult.status === 200) {
+      const { email } = action.payload;
+      yield put({ type: actionTypes.AUTH_USER });
+      yield put({ type: actionTypes.UPDATE_USER, payload: { email } });
+      window.localStorage.setItem('token', signInResult.data.token);
+    }
   } catch (error) {
     alert(error.response.data);
   }
