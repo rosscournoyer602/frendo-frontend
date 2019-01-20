@@ -10,7 +10,7 @@ export default {
     signInUser: payload => apiClient.post('/signin', payload)
   },
   data: {
-    addPerson: (payload, token) => apiClient.post('/addperson', payload, token),
-    getPerson: params => apiClient.get('/person', { params })
+    addPerson: (headers, payload) => apiClient.post('/addperson', { headers }, payload),
+    getPerson: (headers, params) => apiClient.get('/person', { headers, params })
   }
 };
