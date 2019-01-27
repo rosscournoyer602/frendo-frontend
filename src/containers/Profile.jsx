@@ -10,8 +10,15 @@ import UpdateInfo from './UpdateInfo';
 import getPerson from '../actions/getPerson';
 
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      displayMode: 'profile'
+    };
+  }
+
   componentDidMount() {
-    console.log('CDM GOT CALLED');
     const { currentUser, getPerson } = this.props;
     if (currentUser.email) {
       getPerson(currentUser.email);
@@ -21,12 +28,41 @@ class Profile extends Component {
     }
   }
 
+  toggleDisplay(displayMode) {
+    this.setState({
+      displayMode
+    });
+  }
+
   render() {
+    const { displayMode } = this.state;
+    const { currentUser } = this.props;
     return (
-      <div>
-        <h1 className="page-title">Profile</h1>
-        <UpdateInfo />
-      </div>
+      <>
+        <div className="profile-toggle">
+          <button type="button" onClick={() => this.toggleDisplay('profile')}>
+            View
+          </button>
+          <button type="button" onClick={() => this.toggleDisplay('update')}>
+            Update
+          </button>
+        </div>
+        {displayMode === 'profile' && (
+          <div className="profile-display">
+            <h3 className="profile-field">
+              {`${currentUser.first_name} ${currentUser.last_name}`}
+            </h3>
+            {/* <h3 className="profile-field">{String(currentUser.dob).slice(0, 10)}</h3> */}
+            <h3 className="profile-field">{currentUser.street_address}</h3>
+            <h3 className="profile-field">
+              {`${currentUser.city}, ${currentUser.state_province}`}
+            </h3>
+            <h3 className="profile-field">{currentUser.phone}</h3>
+            <h3 className="profile-field">{currentUser.email}</h3>
+          </div>
+        )}
+        {displayMode === 'update' && <UpdateInfo />}
+      </>
     );
   }
 }

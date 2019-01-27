@@ -1,0 +1,18 @@
+.profile-display {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 10px;
+  font-family: $Poppins;
+  font-size: 1.4rem;
+  color: $dark-text;
+}
+
+.profile-field {
+  margin: 5px;
+}
+
+.profile-toggle {
+  text-align: center;
+  margin-bottom: 20px;
+}
