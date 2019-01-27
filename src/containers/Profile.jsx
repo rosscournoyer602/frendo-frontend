@@ -6,6 +6,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { CSSTransition } from 'react-transition-group';
+import ProfileDisplay from '../components/ProfileDisplay';
 import UpdateInfo from './UpdateInfo';
 import getPerson from '../actions/getPerson';
 
@@ -38,31 +40,30 @@ class Profile extends Component {
     const { displayMode } = this.state;
     const { currentUser } = this.props;
     return (
-      <>
+      <div className="profile-page">
         <div className="profile-toggle">
-          <button type="button" onClick={() => this.toggleDisplay('profile')}>
+          <button
+            className={`btn ${displayMode === 'profile' ? 'selected' : ''}`}
+            type="button"
+            onClick={() => this.toggleDisplay('profile')}
+          >
             View
           </button>
-          <button type="button" onClick={() => this.toggleDisplay('update')}>
+          <button
+            className={`btn ${displayMode === 'update' ? 'selected' : ''}`}
+            type="button"
+            onClick={() => this.toggleDisplay('update')}
+          >
             Update
           </button>
         </div>
-        {displayMode === 'profile' && (
-          <div className="profile-display">
-            <h3 className="profile-field">
-              {`${currentUser.first_name} ${currentUser.last_name}`}
-            </h3>
-            {/* <h3 className="profile-field">{String(currentUser.dob).slice(0, 10)}</h3> */}
-            <h3 className="profile-field">{currentUser.street_address}</h3>
-            <h3 className="profile-field">
-              {`${currentUser.city}, ${currentUser.state_province}`}
-            </h3>
-            <h3 className="profile-field">{currentUser.phone}</h3>
-            <h3 className="profile-field">{currentUser.email}</h3>
-          </div>
-        )}
-        {displayMode === 'update' && <UpdateInfo />}
-      </>
+        <CSSTransition in={displayMode === 'profile'} timeout={500} classNames="left" unmountOnExit>
+          <ProfileDisplay currentUser={currentUser} />
+        </CSSTransition>
+        <CSSTransition in={displayMode === 'update'} timeout={500} classNames="right" unmountOnExit>
+          <UpdateInfo />
+        </CSSTransition>
+      </div>
     );
   }
 }

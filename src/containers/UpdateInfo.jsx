@@ -78,7 +78,7 @@ class UpdateInfo extends Component {
           <input className="form-text-input" type="email" name="email" id="email" required />
         </div>
         <div className="form-field">
-          <input className="form-button" type="button" value="Update Info" onClick={() => this.getFormValues()} />
+          <input className="btn form-button" type="button" value="Update Info" onClick={() => this.getFormValues()} />
         </div>
       </form>
     );

@@ -42,7 +42,7 @@ class SignIn extends Component {
           <input className="form-text-input" type="password" name="password" id="password" required />
         </div>
         <div className="form-field">
-          <input className="form-button" type="button" value="Sign In" onClick={() => this.getFormValues()} />
+          <input className="btn form-button" type="button" value="Sign In" onClick={() => this.getFormValues()} />
         </div>
       </form>
     );

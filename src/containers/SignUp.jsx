@@ -54,7 +54,7 @@ class SignUp extends Component {
           <input className="form-text-input" type="password" name="confirmPassword" id="confirmPassword" required />
         </div>
         <div className="form-field">
-          <input className="form-button" type="button" value="Register" onClick={() => this.getFormValues()} />
+          <input className="btn form-button" type="button" value="Register" onClick={() => this.getFormValues()} />
         </div>
       </form>
     );
