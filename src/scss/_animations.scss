@@ -6,14 +6,14 @@
 
   100% {
       opacity: 1;
-      transform: translateX(0);
+      transform: translateX(-50%);
   }
 }
 
 @keyframes moveOutLeft {
   0% {
       opacity: 1;
-      transform: translateX(0);
+      transform: translateX(-50%);
   }
 
   100% {
@@ -30,14 +30,14 @@
 
   100% {
     opacity: 1;
-      transform: translateX(0);
+      transform: translateX(-50%);
   }
 }
 
 @keyframes moveOutRight {
   0% {
       opacity: 1;
-      transform: translateX(0);
+      transform: translateX(-50%);
   }
 
   100% {
