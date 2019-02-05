@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import addPerson from '../actions/addPerson';
+import ImageCropper from './ImageCropper';
 
 class UpdateInfo extends Component {
 
@@ -29,6 +30,7 @@ class UpdateInfo extends Component {
   render() {
     return (
       <form className="auth-form" id="infoForm">
+        <ImageCropper />
         <div className="form-field form-field-label">
           <label className="form-label" htmlFor="firstName">First Name: </label>
         </div>
