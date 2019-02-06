@@ -11,20 +11,32 @@ export default class componentName extends Component {
   _crop() {
     // image in dataUrl
     console.log('CROP');
-    console.log(this.refs.cropper.getCroppedCanvas().toDataURL());
+    if (this.refs.cropper) {
+      console.log(this.refs.cropper.getCroppedCanvas().toDataURL());
+    }
   }
 
   render() {
     return (
-      <div className="form-field">
-        <input className="form-text-input" type="file" name="firstName" id="firstname" required />
+      <div className="form-field image-cropper">
+        {/* <input className="form-text-input" type="file" name="firstName" id="firstname" /> */}
+        <div className="cropper-cover" />
         <Cropper
           ref="cropper"
+          className="cropper"
           src="http://i.pravatar.cc/200"
-          style={{ height: 200 }}
+          style={{ height: 200, width: 200 }}
           // Cropper.js options
-
+          autoCrop={false}
+          responsive
+          zoomOnTouch
+          modal="false"
+          dragMode="move"
           guides={false}
+          aspectRatio={1}
+          viewMode={3}
+          minCropBoxHeight={200}
+          minContainerWidth={200}
           crop={this._crop.bind(this)}
         />
       </div>

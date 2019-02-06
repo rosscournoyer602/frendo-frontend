@@ -22,3 +22,19 @@
     width: 100%;
   }
 }
+
+.image-cropper {
+  margin-left: -20px;
+}
+
+.cropper-cover {
+  position: absolute;
+  // left: 50%;
+  // transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  background-color: $white-bg;
+  z-index: 1;
+  background: radial-gradient(transparent 100px, $white-bg 100px);
+  pointer-events: none;
+}
