@@ -9,7 +9,18 @@
     width: 100%;
   }
 }
-
+.form-file-input {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  height: 200px;
+  z-index: 1;
+  cursor: pointer;
+  &.behind {
+    z-index: -1;
+  }
+}
 .form-field {
   margin: 5px;
   width: 150px;

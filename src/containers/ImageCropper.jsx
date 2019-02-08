@@ -1,22 +1,31 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/no-string-refs */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Cropper from 'react-cropper';
+import placeholder from '../assets/avatar.jpg';
+import debounce from 'lodash.debounce';
 import 'cropperjs/dist/cropper.css';
 
-export default class componentName extends Component {
+export default class ImageCropper extends Component {
   _crop() {
-    // image in dataUrl
-    console.log('CROP');
-    if (this.refs.cropper) {
-      console.log(this.refs.cropper.getCroppedCanvas().toDataURL());
-    }
+    const { handleCrop } = this.props;
+    handleCrop(this.refs.cropper.getCroppedCanvas().toDataURL());
   }
 
+  // componentDidUpdate(prevProps) {
+  //   const
+  //   if ()
+  // }
+
   render() {
+    // eslint-disable-next-line react/destructuring-assignment
+    const imageSrc = this.props.imageSrc || placeholder;
+    console.log('Cropper src:', imageSrc);
     return (
       <div className="form-field image-cropper">
         {/* <input className="form-text-input" type="file" name="firstName" id="firstname" /> */}
@@ -24,22 +33,29 @@ export default class componentName extends Component {
         <Cropper
           ref="cropper"
           className="cropper"
-          src="http://i.pravatar.cc/200"
+          src={imageSrc}
           style={{ height: 200, width: 200 }}
           // Cropper.js options
           autoCrop={false}
           responsive
           zoomOnTouch
-          modal="false"
+          modal={false}
           dragMode="move"
           guides={false}
           aspectRatio={1}
           viewMode={3}
           minCropBoxHeight={200}
           minContainerWidth={200}
-          crop={this._crop.bind(this)}
+          crop={debounce(this._crop.bind(this), 100, {
+            leading: true
+          })}
         />
       </div>
     );
   }
 }
+
+ImageCropper.propTypes = {
+  handleCrop: PropTypes.func.isRequired,
+  imageSrc: PropTypes.string.isRequired
+};

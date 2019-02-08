@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
 /* eslint-disable prettier/prettier */
@@ -11,6 +12,20 @@ import addPerson from '../actions/addPerson';
 import ImageCropper from './ImageCropper';
 
 class UpdateInfo extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      fileInputMode: '',
+      cropButton: 'disabled',
+      imageSrc: null
+    }
+
+    this.imageSrc = null;
+
+    this.handleCrop = this.handleCrop.bind(this);
+    this.setState = this.setState.bind(this);
+  }
 
   getFormValues() {
     const personData = {};
@@ -27,10 +42,49 @@ class UpdateInfo extends Component {
     addPerson(personData);
   }
 
+  handleFile(e) {
+    if (!e.target.files[0]) return;
+    // const selectedFile = document.getElementById('avatar').files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const elem = document.createElement('canvas');    
+        const width = 250;
+        const scaleFactor = width / img.width;
+        elem.width = width;
+        const height = img.height * scaleFactor;
+        elem.height = height;
+        const ctx = elem.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        const data = ctx.canvas.toDataURL(img);
+        this.setState({
+          fileInputMode: 'behind',
+          cropButton: '',
+          imageSrc: data
+        })
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+  
+  handleCrop(data) {
+    console.log('HANDLECROPDATA:', data);
+  }
+
   render() {
+    const { fileInputMode, cropButton, imageSrc } = this.state;
+    console.log('RENDER IMG SRC:', imageSrc);
     return (
       <form className="auth-form" id="infoForm">
-        <ImageCropper />
+        <div className="form-field">
+          <input className={`form-file-input ${fileInputMode}`} accept="image/*" onChange={(e) => this.handleFile(e)} type="file" name="avatar" id="avatar" />
+        </div>
+        <ImageCropper handleCrop={this.handleCrop} imageSrc={imageSrc} />
+        <div className="form-field">
+          <input className={`btn form-button ${cropButton}`} type="button" value="Crop Image" onChange={() => this.handleCrop()} />
+        </div>
         <div className="form-field form-field-label">
           <label className="form-label" htmlFor="firstName">First Name: </label>
         </div>

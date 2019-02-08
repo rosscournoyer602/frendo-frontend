@@ -26,7 +26,6 @@ function* getPersonSaga(action) {
   const { email } = action.payload;
   try {
     const userToken = window.localStorage.getItem('token');
-    console.log('TOKEN:', userToken);
     const headers = {
       Authorization: userToken
     };

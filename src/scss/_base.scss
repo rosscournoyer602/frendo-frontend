@@ -5,7 +5,7 @@ $white-bg: #CED6D6;
 $highlighted: #055454;
 $dark-text: #055454;
 $light-text: #9FBBBB;
-
+$gray: #777;
 // typograpy
 @import url('https://fonts.googleapis.com/css?family=Lobster|Poppins:300,400,500');
 $Lobster: 'Lobster', serif;
@@ -39,6 +39,12 @@ body {
   border: 1px solid #0B7373;
   border-radius: 3px;
   transition: all .5s ease-in-out;
+  &.disabled {
+    border: 1px solid $gray;
+    color: $gray;
+    opacity: .7;
+    pointer-events: none;
+  }
 }
 
 .selected {
