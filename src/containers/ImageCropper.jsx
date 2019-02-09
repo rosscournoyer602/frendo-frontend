@@ -7,8 +7,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Cropper from 'react-cropper';
-import placeholder from '../assets/avatar.jpg';
 import debounce from 'lodash.debounce';
+import placeholder from '../assets/avatar.jpg';
 import 'cropperjs/dist/cropper.css';
 
 export default class ImageCropper extends Component {
@@ -17,18 +17,11 @@ export default class ImageCropper extends Component {
     handleCrop(this.refs.cropper.getCroppedCanvas().toDataURL());
   }
 
-  // componentDidUpdate(prevProps) {
-  //   const
-  //   if ()
-  // }
-
   render() {
     // eslint-disable-next-line react/destructuring-assignment
     const imageSrc = this.props.imageSrc || placeholder;
-    console.log('Cropper src:', imageSrc);
     return (
       <div className="form-field image-cropper">
-        {/* <input className="form-text-input" type="file" name="firstName" id="firstname" /> */}
         <div className="cropper-cover" />
         <Cropper
           ref="cropper"
