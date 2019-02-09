@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { UPDATE_USER } from '../actions/actionTypes';
 
 const currentUser = (state = {}, action) => {

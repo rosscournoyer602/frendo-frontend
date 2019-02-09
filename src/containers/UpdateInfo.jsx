@@ -75,7 +75,6 @@ class UpdateInfo extends Component {
 
   render() {
     const { fileInputMode, cropButton, imageSrc } = this.state;
-    console.log('RENDER IMG SRC:', imageSrc);
     return (
       <form className="auth-form" id="infoForm">
         <div className="form-field">

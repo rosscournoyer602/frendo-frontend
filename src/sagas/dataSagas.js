@@ -10,11 +10,13 @@ import apiClient from './apiClient';
 function* addPersonSaga(action) {
   try {
     const userToken = window.localStorage.getItem('token');
-    const headers = {
-      Authorization: userToken
+    const config = {
+      headers: {
+        Authorization: userToken
+      }
     };
-    const addPersonResult = yield apiClient.data.addPerson(headers, action.payload);
-    if (addPersonResult.status === 200) {
+    const addPersonResult = yield apiClient.data.addPerson(action.payload, config);
+    if (addPersonResult && addPersonResult.status === 200) {
       yield put({ type: actionTypes.UPDATE_USER, payload: action.payload });
     }
   } catch (error) {
@@ -26,13 +28,15 @@ function* getPersonSaga(action) {
   const { email } = action.payload;
   try {
     const userToken = window.localStorage.getItem('token');
-    const headers = {
-      Authorization: userToken
+    const config = {
+      headers: {
+        Authorization: userToken
+      },
+      params: {
+        email
+      }
     };
-    const params = {
-      email
-    };
-    const getPersonResult = yield apiClient.data.getPerson(headers, params);
+    const getPersonResult = yield apiClient.data.getPerson(config);
     if (getPersonResult.status === 200 && getPersonResult.data.rows[0]) {
       yield put({ type: actionTypes.UPDATE_USER, payload: getPersonResult.data.rows[0] });
     }

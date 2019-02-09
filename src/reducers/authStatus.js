@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { AUTH_USER, UNAUTH_USER } from '../actions/actionTypes';
 
 const authStatus = (state = false, action) => {
@@ -5,7 +6,6 @@ const authStatus = (state = false, action) => {
     case AUTH_USER:
       return true;
     case UNAUTH_USER:
-      // eslint-disable-next-line no-undef
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       return false;
