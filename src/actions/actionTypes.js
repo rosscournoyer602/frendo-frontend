@@ -5,3 +5,4 @@ export const UNAUTH_USER = 'UNAUTH_USER';
 export const ADD_PERSON = 'ADD_PERSON';
 export const UPDATE_USER = 'UPDATE_USER';
 export const GET_PERSON = 'GET_PERSON';
+export const UPDATE_AVATAR = 'UPDATE_AVATAR';

@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import addPerson from '../actions/addPerson';
+import updateAvatar from '../actions/updateAvatar';
 import ImageCropper from './ImageCropper';
 
 class UpdateInfo extends Component {
@@ -63,14 +64,20 @@ class UpdateInfo extends Component {
           fileInputMode: 'behind',
           cropButton: '',
           imageSrc: data
-        })
+        });
       }
     };
     reader.readAsDataURL(e.target.files[0]);
+    e.target.value = '';
   };
   
   handleCrop(data) {
-    console.log('HANDLECROPDATA:', data);
+    const { updateAvatar } = this.props;
+    updateAvatar(data);
+    this.setState({
+      fileInputMode: '',
+      cropButton: 'disabled',
+    });
   }
 
   render() {
@@ -80,10 +87,7 @@ class UpdateInfo extends Component {
         <div className="form-field">
           <input className={`form-file-input ${fileInputMode}`} accept="image/*" onChange={(e) => this.handleFile(e)} type="file" name="avatar" id="avatar" />
         </div>
-        <ImageCropper handleCrop={this.handleCrop} imageSrc={imageSrc} />
-        <div className="form-field">
-          <input className={`btn form-button ${cropButton}`} type="button" value="Crop Image" onChange={() => this.handleCrop()} />
-        </div>
+        <ImageCropper handleCrop={this.handleCrop} imageSrc={imageSrc} cropButton={cropButton} />
         <div className="form-field form-field-label">
           <label className="form-label" htmlFor="firstName">First Name: </label>
         </div>
@@ -141,10 +145,11 @@ class UpdateInfo extends Component {
 }
 
 UpdateInfo.propTypes = {
-  addPerson: PropTypes.func.isRequired
+  addPerson: PropTypes.func.isRequired,
+  updateAvatar: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators( { addPerson }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators( { addPerson, updateAvatar }, dispatch);
 
 export default connect(
   null,
