@@ -70,7 +70,7 @@ class Profile extends Component {
 
 Profile.propTypes = {
   getPerson: PropTypes.func.isRequired,
-  currentUser: PropTypes.object.isRequired
+  currentUser: PropTypes.any.isRequired
 };
 
 const mapStateToProps = state => {
