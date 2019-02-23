@@ -11,6 +11,7 @@ export default {
   },
   data: {
     addPerson: (data, config) => apiClient.post('/addperson', data, config),
-    getPerson: config => apiClient.get('/person', config)
+    getPerson: config => apiClient.get('/person', config),
+    updateAvatar: (data, config) => apiClient.put('/avatar', data, config)
   }
 };

@@ -45,10 +45,27 @@ function* getPersonSaga(action) {
   }
 }
 
+function* updateAvatarSaga(action) {
+  console.log(action.payload);
+  const userToken = window.localStorage.getItem('token');
+  const config = {
+    headers: {
+      Authorization: userToken
+    }
+  };
+
+  const updateAvatarResult = yield apiClient.data.updateAvatar(action.payload.data, config);
+  console.log(updateAvatarResult);
+}
+
 export function* watchAddPersonSaga() {
   yield takeEvery(actionTypes.ADD_PERSON, addPersonSaga);
 }
 
 export function* watchGetPersonSaga() {
   yield takeEvery(actionTypes.GET_PERSON, getPersonSaga);
+}
+
+export function* watchUpdateAvatarSaga() {
+  yield takeEvery(actionTypes.UPDATE_AVATAR, updateAvatarSaga);
 }
