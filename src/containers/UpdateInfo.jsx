@@ -59,7 +59,7 @@ class UpdateInfo extends Component {
         elem.height = height;
         const ctx = elem.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
-        const data = ctx.canvas.toDataURL(img);
+        const data = ctx.canvas.toDataURL('image/jpeg', .8);
         this.setState({
           fileInputMode: 'behind',
           cropButton: '',

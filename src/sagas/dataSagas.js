@@ -47,6 +47,11 @@ function* getPersonSaga(action) {
 
 function* updateAvatarSaga(action) {
   console.log(action.payload);
+  const user = window.localStorage.getItem('user');
+  const data = {
+    user,
+    data: action.payload
+  };
   const userToken = window.localStorage.getItem('token');
   const config = {
     headers: {
@@ -54,7 +59,7 @@ function* updateAvatarSaga(action) {
     }
   };
 
-  const updateAvatarResult = yield apiClient.data.updateAvatar(action.payload.data, config);
+  const updateAvatarResult = yield apiClient.data.updateAvatar(data, config);
   console.log(updateAvatarResult);
 }
 

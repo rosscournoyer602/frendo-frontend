@@ -42,7 +42,7 @@ export default class ImageCropper extends Component {
             className={`btn form-button ${cropButton}`}
             type="button"
             value="Crop Image"
-            onClick={() => handleCrop(this.refs.cropper.getCroppedCanvas().toDataURL())}
+            onClick={() => handleCrop(this.refs.cropper.getCroppedCanvas().toDataURL('image/jpeg'))}
           />
         </div>
       </>
