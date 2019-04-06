@@ -59,8 +59,10 @@ function* updateAvatarSaga(action) {
     }
   };
 
-  const updateAvatarResult = yield apiClient.data.updateAvatar(data, config);
-  console.log(updateAvatarResult);
+  yield apiClient.data.updateAvatar(data, config);
+  if (updateAvatarResult.status === 200) {
+    yield put({ type: actionTypes.GET_PERSON, payload: user });
+  }
 }
 
 export function* watchAddPersonSaga() {

@@ -30,6 +30,13 @@ class Profile extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { currentUser } = this.props;
+    if (currentUser.email && prevProps.currentUser.first_name !== currentUser.first_name) {
+      getPerson(currentUser.email);
+    }
+  }
+
   toggleDisplay(displayMode) {
     this.setState({
       displayMode
