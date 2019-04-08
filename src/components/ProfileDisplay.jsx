@@ -11,7 +11,7 @@ const ProfileDisplay = props => {
       : `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/200x200/${currentUser.avatar_url}`;
   return (
     <div className="profile-display">
-      <img src={avatarSrc} alt="user avatar" />
+      <img className="avatar-img" src={avatarSrc} alt="user avatar" />
       {currentUser.first_name && (
         <>
           <h3 className="profile-field">{`${currentUser.first_name} ${currentUser.last_name}`}</h3>
