@@ -25,7 +25,7 @@ function* addPersonSaga(action) {
 }
 
 function* getPersonSaga(action) {
-  const { email } = action.payload;
+  const email = action.payload;
   try {
     const userToken = window.localStorage.getItem('token');
     const config = {
@@ -46,7 +46,6 @@ function* getPersonSaga(action) {
 }
 
 function* updateAvatarSaga(action) {
-  console.log(action.payload);
   const user = window.localStorage.getItem('user');
   const data = {
     user,
@@ -59,9 +58,9 @@ function* updateAvatarSaga(action) {
     }
   };
 
-  yield apiClient.data.updateAvatar(data, config);
+  const updateAvatarResult = yield apiClient.data.updateAvatar(data, config);
   if (updateAvatarResult.status === 200) {
-    yield put({ type: actionTypes.GET_PERSON, payload: user });
+    yield put({ type: actionTypes.GET_PERSON, payload: data.user });
   }
 }
 

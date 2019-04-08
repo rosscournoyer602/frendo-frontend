@@ -146,12 +146,20 @@ class UpdateInfo extends Component {
 
 UpdateInfo.propTypes = {
   addPerson: PropTypes.func.isRequired,
-  updateAvatar: PropTypes.func.isRequired
+  updateAvatar: PropTypes.func.isRequired,
+  currentUser: PropTypes.object.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators( { addPerson, updateAvatar }, dispatch);
 
+const mapStateToProps = state => {
+  const { currentUser } = state;
+  return {
+    currentUser
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(UpdateInfo);

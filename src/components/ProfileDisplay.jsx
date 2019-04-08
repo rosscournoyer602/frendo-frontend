@@ -8,7 +8,7 @@ const ProfileDisplay = props => {
   const avatarSrc =
     currentUser.avatar_url === '' || !currentUser.avatar_url
       ? placeholder
-      : `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/250x250/${currentUser.avatar_url}`;
+      : `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/200x200/${currentUser.avatar_url}`;
   return (
     <div className="profile-display">
       <img src={avatarSrc} alt="user avatar" />
