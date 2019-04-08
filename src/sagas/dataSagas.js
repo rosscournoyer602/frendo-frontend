@@ -17,8 +17,9 @@ function* addPersonSaga(action) {
     };
     const addPersonResult = yield apiClient.data.addPerson(action.payload, config);
     if (addPersonResult && addPersonResult.status === 200) {
-      console.log(addPersonResult);
-      yield put({ type: actionTypes.UPDATE_USER, payload: action.payload });
+      console.log(addPersonResult.data.rows[0]);
+      
+      yield put({ type: actionTypes.UPDATE_USER, payload: addPersonResult.data.rows[0] });
     }
   } catch (error) {
     alert(error.response.data);
