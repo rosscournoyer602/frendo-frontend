@@ -30,7 +30,7 @@ class UpdateInfo extends Component {
 
   getFormValues() {
     const personData = {};
-    const { addPerson } = this.props;
+    const { addPerson, currentUser } = this.props;
     personData.first_name = document.getElementById('firstname').value;
     personData.last_name = document.getElementById('lastname').value;
     personData.dob = document.getElementById('dob').value;
@@ -38,7 +38,7 @@ class UpdateInfo extends Component {
     personData.city = document.getElementById('city').value;
     personData.state_province = document.getElementById('state').value;
     personData.phone = document.getElementById('phone').value;
-    personData.email = document.getElementById('email').value;
+    personData.email = currentUser.email;
     // eslint-disable-next-line no-shadow
     addPerson(personData);
   }
@@ -129,12 +129,6 @@ class UpdateInfo extends Component {
         </div>
         <div className="form-field">
           <input className="form-text-input" type="tel" name="phone" id="phone" required />
-        </div>
-        <div className="form-field form-field-label">
-          <label className="form-label" htmlFor="email">Email: </label>
-        </div>
-        <div className="form-field">
-          <input className="form-text-input" type="email" name="email" id="email" required />
         </div>
         <div className="form-field">
           <input className="btn form-button" type="button" value="Update Info" onClick={() => this.getFormValues()} />
