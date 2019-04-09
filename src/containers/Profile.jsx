@@ -23,9 +23,11 @@ class Profile extends Component {
   componentDidMount() {
     const { currentUser, getPerson } = this.props;
     if (currentUser.email) {
+      // console.log('THERE IS A CURRENT USER');
       getPerson(currentUser.email);
     }
     if (!currentUser.email && window.localStorage.getItem('user')) {
+      // console.log('THERE IS A USER IN LOCALSTORAGE', window.localStorage.getItem('user'));
       getPerson(window.localStorage.getItem('user'));
     }
   }

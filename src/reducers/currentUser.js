@@ -6,7 +6,7 @@ const currentUser = (state = {}, action) => {
     case UPDATE_USER:
       return action.payload;
     default:
-      return localStorage.getItem('user') || state;
+      return { email: localStorage.getItem('user')} || state;
   }
 };
 
