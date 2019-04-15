@@ -1,7 +1,10 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import getFriends from '../actions/getFriends';
 
-export default class componentName extends Component {
+class FriendsList extends Component {
   render() {
     return (
       <div>
@@ -10,3 +13,14 @@ export default class componentName extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  friends: state.friends
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ getFriends }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FriendsList);

@@ -6,3 +6,5 @@ export const ADD_PERSON = 'ADD_PERSON';
 export const UPDATE_USER = 'UPDATE_USER';
 export const GET_PERSON = 'GET_PERSON';
 export const UPDATE_AVATAR = 'UPDATE_AVATAR';
+export const GET_FRIENDS = 'GET_FRIENDS';
+export const UPDATE_FRIENDS = 'UPDATE_FRIENDS';

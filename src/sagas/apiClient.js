@@ -13,5 +13,8 @@ export default {
     addPerson: (data, config) => apiClient.post('/addperson', data, config),
     getPerson: config => apiClient.get('/person', config),
     updateAvatar: (data, config) => apiClient.put('/avatar', data, config)
+  },
+  relations: {
+    getFriends: config => apiClient.get('/friends', config)
   }
 };
