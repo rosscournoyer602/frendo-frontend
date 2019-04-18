@@ -16,9 +16,9 @@ function* getFriendsSaga(action) {
         id
       }
     };
-    const getFriendResult = yield apiClient.data.friends(config);
+    const getFriendResult = yield apiClient.relations.getFriends(config);
     if (getFriendResult.status === 200 && getFriendResult.data.rows[0]) {
-      yield put({ type: actionTypes.UPDATE_FRIENDS, payload: getFriendResult.data.rows[0] });
+      yield put({ type: actionTypes.UPDATE_FRIENDS, payload: getFriendResult.data.rows });
     }
   } catch (error) {
     console.log(error);
