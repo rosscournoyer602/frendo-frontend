@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-undef */
 /* eslint-disable no-shadow */
 /* eslint-disable react/forbid-prop-types */
@@ -11,6 +12,7 @@ import getPerson from '../actions/getPerson';
 
 class FriendsList extends Component {
   componentDidMount() {
+    console.log('CDM');
     const { currentUser, getPerson, getFriends } = this.props;
     if (currentUser.email && !currentUser.person_id) {
       getPerson(currentUser.email);
@@ -23,17 +25,39 @@ class FriendsList extends Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const { currentUser, getFriends } = this.props;
-    if (currentUser.person_id) {
+    if (currentUser.person_id !== prevProps.currentUser.person_id) {
       getFriends(currentUser.person_id);
     }
   }
 
+  parseFriendList() {
+    const { friends, currentUser } = this.props;
+    const friendsList = [];
+    friends.forEach(friend => {
+      console.log(friend);
+      console.log(currentUser.person_id);
+      const { person_one, person_two, friend_status } = friend;
+      if (friend.person_one === currentUser.person_id) {
+        friendsList.push({ friend: person_two, friend_status });
+      }
+      if (friend.person_two === currentUser.person_id)
+        friendsList.push({ friend: person_one, friend_status });
+    });
+    return friendsList;
+  }
+
   render() {
+    const friendsList = this.parseFriendList();
+    console.log(friendsList);
     return (
       <div>
-        <h1 className="page-title">Friends</h1>
+        <ul>
+          {friendsList.map(friend => (
+            <li key={friend}>{friend.friend}</li>
+          ))}
+        </ul>
       </div>
     );
   }
@@ -49,7 +73,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({ getFriends, getPerso
 FriendsList.propTypes = {
   currentUser: PropTypes.object.isRequired,
   getFriends: PropTypes.func.isRequired,
-  getPerson: PropTypes.func.isRequired
+  getPerson: PropTypes.func.isRequired,
+  friends: PropTypes.object.isRequired
 };
 
 export default connect(
