@@ -36,8 +36,6 @@ class FriendsList extends Component {
     const { friends, currentUser } = this.props;
     const friendsList = [];
     friends.forEach(friend => {
-      console.log(friend);
-      console.log(currentUser.person_id);
       const { person_one, person_two, friend_status } = friend;
       if (friend.person_one === currentUser.person_id) {
         friendsList.push({ friend: person_two, friend_status });
@@ -50,7 +48,6 @@ class FriendsList extends Component {
 
   render() {
     const friendsList = this.parseFriendList();
-    console.log(friendsList);
     return (
       <div>
         <ul>
