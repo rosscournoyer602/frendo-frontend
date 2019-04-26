@@ -37,7 +37,7 @@ class FriendsList extends Component {
     const { currentUser, getFriends } = this.props;
     if (currentUser.person_id !== prevProps.currentUser.person_id) {
       getFriends(currentUser.person_id);
-    }
+    } 
   }
 
   parseList(list) {
@@ -60,7 +60,11 @@ class FriendsList extends Component {
 
   render() {
     const { friends, currentUser } = this.props;
+    this.waitingForAccept = [];
+    this.incomingAccept = [];
+    this.friends = [];
     this.parseList(friends);
+    console.log(this.friends);
     return (
       <div>
         <h2 className="friends-list-header">Friends List</h2>
