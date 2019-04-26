@@ -7,12 +7,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 import getFriends from '../actions/getFriends';
 import getPerson from '../actions/getPerson';
+import FriendItem from '../components/friendItem';
 
 class FriendsList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.waitingForAccept = [];
+    this.incomingAccept = [];
+    this.friends = [];
+  }
   componentDidMount() {
-    console.log('CDM');
     const { currentUser, getPerson, getFriends } = this.props;
     if (currentUser.email && !currentUser.person_id) {
       getPerson(currentUser.email);
@@ -32,29 +40,69 @@ class FriendsList extends Component {
     }
   }
 
-  parseFriendList() {
-    const { friends, currentUser } = this.props;
-    const friendsList = [];
-    friends.forEach(friend => {
-      const { person_one, person_two, friend_status } = friend;
-      if (friend.person_one === currentUser.person_id) {
-        friendsList.push({ friend: person_two, friend_status });
+  parseList(list) {
+    list.forEach(item => {
+      switch (item.friend_status) {
+        case 'friends':
+          this.friends.push(item);
+          break;
+        case 'pending_first_second':
+          this.waitingForAccept.push(item);
+          break;
+        case 'pending_second_first':
+          this.incomingAccept.push(item);
+          break;
+        default:
+          break;
       }
-      if (friend.person_two === currentUser.person_id)
-        friendsList.push({ friend: person_one, friend_status });
     });
-    return friendsList;
   }
 
   render() {
-    const friendsList = this.parseFriendList();
+    const { friends, currentUser } = this.props;
+    this.parseList(friends);
     return (
       <div>
-        <ul>
-          {friendsList.map(friend => (
-            <li key={friend}>{friend.friend}</li>
-          ))}
-        </ul>
+        <h2 className="friends-list-header">Friends List</h2>
+        {this.friends.length > 0 &&
+          <ul>
+            {this.friends.map(friend => (
+              <li key={friend.person_id}>
+                <Link to={`/friend/${currentUser.person_id}`}>
+                  <FriendItem friend={friend} />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        }
+        {this.waitingForAccept.length > 0 &&
+        <>
+        <h2 className="friends-list-header">Waiting for them to accept</h2>
+          <ul>
+            {this.waitingForAccept.map(friend => (
+              <li key={friend.person_id}>
+                <Link to={`/friend/${currentUser.person_id}`}>
+                  <FriendItem friend={friend} />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </>
+        }
+        {this.incomingAccept.length > 0 &&
+        <>
+          <h2 className="friends-list-header">Waiting for you to accept</h2>
+          <ul>
+            {this.incomingAccept.map(friend => (
+              <li key={friend.person_id}>
+                <Link to={`/friend/${currentUser.person_id}`}>
+                  <FriendItem friend={friend} />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </>
+        }
       </div>
     );
   }
@@ -71,7 +119,7 @@ FriendsList.propTypes = {
   currentUser: PropTypes.object.isRequired,
   getFriends: PropTypes.func.isRequired,
   getPerson: PropTypes.func.isRequired,
-  friends: PropTypes.object.isRequired
+  friends: PropTypes.array.isRequired
 };
 
 export default connect(

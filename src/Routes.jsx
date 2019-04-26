@@ -17,6 +17,7 @@ class Routes extends Component {
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
         {authStatus && <Route exact path="/friends" component={FriendsList} />}
+        {authStatus && <Route exact path="/friend/:id" component={Profile} />}
         {!authStatus && <Route exact path="/" component={Welcome} />}
         {authStatus && <Route exact path="/" component={Profile} />}
       </Switch>

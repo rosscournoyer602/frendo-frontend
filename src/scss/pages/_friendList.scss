@@ -1,0 +1,38 @@
+.friends-list-header {
+  font-family: $Poppins;
+  font-size: 1.6rem;
+  color: $dark-text;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.friend-item-container {
+  height: 64px;
+  padding: 10px 0;
+  position: relative;
+  font-family: $Poppins;
+  font-size: 1.4rem;
+  color: $dark-text;
+  border: 1px solid $dark-text;
+  border-radius: 5px;
+  transition: background-color .2s;
+  .friend-item-avatar {
+    display: inline-block;
+    border-radius: 50%;
+    margin-left: 64px;
+  }
+  .friend-info-section {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 20px;
+  }
+  .friend-status-text {
+
+    text-transform: uppercase;
+  }
+  &:hover {
+    background-color: $light-text;
+  }
+}
