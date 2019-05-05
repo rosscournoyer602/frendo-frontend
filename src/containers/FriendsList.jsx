@@ -65,7 +65,6 @@ class FriendsList extends Component {
     this.incomingAccept = [];
     this.friends = [];
     this.parseList(friends);
-    console.log(this.friends);
     return (
       <div>
         <h2 className="friends-list-header">Friends List</h2>

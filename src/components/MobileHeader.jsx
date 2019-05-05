@@ -13,6 +13,16 @@ import unauthUser from '../actions/unauthUser';
 import updateUser from '../actions/updateUser';
 
 class MobileHeader extends Component {
+  toggleMenu() {
+    if (this.menu.state.isOpen === true) {
+      setTimeout(() => {
+        this.menu.setState({
+          isOpen: false
+        });
+      }, 100);
+    }
+  }
+
   handleUnauth() {
     const { unauthUser, updateUser } = this.props;
     unauthUser();
@@ -24,26 +34,32 @@ class MobileHeader extends Component {
     return (
       <div className="header">
         <ul className="header-ul">
-          <Menu right width="30%">
+          <Menu
+            right
+            width="30%"
+            ref={el => {
+              this.menu = el;
+            }}
+          >
             {!authStatus && (
               <>
-                <Link className="link" to="/signup">
+                <Link className="link" to="/signup" onClick={() => this.toggleMenu()}>
                   <li className="mobile-header-li">Sign Up</li>
                 </Link>
-                <Link className="link" to="/signin">
+                <Link className="link" to="/signin" onClick={() => this.toggleMenu()}>
                   <li className="mobile-header-li">Sign In</li>
                 </Link>
               </>
             )}
             {authStatus && (
               <>
-                <Link className="link" to="/">
+                <Link className="link" to="/" onClick={() => this.toggleMenu()}>
                   <li className="mobile-header-li">My Profile</li>
                 </Link>
-                <Link className="link" to="/friends">
+                <Link className="link" to="/friends" onClick={() => this.toggleMenu()}>
                   <li className="mobile-header-li">My Friends</li>
                 </Link>
-                <Link className="link" to="/">
+                <Link className="link" to="/" onClick={() => this.toggleMenu()}>
                   <li className="mobile-header-li" onClick={() => this.handleUnauth()}>
                     Sign Out
                   </li>
