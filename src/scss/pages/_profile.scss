@@ -7,6 +7,12 @@
     font-family: $Poppins;
     font-size: 1.4rem;
     color: $dark-text;
+    
+  }
+  .cropper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .profile-field {
@@ -15,30 +21,42 @@
   }
 
   .profile-toggle {
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
     margin-bottom: 20px;
+    width: 350px;
   }
 
   .form-button {
     width: 100%;
   }
+
+  .auth-form {
+    .form-field {
+      position: relative;
+      top: 220px;
+    }
+  }
 }
 
 .image-cropper {
-  margin-left: -20px;
+  // margin-left: -20px;
 }
 
 .avatar-img {
   border-radius: 50%;
-  margin-left: -20px;
+  // margin-left: -20px;
   width: 200px;
   height: 200px;
 }
 
 .cropper-cover {
   position: absolute;
-  // left: 50%;
-  // transform: translateX(-50%);
+  left: 50%;
+  transform: translateX(-50%);
   width: 200px;
   height: 200px;
   background-color: $white-bg;

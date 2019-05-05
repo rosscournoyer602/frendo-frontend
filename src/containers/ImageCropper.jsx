@@ -17,7 +17,7 @@ export default class ImageCropper extends Component {
     const imageSrc = this.props.imageSrc || placeholder;
     return (
       <>
-        <div className="form-field image-cropper">
+        <div className="image-cropper">
           <div className="cropper-cover" />
           <Cropper
             ref="cropper"

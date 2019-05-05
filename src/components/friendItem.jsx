@@ -12,7 +12,6 @@ const FriendItem = props => {
   const firstName = props.friend.first_name;
   const lastName = props.friend.last_name;
   const status = props.friend.friend_status;
-  console.log(props.friend);
   return (
     <div className="friend-item-container">
       <img className="friend-item-avatar" src={avatarSrc} alt={`${firstName}`} />

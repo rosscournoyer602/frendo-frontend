@@ -20,6 +20,7 @@ class FriendsList extends Component {
     this.incomingAccept = [];
     this.friends = [];
   }
+
   componentDidMount() {
     const { currentUser, getPerson, getFriends } = this.props;
     if (currentUser.email && !currentUser.person_id) {
@@ -37,7 +38,7 @@ class FriendsList extends Component {
     const { currentUser, getFriends } = this.props;
     if (currentUser.person_id !== prevProps.currentUser.person_id) {
       getFriends(currentUser.person_id);
-    } 
+    }
   }
 
   parseList(list) {
@@ -68,45 +69,45 @@ class FriendsList extends Component {
     return (
       <div>
         <h2 className="friends-list-header">Friends List</h2>
-        {this.friends.length > 0 &&
+        {this.friends.length > 0 && (
           <ul>
             {this.friends.map(friend => (
               <li key={friend.person_id}>
-                <Link to={`/friend/${currentUser.person_id}`}>
+                <Link to={`/friend/${friend.person_id}`}>
                   <FriendItem friend={friend} />
                 </Link>
               </li>
             ))}
           </ul>
-        }
-        {this.waitingForAccept.length > 0 &&
-        <>
-        <h2 className="friends-list-header">Waiting for them to accept</h2>
-          <ul>
-            {this.waitingForAccept.map(friend => (
-              <li key={friend.person_id}>
-                <Link to={`/friend/${currentUser.person_id}`}>
-                  <FriendItem friend={friend} />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </>
-        }
-        {this.incomingAccept.length > 0 &&
-        <>
-          <h2 className="friends-list-header">Waiting for you to accept</h2>
-          <ul>
-            {this.incomingAccept.map(friend => (
-              <li key={friend.person_id}>
-                <Link to={`/friend/${currentUser.person_id}`}>
-                  <FriendItem friend={friend} />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </>
-        }
+        )}
+        {this.waitingForAccept.length > 0 && (
+          <>
+            <h2 className="friends-list-header">Waiting for them to accept</h2>
+            <ul>
+              {this.waitingForAccept.map(friend => (
+                <li key={friend.person_id}>
+                  <Link to={`/friend/${currentUser.person_id}`}>
+                    <FriendItem friend={friend} />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        {this.incomingAccept.length > 0 && (
+          <>
+            <h2 className="friends-list-header">Waiting for you to accept</h2>
+            <ul>
+              {this.incomingAccept.map(friend => (
+                <li key={friend.person_id}>
+                  <Link to={`/friend/${currentUser.person_id}`}>
+                    <FriendItem friend={friend} />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
     );
   }
