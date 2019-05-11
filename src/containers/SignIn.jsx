@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { CSSTransition } from 'react-transition-group';
 import trySignIn from '../actions/trySignIn';
 
 class SignIn extends Component {
@@ -28,23 +29,25 @@ class SignIn extends Component {
     if (authStatus) return <Redirect to="/" />;
 
     return (
-      <form className="auth-form" id="signInForm">
-        <div className="form-field">
-          <label className="form-label" htmlFor="email">Email: </label>
-        </div>
-        <div className="form-field">
-          <input className="form-text-input" type="text" name="email" id="email" required />
-        </div>
-        <div className="form-field">
-          <label className="form-label" htmlFor="password">Password: </label>
-        </div>
-        <div className="form-field">
-          <input className="form-text-input" type="password" name="password" id="password" required />
-        </div>
-        <div className="form-field">
-          <input className="btn form-button" type="button" value="Sign In" onClick={() => this.getFormValues()} />
-        </div>
-      </form>
+      <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
+        <form className="auth-form" id="signInForm">
+          <div className="form-field">
+            <label className="form-label" htmlFor="email">Email: </label>
+          </div>
+          <div className="form-field">
+            <input className="form-text-input" type="text" name="email" id="email" required />
+          </div>
+          <div className="form-field">
+            <label className="form-label" htmlFor="password">Password: </label>
+          </div>
+          <div className="form-field">
+            <input className="form-text-input" type="password" name="password" id="password" required />
+          </div>
+          <div className="form-field">
+            <input className="btn form-button" type="button" value="Sign In" onClick={() => this.getFormValues()} />
+          </div>
+        </form>
+      </CSSTransition>
     );
   }
 }

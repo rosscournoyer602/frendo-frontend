@@ -91,3 +91,23 @@
 .right-exit-done {
   opacity: 0;
 }
+
+.fade-enter {
+  animation: fadeIn .5s ease-in-out;
+}
+
+.fade-enter-active {
+  animation: fadeIn .5s ease-in-out;
+}
+
+.fade-appear {
+  animation: fadeIn .5s ease-in-out;
+}
+
+.fade-exit {
+  animation: fadeOut .5s ease-in-out;
+}
+
+.fade-exit-done {
+  opacity: 0;
+}

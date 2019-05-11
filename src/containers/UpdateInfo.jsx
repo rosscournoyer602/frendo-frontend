@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */

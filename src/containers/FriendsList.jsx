@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 import getFriends from '../actions/getFriends';
 import getPerson from '../actions/getPerson';
 import FriendItem from '../components/friendItem';
@@ -66,48 +67,50 @@ class FriendsList extends Component {
     this.friends = [];
     this.parseList(friends);
     return (
-      <div>
-        <h2 className="friends-list-header">Friends List</h2>
-        {this.friends.length > 0 && (
-          <ul>
-            {this.friends.map(friend => (
-              <li key={friend.person_id}>
-                <Link to={`/friend/${friend.person_id}`}>
-                  <FriendItem friend={friend} />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-        {this.waitingForAccept.length > 0 && (
-          <>
-            <h2 className="friends-list-header">Waiting for them to accept</h2>
+      <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
+        <div>
+          <h2 className="friends-list-header">Friends List</h2>
+          {this.friends.length > 0 && (
             <ul>
-              {this.waitingForAccept.map(friend => (
+              {this.friends.map(friend => (
                 <li key={friend.person_id}>
-                  <Link to={`/friend/${currentUser.person_id}`}>
+                  <Link to={`/friend/${friend.person_id}`}>
                     <FriendItem friend={friend} />
                   </Link>
                 </li>
               ))}
             </ul>
-          </>
-        )}
-        {this.incomingAccept.length > 0 && (
-          <>
-            <h2 className="friends-list-header">Waiting for you to accept</h2>
-            <ul>
-              {this.incomingAccept.map(friend => (
-                <li key={friend.person_id}>
-                  <Link to={`/friend/${currentUser.person_id}`}>
-                    <FriendItem friend={friend} />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </div>
+          )}
+          {this.waitingForAccept.length > 0 && (
+            <>
+              <h2 className="friends-list-header">Waiting for them to accept</h2>
+              <ul>
+                {this.waitingForAccept.map(friend => (
+                  <li key={friend.person_id}>
+                    <Link to={`/friend/${currentUser.person_id}`}>
+                      <FriendItem friend={friend} />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {this.incomingAccept.length > 0 && (
+            <>
+              <h2 className="friends-list-header">Waiting for you to accept</h2>
+              <ul>
+                {this.incomingAccept.map(friend => (
+                  <li key={friend.person_id}>
+                    <Link to={`/friend/${currentUser.person_id}`}>
+                      <FriendItem friend={friend} />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      </CSSTransition>
     );
   }
 }

@@ -45,30 +45,42 @@ class Profile extends Component {
     const { displayMode } = this.state;
     const { currentUser } = this.props;
     return (
-      <div className="profile-page">
-        <div className="profile-toggle">
-          <button
-            className={`btn ${displayMode === 'profile' ? 'selected' : ''}`}
-            type="button"
-            onClick={() => this.toggleDisplay('profile')}
+      <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
+        <div className="profile-page">
+          <div className="profile-toggle">
+            <button
+              className={`btn ${displayMode === 'profile' ? 'selected' : ''}`}
+              type="button"
+              onClick={() => this.toggleDisplay('profile')}
+            >
+              View
+            </button>
+            <button
+              className={`btn ${displayMode === 'update' ? 'selected' : ''}`}
+              type="button"
+              onClick={() => this.toggleDisplay('update')}
+            >
+              Update
+            </button>
+          </div>
+          <CSSTransition
+            in={displayMode === 'profile'}
+            timeout={500}
+            classNames="left"
+            unmountOnExit
           >
-            View
-          </button>
-          <button
-            className={`btn ${displayMode === 'update' ? 'selected' : ''}`}
-            type="button"
-            onClick={() => this.toggleDisplay('update')}
+            <ProfileDisplay currentUser={currentUser} />
+          </CSSTransition>
+          <CSSTransition
+            in={displayMode === 'update'}
+            timeout={500}
+            classNames="right"
+            unmountOnExit
           >
-            Update
-          </button>
+            <UpdateInfo />
+          </CSSTransition>
         </div>
-        <CSSTransition in={displayMode === 'profile'} timeout={500} classNames="left" unmountOnExit>
-          <ProfileDisplay currentUser={currentUser} />
-        </CSSTransition>
-        <CSSTransition in={displayMode === 'update'} timeout={500} classNames="right" unmountOnExit>
-          <UpdateInfo />
-        </CSSTransition>
-      </div>
+      </CSSTransition>
     );
   }
 }

@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { CSSTransition } from 'react-transition-group';
 import trySignUp from '../actions/trySignUp';
 
 class SignUp extends Component {
@@ -34,29 +35,31 @@ class SignUp extends Component {
     if (authStatus) return <Redirect to="/" />;
 
     return (
-      <form className="auth-form" id="signUpForm">
-        <div className="form-field form-field-label">
-          <label className="form-label" htmlFor="email">Email: </label>
-        </div>
-        <div className="form-field">
-          <input className="form-text-input" type="text" name="email" id="email" required />
-        </div>
-        <div className="form-field form-field-label">
-          <label className="form-label" htmlFor="password">Password: </label>
-        </div>
-        <div className="form-field">
-          <input className="form-text-input" type="password" name="password" id="password" required />
-        </div>
-        <div className="form-field form-field-label">
-          <label className="form-label" htmlFor="confirmPassword">Confirm Password: </label>
-        </div>
-        <div className="form-field">
-          <input className="form-text-input" type="password" name="confirmPassword" id="confirmPassword" required />
-        </div>
-        <div className="form-field">
-          <input className="btn form-button" type="button" value="Register" onClick={() => this.getFormValues()} />
-        </div>
-      </form>
+      <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
+        <form className="auth-form" id="signUpForm">
+          <div className="form-field form-field-label">
+            <label className="form-label" htmlFor="email">Email: </label>
+          </div>
+          <div className="form-field">
+            <input className="form-text-input" type="text" name="email" id="email" required />
+          </div>
+          <div className="form-field form-field-label">
+            <label className="form-label" htmlFor="password">Password: </label>
+          </div>
+          <div className="form-field">
+            <input className="form-text-input" type="password" name="password" id="password" required />
+          </div>
+          <div className="form-field form-field-label">
+            <label className="form-label" htmlFor="confirmPassword">Confirm Password: </label>
+          </div>
+          <div className="form-field">
+            <input className="form-text-input" type="password" name="confirmPassword" id="confirmPassword" required />
+          </div>
+          <div className="form-field">
+            <input className="btn form-button" type="button" value="Register" onClick={() => this.getFormValues()} />
+          </div>
+        </form>
+      </CSSTransition>
     );
   }
 }
