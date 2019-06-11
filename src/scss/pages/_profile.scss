@@ -4,7 +4,6 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    margin: 10px;
     font-family: $Poppins;
     font-size: 1.4rem;
     color: $dark-text;
@@ -17,8 +16,7 @@
 
   .profile-field {
     margin-top: 5px;
-    margin-left: 35px;
-    text-align: left;
+    text-align: center;
   }
 
   .profile-toggle {
