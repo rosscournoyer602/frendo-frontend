@@ -21,10 +21,15 @@ class UserSearch extends Component {
   render() {
     const { searchResults } = this.props;
     return (
-      <>
-        <form>
-          <input id="searchInput" type="text" />
-          <button type="button" onClick={() => this.handleSearch()}>
+      <div className="search-page">
+        <h2 className="friends-list-header">Search for friends</h2>
+        <form className="search-form">
+          <input className="form-text-input search-input" id="searchInput" type="text" />
+          <button
+            className="btn form-button search-button"
+            type="button"
+            onClick={() => this.handleSearch()}
+          >
             Search
           </button>
         </form>
@@ -37,7 +42,7 @@ class UserSearch extends Component {
             ))}
           </ul>
         )}
-      </>
+      </div>
     );
   }
 }

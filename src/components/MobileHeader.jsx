@@ -59,6 +59,9 @@ class MobileHeader extends Component {
                 <Link className="link" to="/friends" onClick={() => this.toggleMenu()}>
                   <li className="mobile-header-li">My Friends</li>
                 </Link>
+                <Link className="link" to="/search" onClick={() => this.toggleMenu()}>
+                  <li className="mobile-header-li">Search</li>
+                </Link>
                 <Link className="link" to="/" onClick={() => this.toggleMenu()}>
                   <li className="mobile-header-li" onClick={() => this.handleUnauth()}>
                     Sign Out

@@ -43,6 +43,9 @@ class Header extends Component {
               <Link className="link" to="/friends">
                 <li className="header-li desktop">My Friends</li>
               </Link>
+              <Link className="link" to="/search">
+                <li className="header-li desktop">Search</li>
+              </Link>
               <Link className="link" to="/">
                 <li className="header-li desktop" onClick={() => this.handleUnauth()}>
                   Sign Out

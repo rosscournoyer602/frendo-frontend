@@ -8,6 +8,7 @@
 
 .friend-item-container {
   height: 64px;
+  max-width: 365px;
   padding: 10px 0;
   position: relative;
   font-family: $Poppins;
@@ -15,6 +16,7 @@
   color: $dark-text;
   border: 1px solid $dark-text;
   border-radius: 5px;
+  margin-bottom: 5px;
   transition: background-color .2s;
   .friend-item-avatar {
     display: inline-block;
