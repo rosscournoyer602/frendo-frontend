@@ -8,13 +8,15 @@ import Profile from './containers/Profile';
 import FriendsList from './containers/FriendsList';
 import SignUp from './containers/SignUp';
 import SignIn from './containers/SignIn';
-import FriendDisplay from './components/FriendDisplay';
+import FriendDisplay from './containers/FriendDisplay';
+import UserSearch from './containers/UserSearch';
 
 class Routes extends Component {
   render() {
     const { authStatus } = this.props;
     return (
       <Switch>
+        {authStatus && <Route exact path="/search" component={UserSearch} />}
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
         {authStatus && <Route exact path="/friends" component={FriendsList} />}

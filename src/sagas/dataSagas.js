@@ -64,6 +64,23 @@ function* updateAvatarSaga(action) {
   }
 }
 
+function* searchUsersSaga(action) {
+  const userToken = window.localStorage.getItem('token');
+  const config = {
+    headers: {
+      Authorization: userToken
+    },
+    params: {
+      search: action.payload
+    }
+  };
+  const searchUserResult = yield apiClient.data.searchUser(config);
+  console.log(searchUserResult);
+  if (searchUserResult.status === 200) {
+    yield put({ type: actionTypes.UPDATE_SEARCH, payload: searchUserResult.data.rows });
+  }
+}
+
 export function* watchAddPersonSaga() {
   yield takeEvery(actionTypes.ADD_PERSON, addPersonSaga);
 }
@@ -74,4 +91,8 @@ export function* watchGetPersonSaga() {
 
 export function* watchUpdateAvatarSaga() {
   yield takeEvery(actionTypes.UPDATE_AVATAR, updateAvatarSaga);
+}
+
+export function* watchSearchUsersSaga() {
+  yield takeEvery(actionTypes.SEARCH_USERS, searchUsersSaga);
 }

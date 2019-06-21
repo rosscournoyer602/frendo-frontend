@@ -1,6 +1,11 @@
 import { all } from 'redux-saga/effects';
 import { trySignInUserSaga, trySignUpUserSaga } from './authSagas';
-import { watchAddPersonSaga, watchGetPersonSaga, watchUpdateAvatarSaga } from './dataSagas';
+import {
+  watchAddPersonSaga,
+  watchGetPersonSaga,
+  watchUpdateAvatarSaga,
+  watchSearchUsersSaga
+} from './dataSagas';
 import { watchGetFriendsSaga } from './relationSagas';
 
 export default function* rootSaga() {
@@ -10,6 +15,7 @@ export default function* rootSaga() {
     watchAddPersonSaga(),
     watchGetPersonSaga(),
     watchUpdateAvatarSaga(),
-    watchGetFriendsSaga()
+    watchGetFriendsSaga(),
+    watchSearchUsersSaga()
   ]);
 }

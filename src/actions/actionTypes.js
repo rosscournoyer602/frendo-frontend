@@ -8,3 +8,5 @@ export const GET_PERSON = 'GET_PERSON';
 export const UPDATE_AVATAR = 'UPDATE_AVATAR';
 export const GET_FRIENDS = 'GET_FRIENDS';
 export const UPDATE_FRIENDS = 'UPDATE_FRIENDS';
+export const SEARCH_USERS = 'SEARCH_USERS';
+export const UPDATE_SEARCH = 'UPDATE_SEARCH';
