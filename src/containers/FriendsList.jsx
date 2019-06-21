@@ -68,7 +68,7 @@ class FriendsList extends Component {
     this.parseList(friends);
     return (
       <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
-        <div>
+        <div className="friends-list">
           <h2 className="friends-list-header">Friends List</h2>
           {this.friends.length > 0 && (
             <ul>

@@ -1,3 +1,6 @@
+.friends-list {
+  text-align: center;
+}
 .friends-list-header {
   font-family: $Poppins;
   font-size: 1.6rem;
@@ -18,7 +21,11 @@
   border-radius: 5px;
   margin-bottom: 5px;
   transition: background-color .2s;
+  left: 50%;
+  transform: translateX(-50%);
   .friend-item-avatar {
+    position: absolute;
+    left: 0px;
     display: inline-block;
     border-radius: 50%;
     margin-left: 64px;
@@ -27,6 +34,7 @@
     display: inline-block;
     position: absolute;
     top: 50%;
+    right: 100px;
     transform: translateY(-50%);
     margin-left: 20px;
   }
@@ -37,4 +45,4 @@
   &:hover {
     background-color: $light-text;
   }
-}
+} 

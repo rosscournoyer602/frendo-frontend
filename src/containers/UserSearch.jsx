@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import { CSSTransition } from 'react-transition-group';
 import searchUsers from '../actions/searchUsers';
 import FriendItem from '../components/FriendItem';
 
@@ -21,28 +22,30 @@ class UserSearch extends Component {
   render() {
     const { searchResults } = this.props;
     return (
-      <div className="search-page">
-        <h2 className="friends-list-header">Search for friends</h2>
-        <form className="search-form">
-          <input className="form-text-input search-input" id="searchInput" type="text" />
-          <button
-            className="btn form-button search-button"
-            type="button"
-            onClick={() => this.handleSearch()}
-          >
-            Search
-          </button>
-        </form>
-        {searchResults.length > 0 && (
-          <ul>
-            {searchResults.map(friend => (
-              <li key={friend.person_id}>
-                <FriendItem friend={friend} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
+        <div className="search-page">
+          <h2 className="friends-list-header">Search for friends</h2>
+          <form className="search-form">
+            <input className="form-text-input search-input" id="searchInput" type="text" />
+            <button
+              className="btn form-button search-button"
+              type="button"
+              onClick={() => this.handleSearch()}
+            >
+              Search
+            </button>
+          </form>
+          {searchResults.length > 0 && (
+            <ul>
+              {searchResults.map(friend => (
+                <li key={friend.person_id}>
+                  <FriendItem friend={friend} />
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </CSSTransition>
     );
   }
 }
