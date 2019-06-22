@@ -15,7 +15,6 @@ class UserSearch extends Component {
   handleSearch() {
     const { searchUsers } = this.props;
     const searchInput = document.getElementById('searchInput').value;
-    console.log('SEARCH', searchInput);
     searchUsers(searchInput);
   }
 

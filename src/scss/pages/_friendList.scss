@@ -45,4 +45,12 @@
   &:hover {
     background-color: $light-text;
   }
+  .friend-action-btn {
+    background-color: $white-bg;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 60px;
+  }
 } 

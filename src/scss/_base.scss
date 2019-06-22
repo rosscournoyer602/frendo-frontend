@@ -39,6 +39,10 @@ body {
   border: 1px solid #0B7373;
   border-radius: 3px;
   transition: all .5s ease-in-out;
+  &:hover {
+    transition: all .2s ease-in-out;
+    border: 2px solid #0B7373;
+  }
   &.disabled {
     border: 1px solid $gray;
     color: $gray;
@@ -54,4 +58,7 @@ body {
 
 .btn:focus {
   outline: 0;
+}
+
+.btn {
 }
