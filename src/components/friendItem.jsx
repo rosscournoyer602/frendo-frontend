@@ -20,7 +20,7 @@ const FriendItem = props => {
         <h2 className="friend-item-name">{`${firstName} ${lastName}`}</h2>
         <p className="friend-status-text">{status}</p>
       </div>
-      <FriendActionButton />
+      <FriendActionButton friend={props.friend} />
     </div>
   );
 };
