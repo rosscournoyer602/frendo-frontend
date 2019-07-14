@@ -7,8 +7,11 @@ import { connect } from 'react-redux';
 class FriendActionButton extends Component {
   render() {
     const { friends, friend } = this.props;
-    console.log(friend);
-    console.log(friends);
+    console.log('personid:', friend.person_id);
+    friends.forEach((f, index) => {
+      console.log(index, f.person_id === friend.person_id);
+    });
+    console.log('FILTERED', friends.filter(f => f.person_id === friend.person_id));
     return (
       <button type="button" className="btn friend-action-btn">
         Action
