@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import getFriends from '../actions/getFriends';
 import getPerson from '../actions/getPerson';
-import FriendItem from './FriendItem';
+import FriendItem from '../components/FriendItem';
 
 class FriendsList extends Component {
   constructor(props) {
