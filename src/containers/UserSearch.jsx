@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import searchUsers from '../actions/searchUsers';
-import FriendItem from '../components/FriendItem';
+import FriendItem from './FriendItem';
 import getFriends from '../actions/getFriends';
 import getPerson from '../actions/getPerson';
 

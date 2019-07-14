@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import placeholder from '../assets/avatar.jpg';
-import FriendActionButton from '../containers/FriendActionButton';
+import FriendActionButton from '../FriendActionButton';
 
 const FriendItem = props => {
   const avatarSrc =
