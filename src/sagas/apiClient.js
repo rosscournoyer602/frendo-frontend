@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'http://friendo1.herokuapp.com'
+  baseURL: 'http://localhost:8080'
 });
 
 export default {
@@ -16,6 +16,7 @@ export default {
     searchUser: config => apiClient.get('/search', config)
   },
   relations: {
-    getFriends: config => apiClient.get('/friends', config)
+    getFriends: config => apiClient.get('/friends', config),
+    updateFriends: (data, config) => apiClient.put('/friendupdate', data, config)
   }
 };

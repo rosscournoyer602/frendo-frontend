@@ -25,6 +25,28 @@ function* getFriendsSaga(action) {
   }
 }
 
+function* friendActionSaga(action) {
+  console.log('UPDATEF');
+  try {
+    const userToken = window.localStorage.getItem('token');
+    const config = {
+      headers: {
+        Authorization: userToken
+      }
+    };
+    const updateFriendResult = yield apiClient.relations.updateFriends(action.payload, config);
+    if (updateFriendResult.status === 200 && updateFriendResult.data) {
+      yield put({ type: actionTypes.GET_FRIENDS, payload: userToken });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* watchGetFriendsSaga() {
   yield takeEvery(actionTypes.GET_FRIENDS, getFriendsSaga);
+}
+
+export function* watchUpdateFriendsSaga() {
+  yield takeEvery(actionTypes.FRIEND_ACTION, friendActionSaga);
 }
