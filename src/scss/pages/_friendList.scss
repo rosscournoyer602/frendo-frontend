@@ -25,10 +25,9 @@
   transform: translateX(-50%);
   .friend-item-avatar {
     position: absolute;
-    left: 0px;
+    left: 25px;
     display: inline-block;
     border-radius: 50%;
-    margin-left: 64px;
   }
   .friend-info-section {
     display: inline-block;
@@ -36,7 +35,6 @@
     top: 50%;
     right: 100px;
     transform: translateY(-50%);
-    margin-left: 20px;
   }
   .friend-status-text {
 
@@ -51,6 +49,6 @@
     top: 50%;
     right: 15px;
     transform: translateY(-50%);
-    width: 60px;
+    width: 70px;
   }
 } 

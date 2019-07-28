@@ -16,7 +16,7 @@ class FriendActionButton extends Component {
     this.state = {
       disabled: true,
       option: 0,
-      optionText: 'Add'
+      optionText: ''
     };
   }
 
@@ -26,13 +26,15 @@ class FriendActionButton extends Component {
     if (match.length === 0) {
       this.setState({
         disabled: false,
-        option: 0
+        optionText: 'Add',
+        option: 1
       });
     }
     if (match.length === 1) {
       this.setState({
         disabled: false,
-        option: 1
+        optionText: 'Block',
+        option: 3
       });
     }
     this.determineOptionText();
@@ -48,14 +50,16 @@ class FriendActionButton extends Component {
     }
     if (actionType === 'friend') {
       this.setState({
-        disabled: false,
-        optionText: 'Block'
+        disabled: true,
+        optionText: 'Block',
+        option: 3
       });
     }
     if (actionType === 'incomingRequest') {
       this.setState({
         disabled: false,
-        optionText: 'Accept'
+        optionText: 'Accept',
+        option: 2
       });
     }
   }

@@ -76,9 +76,12 @@ class FriendsList extends Component {
             <ul>
               {this.friends.map(friend => (
                 <li key={friend.person_id}>
-                  <Link to={`/friend/${friend.person_id}`}>
-                    <FriendItem friend={friend} actionType="friend" />
-                  </Link>
+                  {friend.friend_status === 2 && (
+                    <Link to={`/friend/${friend.person_id}`}>
+                      <FriendItem friend={friend} actionType="friend" />
+                    </Link>
+                  )}
+                  {friend.friend_status === 1 && <FriendItem friend={friend} />}
                 </li>
               ))}
             </ul>
@@ -89,9 +92,7 @@ class FriendsList extends Component {
               <ul>
                 {this.waitingForAccept.map(friend => (
                   <li key={friend.person_id}>
-                    <Link to={`/friend/${currentUser.person_id}`}>
-                      <FriendItem friend={friend} actionType="waitingForAccept" />
-                    </Link>
+                    <FriendItem friend={friend} actionType="waitingForAccept" />
                   </li>
                 ))}
               </ul>
