@@ -36,7 +36,7 @@ function* friendActionSaga(action) {
     };
     const updateFriendResult = yield apiClient.relations.updateFriends(action.payload, config);
     if (updateFriendResult.status === 200 && updateFriendResult.data) {
-      yield put({ type: actionTypes.GET_FRIENDS, payload: userToken });
+      yield put({ type: actionTypes.GET_FRIENDS, payload: action.payload.id1 });
     }
   } catch (error) {
     console.log(error);

@@ -43,16 +43,18 @@ class FriendsList extends Component {
   }
 
   parseList(list) {
+    const { currentUser } = this.props;
     list.forEach(item => {
       switch (item.friend_status) {
-        case 'friends':
+        case 2:
           this.friends.push(item);
           break;
-        case 'pending_first_second':
-          this.waitingForAccept.push(item);
-          break;
-        case 'pending_second_first':
-          this.incomingAccept.push(item);
+        case 1:
+          if (item.action_taker === currentUser.person_id) {
+            this.waitingForAccept.push(item);
+          } else {
+            this.incomingAccept.push(item);
+          }
           break;
         default:
           break;
@@ -75,7 +77,7 @@ class FriendsList extends Component {
               {this.friends.map(friend => (
                 <li key={friend.person_id}>
                   <Link to={`/friend/${friend.person_id}`}>
-                    <FriendItem friend={friend} />
+                    <FriendItem friend={friend} actionType="friend" />
                   </Link>
                 </li>
               ))}
@@ -88,7 +90,7 @@ class FriendsList extends Component {
                 {this.waitingForAccept.map(friend => (
                   <li key={friend.person_id}>
                     <Link to={`/friend/${currentUser.person_id}`}>
-                      <FriendItem friend={friend} />
+                      <FriendItem friend={friend} actionType="waitingForAccept" />
                     </Link>
                   </li>
                 ))}
@@ -102,7 +104,7 @@ class FriendsList extends Component {
                 {this.incomingAccept.map(friend => (
                   <li key={friend.person_id}>
                     <Link to={`/friend/${currentUser.person_id}`}>
-                      <FriendItem friend={friend} />
+                      <FriendItem friend={friend} actionType="incomingRequest" />
                     </Link>
                   </li>
                 ))}

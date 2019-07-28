@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-shadow */
@@ -34,18 +35,42 @@ class FriendActionButton extends Component {
         option: 1
       });
     }
-    console.log('MATCH', match);
+    this.determineOptionText();
+  }
+
+  determineOptionText() {
+    const { actionType } = this.props;
+    if (actionType === 'waitingForAccept') {
+      this.setState({
+        disabled: true,
+        optionText: 'Pending'
+      });
+    }
+    if (actionType === 'friend') {
+      this.setState({
+        disabled: false,
+        optionText: 'Block'
+      });
+    }
+    if (actionType === 'incomingRequest') {
+      this.setState({
+        disabled: false,
+        optionText: 'Accept'
+      });
+    }
   }
 
   render() {
-    const { friendAction, actionTaker } = this.props;
+    const { friendAction, actionTaker, friend } = this.props;
     const { option } = this.state;
     return (
       <button
         type="button"
         className="btn friend-action-btn"
         disabled={this.state.disabled}
-        onClick={() => friendAction({ option, actionTaker })}
+        onClick={() =>
+          friendAction({ id1: actionTaker, id2: friend.person_id, option, actionTaker })
+        }
       >
         {this.state.optionText}
       </button>
@@ -57,7 +82,8 @@ FriendActionButton.propTypes = {
   friend: PropTypes.object.isRequired,
   friends: PropTypes.array.isRequired,
   friendAction: PropTypes.func.isRequired,
-  actionTaker: PropTypes.number.isRequired
+  actionTaker: PropTypes.number.isRequired,
+  actionType: PropTypes.string
 };
 
 const mapStateToProps = state => ({
