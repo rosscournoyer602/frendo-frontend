@@ -64,17 +64,29 @@ class FriendActionButton extends Component {
     }
   }
 
-  render() {
+  performFriendAction() {
     const { friendAction, actionTaker, friend } = this.props;
     const { option } = this.state;
+    if (this.state.optionText === 'Accept') {
+      this.setState({
+        optionText: 'Accepted'
+      });
+    }
+    if (this.state.optionText === 'Add') {
+      this.setState({
+        optionText: 'Added'
+      });
+    }
+    friendAction({ id1: actionTaker, id2: friend.person_id, option, actionTaker });
+  }
+
+  render() {
     return (
       <button
         type="button"
         className="btn friend-action-btn"
         disabled={this.state.disabled}
-        onClick={() =>
-          friendAction({ id1: actionTaker, id2: friend.person_id, option, actionTaker })
-        }
+        onClick={() => this.performFriendAction()}
       >
         {this.state.optionText}
       </button>

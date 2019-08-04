@@ -104,9 +104,7 @@ class FriendsList extends Component {
               <ul>
                 {this.incomingAccept.map(friend => (
                   <li key={friend.person_id}>
-                    <Link to={`/friend/${currentUser.person_id}`}>
-                      <FriendItem friend={friend} actionType="incomingRequest" />
-                    </Link>
+                    <FriendItem friend={friend} actionType="incomingRequest" />
                   </li>
                 ))}
               </ul>
