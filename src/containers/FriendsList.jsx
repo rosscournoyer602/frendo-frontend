@@ -63,7 +63,7 @@ class FriendsList extends Component {
   }
 
   render() {
-    const { friends, currentUser } = this.props;
+    const { friends } = this.props;
     this.waitingForAccept = [];
     this.incomingAccept = [];
     this.friends = [];
