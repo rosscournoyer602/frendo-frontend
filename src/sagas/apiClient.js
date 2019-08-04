@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'http://friendo1.herokuapp.com'
+  baseURL: 'http://friendo1.herokuapp.com:8080'
 });
 
 export default {
