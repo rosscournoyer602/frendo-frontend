@@ -32,8 +32,11 @@ class MobileHeader extends Component {
   render() {
     const { authStatus } = this.props;
     return (
-      <div className="header">
+      <div className="header mobile-header">
         <ul className="header-ul">
+          <Link className="link" to="/">
+            <li className="header-li logo mobile-logo">Friendo</li>
+          </Link>
           <Menu
             right
             width="30%"

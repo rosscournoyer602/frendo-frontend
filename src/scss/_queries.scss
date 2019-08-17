@@ -2,6 +2,9 @@
     .bm-burger-button {
       visibility: visible;
     }
+    .desktop-header {
+      display: none;
+    }
     .header-ul {
       .logo {
         visibility: visible !important;
@@ -15,6 +18,9 @@
 @media only screen and (min-width: 700px) { 
     .bm-burger-button {
       visibility: hidden;
+    }
+    .mobile-logo {
+      display: none;
     }
     .friend-item-avatar {
       margin-left: 38px;

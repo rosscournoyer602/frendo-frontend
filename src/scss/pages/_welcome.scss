@@ -1,0 +1,15 @@
+.welcome-page {
+  font-family: $Poppins;
+  font-size: 1.4rem;
+  color: $dark-text;
+  text-align: center;
+  .welcome-title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .welcome-description {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+}

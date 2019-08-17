@@ -20,7 +20,7 @@ class Header extends Component {
   render() {
     const { authStatus } = this.props;
     return (
-      <div className="header">
+      <div className="header desktop-header">
         <ul className="header-ul">
           <Link className="link" to="/">
             <li className="header-li logo">Friendo</li>
