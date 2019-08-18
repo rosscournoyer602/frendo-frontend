@@ -104,32 +104,29 @@ class UpdateInfo extends Component {
         <div className="form-field form-field-label">
           <label className="form-label" htmlFor="dob">Birthday: </label>
         </div>
-        <div className="form-field">
-          <input className="form-text-input" type="date" name="dob" id="dob" required />
-        </div>
         <div className="form-field form-field-label">
           <label className="form-label" htmlFor="address">Street Address: </label>
         </div>
         <div className="form-field">
-          <input className="form-text-input" type="text" name="address" id="address" required />
+          <input className="form-text-input" type="text" name="address" id="address" />
         </div>
         <div className="form-field form-field-label">
           <label className="form-label" htmlFor="city">City: </label>
         </div>
         <div className="form-field">
-          <input className="form-text-input" type="text" name="city" id="city" required />
+          <input className="form-text-input" type="text" name="city" id="city" />
         </div>
         <div className="form-field form-field-label">
           <label className="form-label" htmlFor="state">State: </label>
         </div>
         <div className="form-field">
-          <input className="form-text-input" type="text" name="state" id="state" required />
+          <input className="form-text-input" type="text" name="state" id="state" />
         </div>
         <div className="form-field form-field-label">
           <label className="form-label" htmlFor="phone">Phone: </label>
         </div>
         <div className="form-field">
-          <input className="form-text-input" type="tel" name="phone" id="phone" required />
+          <input className="form-text-input" type="tel" name="phone" id="phone" />
         </div>
         <div className="form-field">
           <input className="btn form-button" type="button" value="Update Info" onClick={() => this.getFormValues()} />
