@@ -102,9 +102,6 @@ class UpdateInfo extends Component {
           <input className="form-text-input" type="text" name="lastName" id="lastname" required />
         </div>
         <div className="form-field form-field-label">
-          <label className="form-label" htmlFor="dob">Birthday: </label>
-        </div>
-        <div className="form-field form-field-label">
           <label className="form-label" htmlFor="address">Street Address: </label>
         </div>
         <div className="form-field">
