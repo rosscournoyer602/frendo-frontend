@@ -16,7 +16,9 @@ const ProfileDisplay = props => {
         <>
           <h3 className="profile-field">{`${currentUser.first_name} ${currentUser.last_name}`}</h3>
           <h3 className="profile-field">{currentUser.street_address}</h3>
-          <h3 className="profile-field">{`${currentUser.city}, ${currentUser.state_province}`}</h3>
+          {currentUser.city && currentUser.state_province && (
+            <h3 className="profile-field">{`${currentUser.city}, ${currentUser.state_province}`}</h3>
+          )}
           <h3 className="profile-field">{currentUser.phone}</h3>
         </>
       )}
