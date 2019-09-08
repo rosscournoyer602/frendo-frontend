@@ -34,7 +34,7 @@ class UpdateInfo extends Component {
     const { addPerson, currentUser } = this.props;
     personData.first_name = document.getElementById('firstname').value ? document.getElementById('firstname').value : '';
     personData.last_name = document.getElementById('lastname').value ? document.getElementById('lastname').value : '';
-    personData.street_address = document.getElementById('address').value ? document.getElementById('lastname').value : '';
+    personData.street_address = document.getElementById('address').value ? document.getElementById('address').value : '';
     personData.city = document.getElementById('city').value ? document.getElementById('city').value : '';
     personData.state_province = document.getElementById('state').value ? document.getElementById('state').value : '';
     personData.phone = document.getElementById('phone').value ? document.getElementById('phone').value : '';
