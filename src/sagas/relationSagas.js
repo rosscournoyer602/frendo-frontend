@@ -18,7 +18,7 @@ function* getFriendsSaga(action) {
     };
     const getFriendResult = yield apiClient.relations.getFriends(config);
     if (getFriendResult.status === 200 && getFriendResult.data) {
-      yield put({ type: actionTypes.UPDATE_FRIENDS, payload: getFriendResult.data });
+      yield put({ type: actionTypes.UPDATE_FRIENDS, payload: getFriendResult.data.rows });
     }
   } catch (error) {
     console.log(error);
@@ -26,7 +26,6 @@ function* getFriendsSaga(action) {
 }
 
 function* friendActionSaga(action) {
-  console.log('UPDATEF');
   try {
     const userToken = window.localStorage.getItem('token');
     const config = {
