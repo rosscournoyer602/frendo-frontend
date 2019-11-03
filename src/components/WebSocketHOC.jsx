@@ -5,6 +5,7 @@ export default class WebSocketHOC extends Component {
   componentDidMount() {
     // eslint-disable-next-line no-undef
     const ws = new WebSocket('ws://localhost:8080');
+    // get chat history
 
     ws.onopen = () => {
       console.log('connected');
@@ -29,4 +30,6 @@ export default class WebSocketHOC extends Component {
 
 WebSocketHOC.propTypes = {
   children: PropTypes.node.isRequired
+  // userID: PropTypes.number.isRequired,
+  // friendID: PropTypes.number.isRequired
 };
