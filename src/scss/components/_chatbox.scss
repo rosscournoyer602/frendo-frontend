@@ -1,0 +1,11 @@
+.chatbox-container {
+  position: absolute;
+  top: 350px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 350px;
+  overflow-y: scroll;
+  font-family: 'Poppins';
+  font-size: 14px;
+}

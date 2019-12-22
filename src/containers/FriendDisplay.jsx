@@ -11,6 +11,7 @@ import placeholder from '../assets/avatar.jpg';
 import getFriends from '../actions/getFriends';
 import getPerson from '../actions/getPerson';
 import WebSocketHOC from '../components/WebSocketHOC';
+import Chatbox from './Chatbox';
 
 class FriendDisplay extends Component {
   componentDidMount() {
@@ -39,6 +40,7 @@ class FriendDisplay extends Component {
     const friendData = friends.filter(
       friend => friend.person_id === parseInt(displayedFriendId, 10)
     );
+    const friendshipId = friendData[0] ? friendData[0].friendship_id : null;
     const avatarSrc =
       !friendData[0] || friendData[0].avatar_url === '' || !friendData[0].avatar_url
         ? placeholder
@@ -66,6 +68,7 @@ class FriendDisplay extends Component {
                   <h3 className="profile-field">Update your information!</h3>
                 ))}
             </div>
+            <Chatbox friendshipId={friendshipId} />
           </WebSocketHOC>
         </div>
       </CSSTransition>

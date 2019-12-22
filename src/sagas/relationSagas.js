@@ -42,10 +42,37 @@ function* friendActionSaga(action) {
   }
 }
 
+function* getChatSaga(action) {
+  try {
+    const userToken = window.localStorage.getItem('token');
+    console.log('USERTOKEN', userToken);
+    const id = action.payload;
+    console.log('ID', id);
+    const config = {
+      headers: {
+        Authorization: userToken
+      },
+      params: {
+        id
+      }
+    };
+    const getChatResult = yield apiClient.relations.getChat(config);
+    if (getChatResult.status === 200 && getChatResult.data) {
+      yield put({ type: actionTypes.UPDATE_CHATS, payload: getChatResult.data.rows });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* watchGetFriendsSaga() {
   yield takeEvery(actionTypes.GET_FRIENDS, getFriendsSaga);
 }
 
 export function* watchUpdateFriendsSaga() {
   yield takeEvery(actionTypes.FRIEND_ACTION, friendActionSaga);
+}
+
+export function* watchGetChatSaga() {
+  yield takeEvery(actionTypes.GET_CHAT, getChatSaga);
 }

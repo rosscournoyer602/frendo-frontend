@@ -6,7 +6,7 @@ import {
   watchUpdateAvatarSaga,
   watchSearchUsersSaga
 } from './dataSagas';
-import { watchGetFriendsSaga, watchUpdateFriendsSaga } from './relationSagas';
+import { watchGetFriendsSaga, watchUpdateFriendsSaga, watchGetChatSaga } from './relationSagas';
 
 export default function* rootSaga() {
   yield all([
@@ -17,6 +17,7 @@ export default function* rootSaga() {
     watchUpdateAvatarSaga(),
     watchGetFriendsSaga(),
     watchSearchUsersSaga(),
-    watchUpdateFriendsSaga()
+    watchUpdateFriendsSaga(),
+    watchGetChatSaga()
   ]);
 }
