@@ -45,9 +45,7 @@ function* friendActionSaga(action) {
 function* getChatSaga(action) {
   try {
     const userToken = window.localStorage.getItem('token');
-    console.log('USERTOKEN', userToken);
     const id = action.payload;
-    console.log('ID', id);
     const config = {
       headers: {
         Authorization: userToken

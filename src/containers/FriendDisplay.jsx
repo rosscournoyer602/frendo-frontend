@@ -68,7 +68,7 @@ class FriendDisplay extends Component {
                   <h3 className="profile-field">Update your information!</h3>
                 ))}
             </div>
-            <Chatbox friendshipId={friendshipId} />
+            <Chatbox friendshipId={friendshipId} userId={currentUser.person_id} />
           </WebSocketHOC>
         </div>
       </CSSTransition>
