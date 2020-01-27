@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-shadow */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prefer-stateless-function */
@@ -12,31 +13,42 @@ import ChatBubble from '../components/ChatBubble';
 
 class Chatbox extends Component {
   componentDidUpdate(prevProps) {
-    const { friendshipId, getChat } = this.props;
-    if (friendshipId && prevProps.friendshipId !== friendshipId) {
+    const { friendship, getChat } = this.props;
+    const friendshipId = friendship ? friendship.friendship_id : null;
+    const prevFriendshipId = prevProps.friendship ? prevProps.friendship.friendship_id : null;
+    if (friendshipId && prevFriendshipId !== friendshipId) {
       getChat(friendshipId);
     }
   }
 
   render() {
     const { messages, userId } = this.props;
-    console.log('USERID', userId);
+    const chatMessages = messages.messages ? JSON.parse(messages.messages) : [];
     return (
       <div className="chatbox-container">
-        {messages.map(message => {
-          let type = 'system';
-          if (message.sender === userId) type = 'outgoing';
-          if (message.receiver === userId) type = 'incoming';
-          return <ChatBubble key={message.message_id} content={message.content} type={type} />;
-        })}
+        <div className="chatbox-messages">
+          {chatMessages.map((message, index) => {
+            let type = 'system';
+            if (message.sender === userId) type = 'outgoing';
+            if (message.receiver === userId) type = 'incoming';
+            return (
+              <ChatBubble
+                key={`${message.content}${index}`}
+                content={message.content}
+                type={type}
+              />
+            );
+          })}
+        </div>
+        <textarea className="chatbox-chat-input" />
       </div>
     );
   }
 }
 
 Chatbox.propTypes = {
-  friendshipId: PropTypes.number.isRequired,
-  messages: PropTypes.array.isRequired,
+  friendship: PropTypes.object.isRequired,
+  messages: PropTypes.object.isRequired,
   getChat: PropTypes.func.isRequired,
   userId: PropTypes.number.isRequired
 };

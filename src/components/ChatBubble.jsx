@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 
 const ChatBubble = props => {
   const { content, type } = props;
-  console.log('TYPE', type);
   return (
-    <div className={`chat-bubble ${type}`}>
-      <p>{content}</p>
+    <div className={`chat-block ${type}`}>
+      <div className={`chatbox-chat-bubble ${type}`}>
+        {/* <img src='http://friendo2.s3-website-ap-northeast-1.amazonaws.com/64x64/'></img> */}
+        <p>{content}</p>
+      </div>
     </div>
   );
 };

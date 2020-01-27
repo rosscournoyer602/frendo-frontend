@@ -1,5 +1,5 @@
 .chatbox-container {
-  position: absolute;
+  position: relative;
   top: 350px;
   left: 50%;
   transform: translateX(-50%);
@@ -8,4 +8,64 @@
   overflow-y: scroll;
   font-family: 'Poppins';
   font-size: 14px;
+  .chatbox-messages {
+    position: absolute;
+    width: 90%;
+    max-width: 400px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .chatbox-chat-bubble {
+    display: inline-block;
+    padding: 5px;
+    border-radius: .4em;
+    width: auto;
+    background-color: #00aabb;
+  }
+  .outgoing {
+    text-align: left;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      border-right-color: #00aabb;
+      border-left: 0;
+      margin-top: -9.5px;
+      margin-left: -8px;
+    }
+  }
+  .incoming {
+    text-align: right;
+    position: relative;
+    border-radius: .4em;
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      border-left-color: #00aabb;
+      border-right: 0;
+      margin-top: -9.5px;
+      margin-right: -8px;
+    }
+}
+
+  .chatbox-chat-input {
+    position: absolute;
+    bottom:70px;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    height: 70px;
+    border-radius: 5px;
+    resize: none;
+  }
 }
