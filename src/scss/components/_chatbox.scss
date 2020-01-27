@@ -22,7 +22,19 @@
     width: auto;
     background-color: #00aabb;
   }
-  .outgoing {
+  .chatbox-chat-block-outgoing {
+    text-align: right;
+  }
+  .chatbox-chat-block-incoming {
+    text-align: left;
+  }
+  .chatbox-chat-avatar {
+
+  }
+  .chatbox-chat-content {
+    display: inline-block;
+  }
+  .incoming {
     text-align: left;
     position: relative;
     &::after {
@@ -39,7 +51,7 @@
       margin-left: -8px;
     }
   }
-  .incoming {
+  .outgoing {
     text-align: right;
     position: relative;
     border-radius: .4em;

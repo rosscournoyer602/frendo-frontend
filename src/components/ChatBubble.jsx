@@ -2,20 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ChatBubble = props => {
-  const { content, type } = props;
+  const { content, type, image } = props;
   return (
-    <div className={`chat-block ${type}`}>
+    <div className={`chatbox-chat-block-${type}`}>
+      {type === 'incoming' && <img className="chatbox-chat-avatar" src={image} alt="useravatar" />}
       <div className={`chatbox-chat-bubble ${type}`}>
-        {/* <img src='http://friendo2.s3-website-ap-northeast-1.amazonaws.com/64x64/'></img> */}
-        <p>{content}</p>
+        <p className="chatbox-chat-content">{content}</p>
       </div>
+      {type === 'outgoing' && <img className="chatbox-chat-avatar" src={image} alt="useravatar" />}
     </div>
   );
 };
 
 ChatBubble.propTypes = {
   content: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired
 };
 
 export default ChatBubble;

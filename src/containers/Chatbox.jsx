@@ -13,27 +13,41 @@ import ChatBubble from '../components/ChatBubble';
 
 class Chatbox extends Component {
   componentDidUpdate(prevProps) {
-    const { friendship, getChat } = this.props;
+    const { friendship, getChat, messages } = this.props;
     const friendshipId = friendship ? friendship.friendship_id : null;
     const prevFriendshipId = prevProps.friendship ? prevProps.friendship.friendship_id : null;
+    if (!prevFriendshipId) {
+      getChat(friendshipId);
+    }
     if (friendshipId && prevFriendshipId !== friendshipId) {
+      getChat(friendshipId);
+    }
+    if (messages.length < 1) {
       getChat(friendshipId);
     }
   }
 
   render() {
-    const { messages, userId } = this.props;
+    const { friendship, currentUser, messages, userId } = this.props;
     const chatMessages = messages.messages ? JSON.parse(messages.messages) : [];
     return (
       <div className="chatbox-container">
         <div className="chatbox-messages">
           {chatMessages.map((message, index) => {
             let type = 'system';
-            if (message.sender === userId) type = 'outgoing';
-            if (message.receiver === userId) type = 'incoming';
+            let image;
+            if (message.sender === userId) {
+              type = 'outgoing';
+              image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${currentUser.avatar_url}`;
+            }
+            if (message.receiver === userId) {
+              type = 'incoming';
+              image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${friendship.avatar_url}`;
+            }
             return (
               <ChatBubble
                 key={`${message.content}${index}`}
+                image={image}
                 content={message.content}
                 type={type}
               />
@@ -50,10 +64,12 @@ Chatbox.propTypes = {
   friendship: PropTypes.object.isRequired,
   messages: PropTypes.object.isRequired,
   getChat: PropTypes.func.isRequired,
-  userId: PropTypes.number.isRequired
+  userId: PropTypes.number.isRequired,
+  currentUser: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
+  currentUser: state.currentUser,
   messages: state.messages
 });
 
