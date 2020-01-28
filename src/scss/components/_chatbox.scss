@@ -29,7 +29,7 @@
     text-align: left;
   }
   .chatbox-chat-avatar {
-
+    border-radius: 50%;
   }
   .chatbox-chat-content {
     display: inline-block;
@@ -37,6 +37,8 @@
   .incoming {
     text-align: left;
     position: relative;
+    left: 12px;
+    bottom: 15px;
     &::after {
       content: '';
       position: absolute;
@@ -55,6 +57,8 @@
     text-align: right;
     position: relative;
     border-radius: .4em;
+    right: 12px;
+    bottom: 15px;
     &::after {
       content: '';
       position: absolute;

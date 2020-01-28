@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
@@ -25,6 +26,9 @@ export default function(ComposedComponent) {
   function mapStateToProps(state) {
     return { authStatus: state.authStatus };
   }
+  Authentication.propTypes = {
+    authStatus: PropTypes.bool.isRequired
+  };
 
   return connect(mapStateToProps)(Authentication);
 }
