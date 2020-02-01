@@ -56,8 +56,22 @@ function* getChatSaga(action) {
     };
     const getChatResult = yield apiClient.relations.getChat(config);
     if (getChatResult.status === 200 && getChatResult.data.rows[0]) {
-      yield put({ type: actionTypes.UPDATE_CHATS, payload: getChatResult.data.rows[0] });
+      yield put({ type: actionTypes.UPDATE_MESSAGES, payload: getChatResult.data.rows[0] });
     }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* updateChatSaga(action) {
+  try {
+    const userToken = window.localStorage.getItem('token');
+    const config = {
+      headers: {
+        Authorization: userToken
+      }
+    };
+    yield apiClient.relations.updateChat(action.payload, config);
   } catch (error) {
     console.log(error);
   }
@@ -73,4 +87,8 @@ export function* watchUpdateFriendsSaga() {
 
 export function* watchGetChatSaga() {
   yield takeEvery(actionTypes.GET_CHAT, getChatSaga);
+}
+
+export function* watchUpdateChatSaga() {
+  yield takeEvery(actionTypes.UPDATE_CHAT, updateChatSaga);
 }

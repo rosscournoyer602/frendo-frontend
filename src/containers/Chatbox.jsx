@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FaPaperPlane } from 'react-icons/fa';
 import getChat from '../actions/getChat';
 import ChatBubble from '../components/ChatBubble';
 
@@ -56,6 +57,7 @@ class Chatbox extends Component {
           })}
         </div>
         <textarea className="chatbox-chat-input" />
+        <FaPaperPlane />
       </div>
     );
   }
