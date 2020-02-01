@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import io from 'socket.io-client';
 
 export default class WebSocketHOC extends Component {
   componentDidMount() {
-    // eslint-disable-next-line no-undef
-    const ws = new WebSocket('ws://localhost:8080');
-    // get chat history
-
-    ws.onopen = () => {
-      console.log('connected');
-      ws.send('Hello Server, I am the Client!');
-    };
-
-    ws.onmessage = e => {
-      const message = e.data;
+    const socket = io('http://localhost:8080');
+    socket.on('connect', () => {
+      socket.emit('message', 'Hey server!');
+    });
+    socket.on('message', message => {
       console.log(message);
-    };
-
-    ws.onclose = () => {
-      console.log('disconnected');
-    };
+    });
   }
 
   render() {

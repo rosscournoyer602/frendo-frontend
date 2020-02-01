@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-shadow */
 /* eslint-disable react/destructuring-assignment */
@@ -61,10 +62,10 @@ class Chatbox extends Component {
 }
 
 Chatbox.propTypes = {
-  friendship: PropTypes.object.isRequired,
-  messages: PropTypes.object.isRequired,
+  friendship: PropTypes.object,
+  messages: PropTypes.object,
   getChat: PropTypes.func.isRequired,
-  userId: PropTypes.number.isRequired,
+  userId: PropTypes.number,
   currentUser: PropTypes.object.isRequired
 };
 
