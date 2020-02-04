@@ -24,7 +24,7 @@ class Chatbox extends Component {
     if (friendshipId && prevFriendshipId !== friendshipId) {
       getChat(friendshipId);
     }
-    if (messages.length < 1) {
+    if (!messages.messages) {
       getChat(friendshipId);
     }
   }
