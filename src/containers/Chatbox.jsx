@@ -30,7 +30,9 @@ class Chatbox extends Component {
   }
 
   render() {
-    const { friendship, currentUser, messages, userId } = this.props;
+    const { friendship, currentUser, messages } = this.props;
+    console.log('CURRENTUSER', currentUser);
+    console.log('USERID');
     const chatMessages = messages.messages ? JSON.parse(messages.messages) : [];
     return (
       <div className="chatbox-container">
@@ -38,11 +40,11 @@ class Chatbox extends Component {
           {chatMessages.map((message, index) => {
             let type = 'system';
             let image;
-            if (message.sender === userId) {
+            if (message.sender === currentUser.person_id) {
               type = 'outgoing';
               image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${currentUser.avatar_url}`;
             }
-            if (message.receiver === userId) {
+            if (message.receiver === currentUser.person_id) {
               type = 'incoming';
               image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${friendship.avatar_url}`;
             }
@@ -56,8 +58,12 @@ class Chatbox extends Component {
             );
           })}
         </div>
-        <textarea className="chatbox-chat-input" />
-        <FaPaperPlane />
+        <div className="chatbox-input-container">
+          <textarea className="chatbox-chat-input" />
+          <div className="chatbox-submit">
+            <FaPaperPlane />
+          </div>
+        </div>
       </div>
     );
   }
@@ -67,7 +73,6 @@ Chatbox.propTypes = {
   friendship: PropTypes.object,
   messages: PropTypes.object,
   getChat: PropTypes.func.isRequired,
-  userId: PropTypes.number,
   currentUser: PropTypes.object.isRequired
 };
 
