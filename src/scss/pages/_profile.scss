@@ -12,6 +12,16 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+
+    .cropper-view-box {
+      outline: none;
+    }
+    .cropper-line {
+      visibility: hidden;
+    }
+    .cropper-point {
+      visibility: hidden;
+    };
   }
 
   .profile-field {

@@ -11,3 +11,6 @@ export const UPDATE_FRIENDS = 'UPDATE_FRIENDS';
 export const SEARCH_USERS = 'SEARCH_USERS';
 export const UPDATE_SEARCH = 'UPDATE_SEARCH';
 export const FRIEND_ACTION = 'FRIEND_ACTION';
+export const GET_CHAT = 'GET_CHAT';
+export const UPDATE_MESSAGES = 'UPDATE_MESSAGES';
+export const UPDATE_CHAT = 'UPDATE_CHAT';

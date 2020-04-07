@@ -25,7 +25,7 @@ export default class ImageCropper extends Component {
             src={imageSrc}
             style={{ height: 200, width: 200 }}
             // Cropper.js options
-            autoCrop={false}
+            autoCrop
             responsive
             zoomOnTouch
             modal={false}
