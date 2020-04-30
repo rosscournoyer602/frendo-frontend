@@ -4,7 +4,14 @@ import { CSSTransition } from 'react-transition-group';
 const Welcome = () => (
   <div>
     <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
-      <h1 className="page-title">Welcome</h1>
+      <div className="welcome-page">
+        <h1 className="welcome-page__title">Welcome to Friendo</h1>
+        <div className="welcome-page__intro-container">
+          <p className="welcome-page__intro-text">You can create a profile, add a picture,</p>
+          <p className="welcome-page__intro-text">find people you know, and connect!</p>
+          <p className="welcome-page__intro-text">Sign in or Sign up to get started.</p>
+        </div>
+      </div>
     </CSSTransition>
   </div>
 );

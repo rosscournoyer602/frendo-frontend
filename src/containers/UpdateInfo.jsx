@@ -23,8 +23,6 @@ class UpdateInfo extends Component {
       imageSrc: null
     }
 
-    this.imageSrc = null;
-
     this.handleCrop = this.handleCrop.bind(this);
     this.setState = this.setState.bind(this);
   }
@@ -34,10 +32,10 @@ class UpdateInfo extends Component {
     const { addPerson, currentUser } = this.props;
     personData.first_name = document.getElementById('firstname').value ? document.getElementById('firstname').value : '';
     personData.last_name = document.getElementById('lastname').value ? document.getElementById('lastname').value : '';
-    personData.street_address = document.getElementById('address').value ? document.getElementById('address').value : '';
-    personData.city = document.getElementById('city').value ? document.getElementById('city').value : '';
-    personData.state_province = document.getElementById('state').value ? document.getElementById('state').value : '';
-    personData.phone = document.getElementById('phone').value ? document.getElementById('phone').value : '';
+    // personData.street_address = document.getElementById('address').value ? document.getElementById('address').value : '';
+    // personData.city = document.getElementById('city').value ? document.getElementById('city').value : '';
+    // personData.state_province = document.getElementById('state').value ? document.getElementById('state').value : '';
+    // personData.phone = document.getElementById('phone').value ? document.getElementById('phone').value : '';
     personData.email = currentUser.email;
     // eslint-disable-next-line no-shadow
     addPerson(personData);
@@ -100,7 +98,7 @@ class UpdateInfo extends Component {
         <div className="form-field">
           <input className="form-text-input" type="text" name="lastName" id="lastname" required />
         </div>
-        <div className="form-field form-field-label">
+        {/* <div className="form-field form-field-label">
           <label className="form-label" htmlFor="address">Street Address: </label>
         </div>
         <div className="form-field">
@@ -120,10 +118,10 @@ class UpdateInfo extends Component {
         </div>
         <div className="form-field form-field-label">
           <label className="form-label" htmlFor="phone">Phone: </label>
-        </div>
-        <div className="form-field">
+        </div> */}
+        {/* <div className="form-field">
           <input className="form-text-input" type="tel" name="phone" id="phone" required />
-        </div>
+        </div> */}
         <div className="form-field">
           <input className="btn form-button" type="button" value="Update Info" onClick={() => this.getFormValues()} />
         </div>

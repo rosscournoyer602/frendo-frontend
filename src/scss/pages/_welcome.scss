@@ -1,0 +1,18 @@
+.welcome-page {
+  position: relative;
+  width: 350px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: $Poppins;
+  color: $dark-text;
+  &__title {
+    font-size: 2.6rem;
+    margin-bottom: 20px;
+  }
+  &__intro-container {
+    font-size: 1.6rem;
+  }
+  &__intro-text {
+    margin-bottom: 10px;
+  }
+}
