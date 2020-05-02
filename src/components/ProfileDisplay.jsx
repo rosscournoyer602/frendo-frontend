@@ -9,15 +9,13 @@ const ProfileDisplay = props => {
     currentUser.avatar_url === '' || !currentUser.avatar_url
       ? placeholder
       : `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/200x200/${currentUser.avatar_url}`;
+
   return (
     <div className="profile-display">
       <img className="avatar-img" src={avatarSrc} alt="user avatar" />
       {currentUser.first_name && (
         <>
           <h3 className="profile-field">{`${currentUser.first_name} ${currentUser.last_name}`}</h3>
-          {/* <h3 className="profile-field">{currentUser.street_address}</h3>
-          <h3 className="profile-field">{`${currentUser.city}, ${currentUser.state_province}`}</h3>
-          <h3 className="profile-field">{currentUser.phone}</h3> */}
         </>
       )}
       <h3 className="profile-field">{currentUser.email}</h3>
