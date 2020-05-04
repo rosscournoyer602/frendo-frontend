@@ -11,6 +11,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import addPerson from '../actions/addPerson';
 import updateAvatar from '../actions/updateAvatar';
+import changeUpdateStatus from '../actions/changeUpdateStatus'
 import ImageCropper from './ImageCropper';
 import Modal from '../components/Modal';
 
@@ -27,12 +28,6 @@ class UpdateInfo extends Component {
 
     this.handleCrop = this.handleCrop.bind(this);
     this.setState = this.setState.bind(this);
-  }
-
-  showModal() {
-    this.setState({
-      showModal: true
-    });
   }
 
   getFormValues() {
@@ -83,7 +78,9 @@ class UpdateInfo extends Component {
   }
 
   render() {
+    console.log('UPDATEINFORENDER')
     const { fileInputMode, cropButton, imageSrc } = this.state;
+    console.log(this.props.updateStatus);
     return (
       <>
       <form className="auth-form" id="infoForm">
@@ -107,13 +104,11 @@ class UpdateInfo extends Component {
           <input className="btn form-button" type="button" value="Update Info" onClick={() => this.getFormValues()} />
         </div>
       </form>
-      {this.state.showModal &&
+      {this.props.updateStatus === 'success' &&
         <Modal 
           title="Nice!" 
-          message="Yyayyayayayayayyyayay" 
-          onModalOk={() => this.setState({ showModal: false})} 
-          cancelButton
-          onModalCancel={() => this.setState({ showModal: false})}
+          message="Your user profile has been updated" 
+          onModalOk={() => this.props.changeUpdateStatus('')} 
         />
       }
       </>
@@ -124,15 +119,22 @@ class UpdateInfo extends Component {
 UpdateInfo.propTypes = {
   addPerson: PropTypes.func.isRequired,
   updateAvatar: PropTypes.func.isRequired,
-  currentUser: PropTypes.object.isRequired
+  currentUser: PropTypes.object.isRequired,
+  updateStatus: PropTypes.string.isRequired,
+  changeUpdateStatus: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators( { addPerson, updateAvatar }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators( { 
+  addPerson, 
+  updateAvatar,
+  changeUpdateStatus 
+}, dispatch);
 
 const mapStateToProps = state => {
-  const { currentUser } = state;
+  const { currentUser, updateStatus } = state;
   return {
-    currentUser
+    currentUser,
+    updateStatus
   };
 };
 

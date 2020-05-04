@@ -14,3 +14,4 @@ export const FRIEND_ACTION = 'FRIEND_ACTION';
 export const GET_CHAT = 'GET_CHAT';
 export const UPDATE_MESSAGES = 'UPDATE_MESSAGES';
 export const UPDATE_CHAT = 'UPDATE_CHAT';
+export const CHANGE_UPDATE_STATUS = 'CHANGE_UPDATE_STATUS';

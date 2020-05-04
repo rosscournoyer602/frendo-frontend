@@ -16,17 +16,18 @@ import ChatBubble from '../components/ChatBubble';
 class Chatbox extends Component {
   componentDidUpdate(prevProps) {
     const { friendship, getChat, messages } = this.props;
+    console.log('FRIENDSHIP', friendship);
     const friendshipId = friendship ? friendship.friendship_id : null;
     const prevFriendshipId = prevProps.friendship ? prevProps.friendship.friendship_id : null;
-    if (!prevFriendshipId) {
-      getChat(friendshipId);
-    }
+    // if (!prevFriendshipId) {
+    //   getChat(friendshipId);
+    // }
     if (friendshipId && prevFriendshipId !== friendshipId) {
       getChat(friendshipId);
     }
-    if (!messages.messages) {
-      getChat(friendshipId);
-    }
+    // if (!messages.messages) {
+    //   getChat(friendshipId);
+    // }
   }
 
   render() {

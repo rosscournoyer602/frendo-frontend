@@ -21,6 +21,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
+    console.log('PROFILEDIDMOUNT')
     const { currentUser, getPerson } = this.props;
     if (currentUser.email) {
       getPerson(currentUser.email);
@@ -31,6 +32,7 @@ class Profile extends Component {
   }
 
   componentDidUpdate() {
+    console.log('PROFILEDIDUPDATE')
     const { currentUser } = this.props;
     getPerson(currentUser.email);
   }
@@ -42,6 +44,7 @@ class Profile extends Component {
   }
 
   render() {
+    console.log('PROFILERENDER')
     const { displayMode } = this.state;
     const { currentUser } = this.props;
     return (

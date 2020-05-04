@@ -18,8 +18,10 @@ function* addPersonSaga(action) {
     const addPersonResult = yield apiClient.data.addPerson(action.payload, config);
     if (addPersonResult && addPersonResult.status === 200) {
       yield put({ type: actionTypes.UPDATE_USER, payload: addPersonResult.data.rows[0] });
+      yield put({ type: actionTypes.CHANGE_UPDATE_STATUS, payload: 'success' });
     }
   } catch (error) {
+    yield put({ type: actionTypes.CHANGE_UPDATE_STATUS, payload: 'success' });
     alert(error.response.data);
   }
 }
@@ -57,10 +59,14 @@ function* updateAvatarSaga(action) {
       Authorization: userToken
     }
   };
-
-  const updateAvatarResult = yield apiClient.data.updateAvatar(data, config);
-  if (updateAvatarResult.status === 200) {
-    yield put({ type: actionTypes.GET_PERSON, payload: data.user });
+  try {
+    const updateAvatarResult = yield apiClient.data.updateAvatar(data, config);
+    if (updateAvatarResult.status && updateAvatarResult.status === 200) {
+      yield put({ type: actionTypes.GET_PERSON, payload: data.user });
+      yield put({ type: actionTypes.CHANGE_UPDATE_STATUS, payload: 'success' });
+    }
+  } catch (error) {
+    yield put({ type: actionTypes.CHANGE_UPDATE_STATUS, payload: 'failure' });
   }
 }
 
@@ -74,10 +80,13 @@ function* searchUsersSaga(action) {
       search: action.payload
     }
   };
-  const searchUserResult = yield apiClient.data.searchUser(config);
-  console.log(searchUserResult);
-  if (searchUserResult.status === 200) {
-    yield put({ type: actionTypes.UPDATE_SEARCH, payload: searchUserResult.data.rows });
+  try {
+    const searchUserResult = yield apiClient.data.searchUser(config);
+    if (searchUserResult.status === 200) {
+      yield put({ type: actionTypes.UPDATE_SEARCH, payload: searchUserResult.data.rows });
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 

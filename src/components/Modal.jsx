@@ -10,15 +10,15 @@ const Modal = props => {
         <h2 className="modal__body-title">{props.title}</h2>
         <p className="modal__body-message">{props.message}</p>
         <div className="modal__buttons">
-           {props.cancelButton &&
-           <button
-              className="btn form-button"
-              type="button"
-              onClick={props.onModalCancel}
-            >
-              Cancel
-            </button>
-           }
+          {props.cancelButton &&
+          <button
+            className="btn form-button"
+            type="button"
+            onClick={props.onModalCancel}
+          >
+            Cancel
+          </button>
+          }
           <button
             className="btn form-button"
             type="button"
@@ -35,7 +35,7 @@ const Modal = props => {
 Modal.propTypes = {
   title: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
-  onModalOk: PropTypes.isRequired,
+  onModalOk: PropTypes.func.isRequired,
   cancelButton: PropTypes.bool,
   onModalCancel: PropTypes.func
 }
