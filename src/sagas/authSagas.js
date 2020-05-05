@@ -15,7 +15,7 @@ function* trySignUpSaga(action) {
       yield put({ type: actionTypes.UPDATE_USER, payload: { email } });
     }
   } catch (error) {
-    alert(error.response.data);
+    yield put({ type: actionTypes.CHANGE_UPDATE_STATUS, payload: error.response.data })
   }
 }
 
@@ -30,7 +30,7 @@ function* trySignInSaga(action) {
       yield put({ type: actionTypes.UPDATE_USER, payload: { email } });
     }
   } catch (error) {
-    alert(error.response.data);
+    yield put({ type: actionTypes.CHANGE_UPDATE_STATUS, payload: 'Unauthorized' });
   }
 }
 

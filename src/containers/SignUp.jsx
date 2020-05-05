@@ -11,8 +11,32 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import trySignUp from '../actions/trySignUp';
+import Modal from '../components/Modal';
 
 class SignUp extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      error: false,
+      errorMessage: {}
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { updateStatus } = this.props;
+    if (prevProps.updateStatus !== updateStatus) {
+      if (updateStatus) {
+        this.setState({
+          error: true,
+          errorMessage: {
+            title: 'Whoops!',
+            message: updateStatus
+          }
+        });
+      }
+    }
+  }
 
   getFormValues() {
     // eslint-disable-next-line no-shadow
@@ -26,7 +50,13 @@ class SignUp extends Component {
       document.getElementById("signUpForm").reset();
     }
     if (password !== confirmPassword) {
-      alert('Passwords do not match!');
+      this.setState({
+        error: true,
+        errorMessage: {
+          title: 'Whoops!',
+          message: 'The passwords do not match. Please try again.'
+        }
+      });
     }
   }
 
@@ -35,6 +65,7 @@ class SignUp extends Component {
     if (authStatus) return <Redirect to="/" />;
 
     return (
+      <>
       <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
         <form className="auth-form" id="signUpForm">
           <div className="form-field form-field-label">
@@ -60,6 +91,14 @@ class SignUp extends Component {
           </div>
         </form>
       </CSSTransition>
+      {this.state.error &&
+        <Modal 
+          title={this.state.errorMessage.title}
+          message={this.state.errorMessage.message}
+          onModalOk={() => this.setState({ error: false, errorMessage: {}})}
+        />
+      }
+      </>
     );
   }
 }
@@ -70,9 +109,10 @@ SignUp.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const { authStatus } = state;
+  const { authStatus, updateStatus } = state;
   return {
-    authStatus
+    authStatus,
+    updateStatus
   };
 };
 

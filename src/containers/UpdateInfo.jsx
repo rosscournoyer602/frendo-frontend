@@ -69,8 +69,10 @@ class UpdateInfo extends Component {
   };
   
   handleCrop(data) {
-    const { updateAvatar } = this.props;
-    updateAvatar(data);
+    const { updateAvatar, currentUser } = this.props;
+    const currentAvatar = currentUser.avatar_url;
+    const user = currentUser.email;
+    updateAvatar({ user, currentAvatar, data });
     this.setState({
       fileInputMode: '',
       cropButton: 'disabled',
@@ -78,7 +80,6 @@ class UpdateInfo extends Component {
   }
 
   render() {
-    console.log('UPDATEINFORENDER')
     const { fileInputMode, cropButton, imageSrc } = this.state;
     console.log(this.props.updateStatus);
     return (

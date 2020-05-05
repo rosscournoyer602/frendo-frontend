@@ -48,11 +48,8 @@ function* getPersonSaga(action) {
 }
 
 function* updateAvatarSaga(action) {
-  const user = window.localStorage.getItem('user');
-  const data = {
-    user,
-    data: action.payload
-  };
+  const { user, currentAvatar, data } = action.payload;
+  const body = { user, currentAvatar, data }; 
   const userToken = window.localStorage.getItem('token');
   const config = {
     headers: {
@@ -60,9 +57,9 @@ function* updateAvatarSaga(action) {
     }
   };
   try {
-    const updateAvatarResult = yield apiClient.data.updateAvatar(data, config);
+    const updateAvatarResult = yield apiClient.data.updateAvatar(body, config);
     if (updateAvatarResult.status && updateAvatarResult.status === 200) {
-      yield put({ type: actionTypes.GET_PERSON, payload: data.user });
+      yield put({ type: actionTypes.GET_PERSON, payload: user });
       yield put({ type: actionTypes.CHANGE_UPDATE_STATUS, payload: 'success' });
     }
   } catch (error) {

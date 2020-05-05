@@ -21,6 +21,4 @@ export default class WebSocketHOC extends Component {
 
 WebSocketHOC.propTypes = {
   children: PropTypes.node.isRequired
-  // userID: PropTypes.number.isRequired,
-  // friendID: PropTypes.number.isRequired
 };
