@@ -12,10 +12,12 @@ import searchUsers from '../actions/searchUsers';
 import FriendItem from '../components/FriendItem';
 import getFriends from '../actions/getFriends';
 import getPerson from '../actions/getPerson';
+import updateSearch from '../actions/updateSearch';
 
 class UserSearch extends Component {
   componentDidMount() {
-    const { currentUser, getFriends, getPerson } = this.props;
+    const { currentUser, getFriends, getPerson, updateSearch } = this.props;
+    updateSearch([]);
     if (currentUser.email && !currentUser.person_id) {
       getPerson(currentUser.email);
     }
@@ -76,7 +78,8 @@ UserSearch.propTypes = {
   searchUsers: PropTypes.func.isRequired,
   getFriends: PropTypes.func.isRequired,
   currentUser: PropTypes.object.isRequired,
-  getPerson: PropTypes.func.isRequired
+  getPerson: PropTypes.func.isRequired,
+  updateSearch: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -85,7 +88,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ searchUsers, getFriends, getPerson }, dispatch);
+  bindActionCreators({ searchUsers, getFriends, getPerson, updateSearch }, dispatch);
 
 export default connect(
   mapStateToProps,

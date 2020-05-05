@@ -12,29 +12,36 @@ import { bindActionCreators } from 'redux';
 import { FaPaperPlane } from 'react-icons/fa';
 import getChat from '../actions/getChat';
 import ChatBubble from '../components/ChatBubble';
+import sendMessage from '../actions/sendMessage';
 
 class Chatbox extends Component {
   componentDidUpdate(prevProps) {
-    const { friendship, getChat, messages } = this.props;
-    console.log('FRIENDSHIP', friendship);
+    const { friendship, getChat } = this.props;
     const friendshipId = friendship ? friendship.friendship_id : null;
     const prevFriendshipId = prevProps.friendship ? prevProps.friendship.friendship_id : null;
-    // if (!prevFriendshipId) {
-    //   getChat(friendshipId);
-    // }
     if (friendshipId && prevFriendshipId !== friendshipId) {
       getChat(friendshipId);
     }
-    // if (!messages.messages) {
-    //   getChat(friendshipId);
-    // }
+  }
+
+  handleChatSubmit(inputValue, chatMessages) {
+    const { currentUser, friendship, sendMessage } = this.props;
+    const input = document.getElementById('userinput');
+    if (input.value) {
+      const newMessage = {
+        sender: currentUser.person_id,
+        receiver: friendship.person_id,
+        content: inputValue
+      };
+      input.value = '';
+      sendMessage(JSON.stringify([...chatMessages, newMessage]))
+    }
   }
 
   render() {
     const { friendship, currentUser, messages } = this.props;
-    console.log('CURRENTUSER', currentUser);
-    console.log('USERID');
     const chatMessages = messages.messages ? JSON.parse(messages.messages) : [];
+    console.log('RENDERCHATMESSAGES', chatMessages)
     return (
       <div className="chatbox-container">
         <div className="chatbox-messages">
@@ -60,9 +67,11 @@ class Chatbox extends Component {
           })}
         </div>
         <div className="chatbox-input-container">
-          <textarea className="chatbox-chat-input" />
+          <textarea id="userinput" className="chatbox-chat-input" />
           <div className="chatbox-submit">
-            <FaPaperPlane />
+            <FaPaperPlane 
+              onClick={() => this.handleChatSubmit(document.getElementById('userinput').value, chatMessages)} 
+            />
           </div>
         </div>
       </div>
@@ -74,6 +83,7 @@ Chatbox.propTypes = {
   friendship: PropTypes.object,
   messages: PropTypes.object,
   getChat: PropTypes.func.isRequired,
+  sendMessage : PropTypes.func.isRequired,
   currentUser: PropTypes.object.isRequired
 };
 
@@ -82,7 +92,10 @@ const mapStateToProps = state => ({
   messages: state.messages
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getChat }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ 
+  getChat,
+  sendMessage
+ }, dispatch);
 
 export default connect(
   mapStateToProps,

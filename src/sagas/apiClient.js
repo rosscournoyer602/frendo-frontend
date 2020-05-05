@@ -18,6 +18,7 @@ export default {
   relations: {
     getFriends: config => apiClient.get('/friends', config),
     updateFriends: (data, config) => apiClient.put('/friendupdate', data, config),
-    getChat: config => apiClient.get('/getchat', config)
+    getChat: config => apiClient.get('/getchat', config),
+    updateChat: (data, config) => apiClient.post('/updatechat', data, config)
   }
 };

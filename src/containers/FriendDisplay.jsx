@@ -43,28 +43,21 @@ class FriendDisplay extends Component {
     const avatarSrc =
       !friendData[0] || friendData[0].avatar_url === '' || !friendData[0].avatar_url
         ? placeholder
-        : `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/200x200/${friendData[0].avatar_url}`;
+        : `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/100x100/${friendData[0].avatar_url}`;
     return (
       <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
-        <div className="profile-page">
+        <div className="friend-page">
           <WebSocketHOC userID={currentUser.person_id} friendID={displayedFriendId}>
-            <div className="profile-display">
-              <img className="avatar-img" src={avatarSrc} alt="user avatar" />
+            <div className="friend-display">
+              <img className="friend-avatar-img" src={avatarSrc} alt="user avatar" />
               {friendData[0] && friendData[0].first_name && (
-                <>
-                  <h3 className="profile-field">
-                    {`${friendData[0].first_name} ${friendData[0].last_name}`}
-                  </h3>
-                  <h3 className="profile-field">{friendData[0].street_address}</h3>
-                  <h3 className="profile-field">
-                    {`${friendData[0].city}, ${friendData[0].state_province}`}
-                  </h3>
-                  <h3 className="profile-field">{friendData[0].phone}</h3>
-                </>
+                <h3 className="friend-field">
+                  {`${friendData[0].first_name} ${friendData[0].last_name}`}
+                </h3>
               )}
               {!friendData[0] ||
                 (!friendData[0].first_name && (
-                  <h3 className="profile-field">Update your information!</h3>
+                  <h3 className="friend-field">Update your information!</h3>
                 ))}
             </div>
             <Chatbox friendship={friendData.length > 0 ? friendData[0] : null} />
