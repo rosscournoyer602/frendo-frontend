@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import placeholder from '../assets/avatar.jpg';
 import getFriends from '../actions/getFriends';
 import getPerson from '../actions/getPerson';
-import WebSocketHOC from '../components/WebSocketHOC';
+import WebSocketHOC from './WebSocketHOC';
 import Chatbox from './Chatbox';
 
 class FriendDisplay extends Component {

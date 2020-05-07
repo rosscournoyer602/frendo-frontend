@@ -16,10 +16,13 @@ import sendMessage from '../actions/sendMessage';
 
 class Chatbox extends Component {
   componentDidUpdate(prevProps) {
-    const { friendship, getChat } = this.props;
+    const { friendship, getChat, messages } = this.props;
     const friendshipId = friendship ? friendship.friendship_id : null;
     const prevFriendshipId = prevProps.friendship ? prevProps.friendship.friendship_id : null;
     if (friendshipId && prevFriendshipId !== friendshipId) {
+      getChat(friendshipId);
+    }
+    if (friendshipId && Object.keys(messages).length === 0) {
       getChat(friendshipId);
     }
   }
@@ -34,14 +37,17 @@ class Chatbox extends Component {
         content: inputValue
       };
       input.value = '';
-      sendMessage(JSON.stringify([...chatMessages, newMessage]))
+      sendMessage({
+        friendship: friendship.friendship_id,
+        messages: JSON.stringify([...chatMessages, newMessage])
+      });
     }
   }
 
   render() {
     const { friendship, currentUser, messages } = this.props;
     const chatMessages = messages.messages ? JSON.parse(messages.messages) : [];
-    console.log('RENDERCHATMESSAGES', chatMessages)
+    console.log('RENDERCHATMESSAGES', chatMessages);
     return (
       <div className="chatbox-container">
         <div className="chatbox-messages">
@@ -94,7 +100,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({ 
   getChat,
-  sendMessage
+  sendMessage,
  }, dispatch);
 
 export default connect(

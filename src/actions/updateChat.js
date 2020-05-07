@@ -1,6 +1,6 @@
-import { UPDATE_CHAT } from './actionTypes';
+import { UPDATE_MESSAGES } from './actionTypes';
 
 export default payload => ({
-  type: UPDATE_CHAT,
+  type: UPDATE_MESSAGES,
   payload
 });
