@@ -34,9 +34,6 @@ class MobileHeader extends Component {
     return (
       <div className="header mobile-header">
         <ul className="header-ul">
-          <Link className="link" to="/">
-            <li className="header-li logo mobile-logo">Friendo</li>
-          </Link>
           <Menu
             right
             width="30%"

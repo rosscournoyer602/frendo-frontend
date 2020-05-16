@@ -1,0 +1,46 @@
+.modal {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  &__background {
+    height: 100%;
+    width: 100%;
+    background-color: $gray;
+    opacity: .6;
+  }
+  &__body {
+    position: fixed;
+    width: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $white-bg;
+    opacity: 1;
+    border: 1px solid #0B7373;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+  }
+  &__body-title {
+    font-family: $Lobster;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: $dark-text;
+  }
+  &__body-message {
+    font-family: $Poppins;
+    font-size: 1.5rem;
+    padding: 0px 25px;
+  }
+  &__buttons {
+    width: 70%;
+    margin: 10px auto;
+    .btn {
+      margin: 10px;
+      width: 80px;
+      cursor: pointer;
+    }
+  }
+}

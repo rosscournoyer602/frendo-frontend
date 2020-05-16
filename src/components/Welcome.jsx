@@ -6,12 +6,12 @@ const Welcome = () => (
   <div>
     <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
       <div className="welcome-page">
-        <h1 className="welcome-title">Welcome to Friendo!</h1>
-        <h3 className="welcome-description">
-          Sign up, add a photo, update your info, and find some friends using the search feature.
-        </h3>
-        <h3 className="welcome-description">Search "Ross" and add me to see how it works.</h3>
-        <h3 className="welcome-description">New features coming soon!</h3>
+        <h1 className="welcome-page__title">Welcome to Friendo</h1>
+        <div className="welcome-page__intro-container">
+          <p className="welcome-page__intro-text">You can create a profile, add a picture,</p>
+          <p className="welcome-page__intro-text">find people you know, and connect!</p>
+          <p className="welcome-page__intro-text">Sign in or Sign up to get started.</p>
+        </div>
       </div>
     </CSSTransition>
   </div>

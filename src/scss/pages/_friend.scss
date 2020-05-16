@@ -1,0 +1,19 @@
+.friend-page {
+  text-align: center;
+  height: 100%;
+  .friend-display {
+    font-family: $Poppins;
+    font-size: 1.4rem;
+    color: $dark-text;
+  }
+
+  .friend-field {
+    margin-top: 5px;
+    text-align: center;
+  }
+  .friend-avatar-img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+}

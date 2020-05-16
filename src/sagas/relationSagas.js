@@ -90,5 +90,5 @@ export function* watchGetChatSaga() {
 }
 
 export function* watchUpdateChatSaga() {
-  yield takeEvery(actionTypes.UPDATE_CHAT, updateChatSaga);
+  yield takeEvery(actionTypes.SEND_MESSAGE, updateChatSaga);
 }

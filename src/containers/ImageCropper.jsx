@@ -15,6 +15,7 @@ export default class ImageCropper extends Component {
     const { cropButton, handleCrop } = this.props;
     // eslint-disable-next-line react/destructuring-assignment
     const imageSrc = this.props.imageSrc || placeholder;
+    console.log(imageSrc);
     return (
       <>
         <div className="image-cropper">
@@ -52,6 +53,6 @@ export default class ImageCropper extends Component {
 
 ImageCropper.propTypes = {
   handleCrop: PropTypes.func.isRequired,
-  imageSrc: PropTypes.string.isRequired,
+  imageSrc: PropTypes.string,
   cropButton: PropTypes.string.isRequired
 };

@@ -4,11 +4,13 @@
 @import 'queries';
 @import 'components/header';
 @import 'components/chatbox';
+@import 'components/modal';
+@import 'pages/welcome';
 @import 'pages/auth';
 @import 'pages/profile';
 @import 'pages/friendList';
 @import 'pages/search';
-@import 'pages/welcome';
+@import 'pages/friend';
 @import 'vendor/react-hamburger';
 @import 'animations';
 @import 'mixins';

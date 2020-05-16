@@ -12,32 +12,81 @@ import { bindActionCreators } from 'redux';
 import { FaPaperPlane } from 'react-icons/fa';
 import getChat from '../actions/getChat';
 import ChatBubble from '../components/ChatBubble';
+import sendMessage from '../actions/sendMessage';
 
 class Chatbox extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      messages: []
+    }
+  }
+
+  componentDidMount() {
+    this.updateScroll();
+  }
+
   componentDidUpdate(prevProps) {
     const { friendship, getChat, messages } = this.props;
     const friendshipId = friendship ? friendship.friendship_id : null;
     const prevFriendshipId = prevProps.friendship ? prevProps.friendship.friendship_id : null;
-    if (!prevFriendshipId) {
-      getChat(friendshipId);
-    }
+
+    this.updateScroll();
+
     if (friendshipId && prevFriendshipId !== friendshipId) {
       getChat(friendshipId);
     }
-    if (!messages.messages) {
+    if (friendshipId && Object.keys(messages).length === 0) {
       getChat(friendshipId);
+    }
+    if (prevProps.messages.messages !== messages.messages) {
+      const newMessages = JSON.parse(messages.messages);
+      this.setState({
+        messages: newMessages
+      });
+    }
+  }
+
+  handleChatSubmit(inputValue, chatMessages) {
+    const { currentUser, friendship, sendMessage } = this.props;
+    const input = document.getElementById('userinput');
+    if (input.value) {
+      const newMessage = {
+        sender: currentUser.person_id,
+        receiver: friendship.person_id,
+        content: inputValue
+      };
+      input.value = '';
+      sendMessage({
+        friendship: friendship.friendship_id,
+        messages: JSON.stringify([...chatMessages, newMessage])
+      });
+    }
+  }
+
+  updateScroll() {
+    const chat = document.getElementById('chat');
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  handleKeyDown(e) {
+    if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+      e.preventDefault();
+      const { messages } = this.props;
+      const input = document.getElementById('userinput').value;
+      const parsedMessages = JSON.parse(messages.messages)
+      this.handleChatSubmit(input, parsedMessages);
     }
   }
 
   render() {
-    const { friendship, currentUser, messages } = this.props;
-    console.log('CURRENTUSER', currentUser);
-    console.log('USERID');
-    const chatMessages = messages.messages ? JSON.parse(messages.messages) : [];
+    const { friendship, currentUser } = this.props;
+    const { messages } = this.state;
     return (
       <div className="chatbox-container">
-        <div className="chatbox-messages">
-          {chatMessages.map((message, index) => {
+        <div id="chat" className="chatbox-messages">
+          {messages.map((message, index) => {
             let type = 'system';
             let image;
             if (message.sender === currentUser.person_id) {
@@ -59,9 +108,11 @@ class Chatbox extends Component {
           })}
         </div>
         <div className="chatbox-input-container">
-          <textarea className="chatbox-chat-input" />
+          <textarea id="userinput" className="chatbox-chat-input" placeholder="Send a message" onKeyDown={(e) => this.handleKeyDown(e)} />
           <div className="chatbox-submit">
-            <FaPaperPlane />
+            <FaPaperPlane 
+              onClick={() => this.handleChatSubmit(document.getElementById('userinput').value, messages)} 
+            />
           </div>
         </div>
       </div>
@@ -73,6 +124,7 @@ Chatbox.propTypes = {
   friendship: PropTypes.object,
   messages: PropTypes.object,
   getChat: PropTypes.func.isRequired,
+  sendMessage : PropTypes.func.isRequired,
   currentUser: PropTypes.object.isRequired
 };
 
@@ -81,7 +133,10 @@ const mapStateToProps = state => ({
   messages: state.messages
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getChat }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ 
+  getChat,
+  sendMessage,
+ }, dispatch);
 
 export default connect(
   mapStateToProps,

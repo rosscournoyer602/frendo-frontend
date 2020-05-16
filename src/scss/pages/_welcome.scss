@@ -1,15 +1,18 @@
 .welcome-page {
+  position: relative;
+  width: 350px;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: $Poppins;
-  font-size: 1.4rem;
   color: $dark-text;
-  text-align: center;
-  .welcome-title {
-    font-size: 2rem;
-    font-weight: 500;
+  &__title {
+    font-size: 2.6rem;
     margin-bottom: 20px;
   }
-  .welcome-description {
+  &__intro-container {
     font-size: 1.6rem;
-    margin-bottom: 20px;
+  }
+  &__intro-text {
+    margin-bottom: 10px;
   }
 }

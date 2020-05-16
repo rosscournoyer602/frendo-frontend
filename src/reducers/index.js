@@ -5,6 +5,7 @@ import userAvatar from './userAvatar';
 import friends from './friends';
 import searchResults from './searchResults';
 import messages from './messages';
+import updateStatus from './updateStatus';
 
 const rootReducer = combineReducers({
   authStatus,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   userAvatar,
   friends,
   searchResults,
-  messages
+  messages,
+  updateStatus
 });
 
 export default rootReducer;

@@ -11,7 +11,9 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import addPerson from '../actions/addPerson';
 import updateAvatar from '../actions/updateAvatar';
+import changeUpdateStatus from '../actions/changeUpdateStatus'
 import ImageCropper from './ImageCropper';
+import Modal from '../components/Modal';
 
 class UpdateInfo extends Component {
   constructor(props) {
@@ -20,10 +22,9 @@ class UpdateInfo extends Component {
     this.state = {
       fileInputMode: '',
       cropButton: 'disabled',
-      imageSrc: null
+      imageSrc: null,
+      showModal: false
     }
-
-    this.imageSrc = null;
 
     this.handleCrop = this.handleCrop.bind(this);
     this.setState = this.setState.bind(this);
@@ -34,10 +35,6 @@ class UpdateInfo extends Component {
     const { addPerson, currentUser } = this.props;
     personData.first_name = document.getElementById('firstname').value ? document.getElementById('firstname').value : '';
     personData.last_name = document.getElementById('lastname').value ? document.getElementById('lastname').value : '';
-    personData.street_address = document.getElementById('address').value ? document.getElementById('address').value : '';
-    personData.city = document.getElementById('city').value ? document.getElementById('city').value : '';
-    personData.state_province = document.getElementById('state').value ? document.getElementById('state').value : '';
-    personData.phone = document.getElementById('phone').value ? document.getElementById('phone').value : '';
     personData.email = currentUser.email;
     // eslint-disable-next-line no-shadow
     addPerson(personData);
@@ -72,8 +69,10 @@ class UpdateInfo extends Component {
   };
   
   handleCrop(data) {
-    const { updateAvatar } = this.props;
-    updateAvatar(data);
+    const { updateAvatar, currentUser } = this.props;
+    const currentAvatar = currentUser.avatar_url;
+    const user = currentUser.email;
+    updateAvatar({ user, currentAvatar, data });
     this.setState({
       fileInputMode: '',
       cropButton: 'disabled',
@@ -82,7 +81,9 @@ class UpdateInfo extends Component {
 
   render() {
     const { fileInputMode, cropButton, imageSrc } = this.state;
+    console.log(this.props.updateStatus);
     return (
+      <>
       <form className="auth-form" id="infoForm">
         <div className="form-field">
           <input className={`form-file-input ${fileInputMode}`} accept="image/*" onChange={(e) => this.handleFile(e)} type="file" name="avatar" id="avatar" />
@@ -100,34 +101,18 @@ class UpdateInfo extends Component {
         <div className="form-field">
           <input className="form-text-input" type="text" name="lastName" id="lastname" required />
         </div>
-        <div className="form-field form-field-label">
-          <label className="form-label" htmlFor="address">Street Address: </label>
-        </div>
-        <div className="form-field">
-          <input className="form-text-input" type="text" name="address" id="address" />
-        </div>
-        <div className="form-field form-field-label">
-          <label className="form-label" htmlFor="city">City: </label>
-        </div>
-        <div className="form-field">
-          <input className="form-text-input" type="text" name="city" id="city" />
-        </div>
-        <div className="form-field form-field-label">
-          <label className="form-label" htmlFor="state">State: </label>
-        </div>
-        <div className="form-field">
-          <input className="form-text-input" type="text" name="state" id="state" />
-        </div>
-        <div className="form-field form-field-label">
-          <label className="form-label" htmlFor="phone">Phone: </label>
-        </div>
-        <div className="form-field">
-          <input className="form-text-input" type="tel" name="phone" id="phone" />
-        </div>
         <div className="form-field">
           <input className="btn form-button" type="button" value="Update Info" onClick={() => this.getFormValues()} />
         </div>
       </form>
+      {this.props.updateStatus === 'success' &&
+        <Modal 
+          title="Nice!" 
+          message="Your user profile has been updated" 
+          onModalOk={() => this.props.changeUpdateStatus('')} 
+        />
+      }
+      </>
     );
   }
 }
@@ -135,15 +120,22 @@ class UpdateInfo extends Component {
 UpdateInfo.propTypes = {
   addPerson: PropTypes.func.isRequired,
   updateAvatar: PropTypes.func.isRequired,
-  currentUser: PropTypes.object.isRequired
+  currentUser: PropTypes.object.isRequired,
+  updateStatus: PropTypes.string.isRequired,
+  changeUpdateStatus: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators( { addPerson, updateAvatar }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators( { 
+  addPerson, 
+  updateAvatar,
+  changeUpdateStatus 
+}, dispatch);
 
 const mapStateToProps = state => {
-  const { currentUser } = state;
+  const { currentUser, updateStatus } = state;
   return {
-    currentUser
+    currentUser,
+    updateStatus
   };
 };
 
