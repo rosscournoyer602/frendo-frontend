@@ -14,7 +14,7 @@ class WebSocketHOC extends Component {
   }
 
   componentDidUpdate() {
-    const { messages } = this.props;
+    const { messages, updateChat } = this.props;
     if (!this.friendShipId && messages.friendship_id) {
       this.friendShipId = messages.friendship_id;
       console.log('SOCKET LISTENING FOR',`message${this.friendShipId}`);

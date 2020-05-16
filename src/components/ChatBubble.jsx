@@ -5,6 +5,7 @@ const ChatBubble = props => {
   const { content, type, image } = props;
   return (
     <div className={`chatbox-chat-block-${type}`}>
+      
       {type === 'incoming' && <img className="chatbox-chat-avatar" src={image} alt="useravatar" />}
       <div className={`chatbox-chat-bubble ${type}`}>
         <p className="chatbox-chat-content">{content}</p>

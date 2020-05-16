@@ -1,11 +1,7 @@
 .friend-page {
-  position: relative;
   text-align: center;
   height: 100%;
   .friend-display {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     font-family: $Poppins;
     font-size: 1.4rem;
     color: $dark-text;

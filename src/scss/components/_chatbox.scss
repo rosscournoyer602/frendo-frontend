@@ -1,96 +1,73 @@
 .chatbox-container {
-  position: absolute;
-  bottom: 0px;
-  left: 50%;
-  transform: translateX(-50%);
   width: 100%;
-  height: 55vh;
-  overflow-y: scroll;
   font-family: 'Poppins';
   font-size: 14px;
-  // overflow: hidden;
+  overflow: hidden;
+  overflow-anchor: none;
   .chatbox-messages {
-    position: absolute;
     width: 90%;
-    height: 60%;
+    height: 250px;
     max-width: 400px;
-    left: 50%;
-    transform: translateX(-50%);
+    margin: 10px auto;
     overflow-y: scroll;
+    padding: 20px;
   }
   .chatbox-chat-bubble {
     display: inline-block;
     padding: 5px;
     border-radius: .4em;
     width: auto;
-    background-color: #00aabb;
+    margin: 2.5px;
+    background-color: #0E6377;
+    &.outgoing {
+      background-color: #16829B;
+      color: white;
+    }
+    &.incoming {
+      background-color: #0E6377;
+      color: white;
+    }
   }
   .chatbox-chat-block-outgoing {
     text-align: right;
+    color: white;
   }
   .chatbox-chat-block-incoming {
     text-align: left;
   }
   .chatbox-chat-avatar {
+    max-height: 32px;
     border-radius: 50%;
   }
   .chatbox-chat-content {
     display: inline-block;
+    max-width: 293px;
   }
   .outgoing {
     text-align: left;
     position: relative;
     right: 12px;
     bottom: 12px;
-    &::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 50%;
-      width: 0;
-      height: 0;
-      border: 10px solid transparent;
-      border-left-color: #00aabb;
-      border-right: 0;
-      margin-top: -9.5px;
-      margin-right: -8px;
-    }
   }
   .incoming {
-    text-align: right;
+    text-align: left;
     position: relative;
     left: 12px;
     bottom: 12px;
-    &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 0;
-      height: 0;
-      border: 10px solid transparent;
-      border-right-color: #00aabb;
-      border-left: 0;
-      margin-top: -9.5px;
-      margin-left: -8px;
-    }
   }
   .chatbox-input-container {
     position: relative;
     height: 90%;
     width: 100%;
-    left: 50%;
-    transform: translateX(-50%);
+    margin: auto;
     max-width: 400px;
-
+    text-align: center;
   }
   .chatbox-chat-input {
-    position: absolute;
-    bottom: 40px;
-    transform: translateX(-50%);
     width: 100%;
-    max-width: 400px;
+    max-width: 380px;
     height: 70px;
+    margin: 20px auto;
     border-radius: 5px;
     resize: none;
     font-family: 'Poppins';
@@ -98,9 +75,22 @@
   }
   .chatbox-submit {
     position: absolute;
-    right: 5px;
-    bottom: 40px;
-    height: 20px;
+    bottom: 30px;
+    right: 11px;
+    height: 18px;
     width: 20px;
+    padding: 8px 7px 5px 5px;
+    border-radius: 50%;
+    color: white;
+    background-color: $light-text;
+    transition: ease-in-out background-color .2s;
+    cursor: pointer;
+    &:hover {
+      background-color: $menu-bg-green;
+    }
+  }
+  .anchor {
+    overflow-anchor: auto;
+    height: 1px;
   }
 }
