@@ -10,7 +10,9 @@ class WebSocketHOC extends Component {
     super(props);
 
     this.friendShipId = null;
-    this.socket = io('http://friendo1.herokuapp.com:8080');
+    this.socket = io('http://friendo1.herokuapp.com:8080', {
+      path: '/'
+    });
   }
 
   componentDidUpdate() {
