@@ -24,6 +24,13 @@ class Chatbox extends Component {
   }
 
   componentDidMount() {
+    const { messages } = this.props;
+    if (messages && messages.messages) {
+      const newMessages = JSON.parse(messages.messages);
+      this.setState({
+        messages: newMessages
+      });
+    }
     this.updateScroll();
   }
 
@@ -33,7 +40,6 @@ class Chatbox extends Component {
     const prevFriendshipId = prevProps.friendship ? prevProps.friendship.friendship_id : null;
 
     this.updateScroll();
-
     if (friendshipId && prevFriendshipId !== friendshipId) {
       getChat(friendshipId);
     }

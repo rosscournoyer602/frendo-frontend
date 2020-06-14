@@ -10,16 +10,14 @@ class WebSocketHOC extends Component {
     super(props);
 
     this.friendShipId = null;
-    this.socket = io('http://localhost:8080');
+    this.socket = io(process.env.REACT_APP_API_URL);
   }
 
   componentDidUpdate() {
     const { messages, updateChat } = this.props;
     if (!this.friendShipId && messages.friendship_id) {
       this.friendShipId = messages.friendship_id;
-      console.log('SOCKET LISTENING FOR',`message${this.friendShipId}`);
       this.socket.on(`message${this.friendShipId}`, message => {
-        console.log('CLIENT RECEIVED', message);
         updateChat(message);
       });
     }
