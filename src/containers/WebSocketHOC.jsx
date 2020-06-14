@@ -10,7 +10,7 @@ class WebSocketHOC extends Component {
     super(props);
 
     this.friendShipId = null;
-    this.socket = io(process.env.API_URL);
+    this.socket = io(process.env.REACT_APP_API_URL);
   }
 
   componentDidUpdate() {
