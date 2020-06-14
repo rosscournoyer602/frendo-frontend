@@ -27,6 +27,7 @@ class SignIn extends Component {
   }
 
   render() {
+    console.log('APIURL', process.env.REACT_APP_API_URL)
     const { authStatus, updateStatus } = this.props;
     console.log(updateStatus);
     if (authStatus) return <Redirect to="/" />;
