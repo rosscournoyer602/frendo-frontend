@@ -10,7 +10,7 @@ export default {
     signInUser: payload => apiClient.post('/signin', payload)
   },
   data: {
-    addPerson: (data, config) => apiClient.post('/addperson', data, config),
+    addPerson: (data, config) => apiClient.put('/person', data, config),
     getPerson: config => apiClient.get('/person', config),
     updateAvatar: (data, config) => apiClient.put('/avatar', data, config),
     searchUser: config => apiClient.get('/search', config)

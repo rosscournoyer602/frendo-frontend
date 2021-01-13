@@ -1,58 +1,81 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable react/jsx-no-bind */
-/* eslint-disable react/no-string-refs */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Cropper from 'react-cropper';
-import placeholder from '../assets/avatar.jpg';
-import 'cropperjs/dist/cropper.css';
+import React, { useRef, useState } from "react";
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
 
-export default class ImageCropper extends Component {
-  render() {
-    const { cropButton, handleCrop } = this.props;
-    // eslint-disable-next-line react/destructuring-assignment
-    const imageSrc = this.props.imageSrc || placeholder;
-    console.log(imageSrc);
-    return (
-      <>
-        <div className="image-cropper">
-          <div className="cropper-cover" />
-          <Cropper
-            ref="cropper"
-            className="cropper"
-            src={imageSrc}
-            style={{ height: 200, width: 200 }}
-            // Cropper.js options
-            autoCrop
-            responsive
-            zoomOnTouch
-            modal={false}
-            dragMode="move"
-            guides={false}
-            aspectRatio={1}
-            viewMode={3}
-            minCropBoxHeight={200}
-            minContainerWidth={200}
-          />
-        </div>
-        <div className="form-field">
-          <input
-            className={`btn form-button ${cropButton}`}
-            type="button"
-            value="Crop Image"
-            onClick={() => handleCrop(this.refs.cropper.getCroppedCanvas().toDataURL('image/jpeg'))}
-          />
-        </div>
-      </>
-    );
-  }
-}
+const ImageCropper = (props) => {
+	const cropperRef = useRef(null);
+	const [imageSrc, setImageSrc] = useState(props.cropper)
+	const [hideInput, setHideInput] = useState(false)
 
-ImageCropper.propTypes = {
-  handleCrop: PropTypes.func.isRequired,
-  imageSrc: PropTypes.string,
-  cropButton: PropTypes.string.isRequired
+	const handleCrop = () => {
+		const imageElement = cropperRef.current;
+		const cropper =  imageElement.cropper;
+		const data = cropper.getCroppedCanvas().toDataURL()
+		props.callback(data)
+	}
+	
+	const handleFile = (e) => {
+    if (!e.target.files[0]) return;
+    // const selectedFile = document.getElementById('avatar').files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const elem = document.createElement('canvas');    
+        const width = 250;
+        const scaleFactor = width / img.width;
+        elem.width = width;
+        const height = img.height * scaleFactor;
+        elem.height = height;
+        const ctx = elem.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+				const data = ctx.canvas.toDataURL('image/jpeg', .8);
+				setImageSrc(data);
+				setHideInput(true);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+    e.target.value = '';
+	};
+
+  return (
+		<>
+			<div className="cropper-cover" />
+			<input 
+				className={`form-file-input ${hideInput ? 'behind' : ''}`}
+				accept="image/*" 
+				onChange={handleFile} 
+				type="file"
+				name="avatar"
+				id="avatar"
+			/>
+			<Cropper
+				className="cropper"
+				src={imageSrc}
+				style={{ height: 200, width: 200 }}
+				// Cropper.js options
+				autoCrop
+				responsive
+				zoomOnTouch
+				modal={false}
+				dragMode="move"
+				guides={false}
+				aspectRatio={1}
+				viewMode={3}
+				minCropBoxHeight={200}
+				minContainerWidth={200}
+				ref={cropperRef}
+			/>
+			<button
+				className="btn form-button"
+				type="button"
+				onClick={handleCrop}
+			>
+				Done
+			</button>
+		</>
+  );
 };
+
+export default ImageCropper

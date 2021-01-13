@@ -12,12 +12,12 @@ function* addPersonSaga(action) {
     const userToken = window.localStorage.getItem('token');
     const config = {
       headers: {
-        Authorization: userToken
+        Authorization: `Bearer ${userToken}`
       }
     };
-    const addPersonResult = yield apiClient.data.addPerson(action.payload, config);
+		const addPersonResult = yield apiClient.data.addPerson(action.payload, config);
     if (addPersonResult && addPersonResult.status === 200) {
-      yield put({ type: actionTypes.UPDATE_USER, payload: addPersonResult.data.rows[0] });
+      yield put({ type: actionTypes.UPDATE_USER, payload: addPersonResult.data });
       yield put({ type: actionTypes.CHANGE_UPDATE_STATUS, payload: 'success' });
     }
   } catch (error) {
@@ -27,20 +27,20 @@ function* addPersonSaga(action) {
 }
 
 function* getPersonSaga(action) {
-  const email = action.payload;
+  const id = action.payload;
   try {
     const userToken = window.localStorage.getItem('token');
     const config = {
       headers: {
-        Authorization: userToken
+        Authorization: `Bearer ${userToken}`
       },
       params: {
-        email
+        id
       }
     };
-    const getPersonResult = yield apiClient.data.getPerson(config);
-    if (getPersonResult.status === 200 && getPersonResult.data.rows[0]) {
-      yield put({ type: actionTypes.UPDATE_USER, payload: getPersonResult.data.rows[0] });
+		const getPersonResult = yield apiClient.data.getPerson(config);
+    if (getPersonResult.status === 200) {
+      yield put({ type: actionTypes.UPDATE_USER, payload: getPersonResult.data });
     }
   } catch (error) {
     console.log(error);
@@ -53,7 +53,7 @@ function* updateAvatarSaga(action) {
   const userToken = window.localStorage.getItem('token');
   const config = {
     headers: {
-      Authorization: userToken
+      Authorization: `Bearer ${userToken}`
     }
   };
   try {

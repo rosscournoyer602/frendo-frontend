@@ -11,9 +11,9 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import addPerson from '../actions/addPerson';
 import updateAvatar from '../actions/updateAvatar';
-import changeUpdateStatus from '../actions/changeUpdateStatus'
-import ImageCropper from './ImageCropper';
+import changeUpdateStatus from '../actions/changeUpdateStatus';
 import Modal from '../components/Modal';
+import placeholder from '../assets/avatar.jpg';
 
 class UpdateInfo extends Component {
   constructor(props) {
@@ -22,96 +22,98 @@ class UpdateInfo extends Component {
     this.state = {
       fileInputMode: '',
       cropButton: 'disabled',
-      imageSrc: null,
-      showModal: false
+      croppedImage: null,
+			showModal: false,
+			cropperOpen: false
     }
 
     this.handleCrop = this.handleCrop.bind(this);
     this.setState = this.setState.bind(this);
-  }
+	}
+	
+	cropperToggle() {
+		this.setState((state) => ({
+			cropperOpen: !state.cropperOpen
+		}))
+	}
 
   getFormValues() {
     const personData = {};
     const { addPerson, currentUser } = this.props;
-    personData.first_name = document.getElementById('firstname').value ? document.getElementById('firstname').value : '';
-    personData.last_name = document.getElementById('lastname').value ? document.getElementById('lastname').value : '';
-    personData.email = currentUser.email;
+		personData.firstName = document.getElementById('firstname').value ? document.getElementById('firstname').value : '';
+		personData.avatar = this.state.croppedImage
+		personData.id = currentUser.id
     // eslint-disable-next-line no-shadow
     addPerson(personData);
   }
-
-  handleFile(e) {
-    if (!e.target.files[0]) return;
-    // const selectedFile = document.getElementById('avatar').files[0];
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.src = event.target.result;
-      img.onload = () => {
-        const elem = document.createElement('canvas');    
-        const width = 250;
-        const scaleFactor = width / img.width;
-        elem.width = width;
-        const height = img.height * scaleFactor;
-        elem.height = height;
-        const ctx = elem.getContext('2d');
-        ctx.drawImage(img, 0, 0, width, height);
-        const data = ctx.canvas.toDataURL('image/jpeg', .8);
-        this.setState({
-          fileInputMode: 'behind',
-          cropButton: '',
-          imageSrc: data
-        });
-      }
-    };
-    reader.readAsDataURL(e.target.files[0]);
-    e.target.value = '';
-  };
   
   handleCrop(data) {
-    const { updateAvatar, currentUser } = this.props;
-    const currentAvatar = currentUser.avatar_url;
-    const user = currentUser.email;
-    updateAvatar({ user, currentAvatar, data });
-    this.setState({
-      fileInputMode: '',
-      cropButton: 'disabled',
-    });
-  }
+		this.setState({
+			croppedImage: data,
+			cropperOpen: false
+		})
+	}
+
+	backToProfile() {
+		this.props.changeUpdateStatus('')
+		this.props.backToProfile()
+	}
 
   render() {
-    const { fileInputMode, cropButton, imageSrc } = this.state;
-    console.log(this.props.updateStatus);
+		const { currentUser } = this.props;
+		const avatar = currentUser.avatar ? currentUser.avatar : placeholder
     return (
       <>
       <form className="auth-form" id="infoForm">
-        <div className="form-field">
-          <input className={`form-file-input ${fileInputMode}`} accept="image/*" onChange={(e) => this.handleFile(e)} type="file" name="avatar" id="avatar" />
-        </div>
-        <ImageCropper handleCrop={this.handleCrop} imageSrc={imageSrc} cropButton={cropButton} />
+				<img
+					className="avatar-img"
+					src={this.state.croppedImage || avatar}
+					alt="user avatar"
+					onClick={() => this.cropperToggle()}
+				/>
         <div className="form-field form-field-label">
           <label className="form-label" htmlFor="firstName">First Name: </label>
         </div>
         <div className="form-field">
-          <input className="form-text-input" type="text" name="firstName" id="firstname" required />
+          <input
+						className="form-text-input"
+						type="text"
+						name="firstName"
+						id="firstname"
+						defaultValue={currentUser.firstName}
+						required
+					/>
         </div>
-        <div className="form-field form-field-label">
+        {/* <div className="form-field form-field-label">
           <label className="form-label" htmlFor="lastName">Last Name: </label>
         </div>
         <div className="form-field">
           <input className="form-text-input" type="text" name="lastName" id="lastname" required />
-        </div>
+        </div> */}
         <div className="form-field">
-          <input className="btn form-button" type="button" value="Update Info" onClick={() => this.getFormValues()} />
+          <input
+						className="btn form-button"
+						type="button"
+						value="Update Info"
+						onClick={() => this.getFormValues()}
+					/>
         </div>
       </form>
-      {this.props.updateStatus === 'success' &&
+      {!this.state.cropperOpen && this.props.updateStatus === 'success' &&
         <Modal 
           title="Nice!" 
           message="Your user profile has been updated" 
-          onModalOk={() => this.props.changeUpdateStatus('')} 
+          onModalOk={() => this.backToProfile()} 
         />
       }
+			{this.state.cropperOpen &&
+          <Modal
+            title="Crop your image"
+						message=""
+						cropper={avatar}
+            cropperCallback={this.handleCrop}
+          />
+			}
       </>
     );
   }
@@ -125,13 +127,13 @@ UpdateInfo.propTypes = {
   changeUpdateStatus: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators( { 
+const mapDispatchToProps = (dispatch) => bindActionCreators({ 
   addPerson, 
   updateAvatar,
   changeUpdateStatus 
 }, dispatch);
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { currentUser, updateStatus } = state;
   return {
     currentUser,

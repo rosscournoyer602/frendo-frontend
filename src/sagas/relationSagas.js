@@ -10,7 +10,7 @@ function* getFriendsSaga(action) {
     const userToken = window.localStorage.getItem('token');
     const config = {
       headers: {
-        Authorization: userToken
+        Authorization: `Bearer ${userToken}`
       },
       params: {
         id
@@ -30,7 +30,7 @@ function* friendActionSaga(action) {
     const userToken = window.localStorage.getItem('token');
     const config = {
       headers: {
-        Authorization: userToken
+        Authorization: `Bearer ${userToken}`
       }
     };
     const updateFriendResult = yield apiClient.relations.updateFriends(action.payload, config);
@@ -48,7 +48,7 @@ function* getChatSaga(action) {
     const id = action.payload;
     const config = {
       headers: {
-        Authorization: userToken
+        Authorization: `Bearer ${userToken}`
       },
       params: {
         id
@@ -68,7 +68,7 @@ function* updateChatSaga(action) {
     const userToken = window.localStorage.getItem('token');
     const config = {
       headers: {
-        Authorization: userToken
+        Authorization: `Bearer ${userToken}`
       }
     };
     yield apiClient.relations.updateChat(action.payload, config);

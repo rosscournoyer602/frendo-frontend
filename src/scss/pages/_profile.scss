@@ -8,24 +8,9 @@
     font-size: 1.4rem;
     color: $dark-text;
   }
-  .cropper {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-
-    .cropper-view-box {
-      outline: none;
-    }
-    .cropper-line {
-      visibility: hidden;
-    }
-    .cropper-point {
-      visibility: hidden;
-    };
-  }
 
   .profile-field {
-    margin-top: 5px;
+		margin-top: 5px;
     text-align: center;
   }
 
@@ -44,9 +29,12 @@
 
   .auth-form {
     .form-field {
-      position: relative;
-      top: 220px;
-    }
+      margin: 0px auto;
+		}
+		.form-field-label {
+			text-align: left;
+			margin-bottom: 5px;
+		}
   }
 }
 
@@ -55,6 +43,23 @@
   // margin-left: -20px;
   width: 200px;
   height: 200px;
+}
+
+.cropper {
+	margin: auto;
+	border-radius: 50%;
+	.cropper-view-box {
+		outline: none;
+	}
+	.cropper-line {
+		visibility: hidden;
+	}
+	.cropper-point {
+		visibility: hidden;
+	}
+	.cropper-center {
+		visibility: hidden;
+	}
 }
 
 .cropper-cover {
