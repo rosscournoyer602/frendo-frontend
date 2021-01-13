@@ -7,7 +7,7 @@ const ProfileDisplay = props => {
 	const { currentUser } = props;
 	console.log(currentUser)
   const avatarSrc =
-    currentUser.avatar_url === '' || !currentUser.avatar_url
+    currentUser.avatar === '' || !currentUser.avatar
       ? placeholder
       : `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/200x200/${currentUser.avatar}`;
 
