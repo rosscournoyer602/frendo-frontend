@@ -6,12 +6,18 @@ const ImageCropper = (props) => {
 	const cropperRef = useRef(null);
 	const [imageSrc, setImageSrc] = useState(props.cropper)
 	const [hideInput, setHideInput] = useState(false)
+	const [canCrop, setCanCrop] = useState(false)
 
 	const handleCrop = () => {
 		const imageElement = cropperRef.current;
 		const cropper =  imageElement.cropper;
-		const data = cropper.getCroppedCanvas().toDataURL()
-		props.callback(data)
+		const canvas = cropper.getCroppedCanvas()
+		if (canCrop) {
+			const data = canvas.toDataURL()
+			props.callback(data)
+		} else {
+			props.callback(null)
+		}
 	}
 	
 	const handleFile = (e) => {
@@ -33,6 +39,7 @@ const ImageCropper = (props) => {
 				const data = ctx.canvas.toDataURL('image/jpeg', .8);
 				setImageSrc(data);
 				setHideInput(true);
+				setCanCrop(true);
       }
     };
     reader.readAsDataURL(e.target.files[0]);
@@ -65,6 +72,7 @@ const ImageCropper = (props) => {
 				viewMode={3}
 				minCropBoxHeight={200}
 				minContainerWidth={200}
+				checkCrossOrigin={false}
 				ref={cropperRef}
 			/>
 			<button

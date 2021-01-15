@@ -5,7 +5,6 @@ import placeholder from '../assets/avatar.jpg';
 
 const ProfileDisplay = props => {
 	const { currentUser } = props;
-	console.log(currentUser)
   const avatarSrc =
     currentUser.avatar === '' || !currentUser.avatar
       ? placeholder

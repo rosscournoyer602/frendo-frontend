@@ -28,15 +28,7 @@ class SignIn extends Component {
 
 	componentDidMount() {
 		const that = this
-		document.addEventListener('keypress', function(e) {
-			if (e.key === 'Enter') {
-				that.getFormValues()
-			}
-		})
-	}
-
-	componentWillUnmount() {
-		document.removeEventListener('keypress', function(e) {
+		document.getElementById('signInForm').addEventListener('keypress', function(e) {
 			if (e.key === 'Enter') {
 				that.getFormValues()
 			}
@@ -45,7 +37,6 @@ class SignIn extends Component {
 
   render() {
     const { authStatus, updateStatus } = this.props;
-    console.log(updateStatus);
     if (authStatus) return <Redirect to="/" />;
 
     return (

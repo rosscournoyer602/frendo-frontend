@@ -21,7 +21,19 @@ class SignUp extends Component {
       error: false,
       errorMessage: {}
     }
-  }
+	}
+	
+	componentDidMount() {
+		const that = this
+		const signUpForm = document.getElementById('signUpForm')
+		if (signUpForm) {
+			signUpForm.addEventListener('keypress', function(e) {
+				if (e.key === 'Enter') {
+					that.getFormValues()
+				}
+			})
+		}
+	}
 
   componentDidUpdate(prevProps) {
     const { updateStatus } = this.props;

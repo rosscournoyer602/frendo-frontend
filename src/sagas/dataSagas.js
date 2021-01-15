@@ -71,16 +71,16 @@ function* searchUsersSaga(action) {
   const userToken = window.localStorage.getItem('token');
   const config = {
     headers: {
-      Authorization: userToken
+      Authorization: `Bearer ${userToken}`
     },
     params: {
-      search: action.payload
+      q: action.payload
     }
   };
   try {
-    const searchUserResult = yield apiClient.data.searchUser(config);
+		const searchUserResult = yield apiClient.data.searchUser(config);
     if (searchUserResult.status === 200) {
-      yield put({ type: actionTypes.UPDATE_SEARCH, payload: searchUserResult.data.rows });
+      yield put({ type: actionTypes.UPDATE_SEARCH, payload: searchUserResult.data });
     }
   } catch (error) {
     console.log(error);

@@ -41,6 +41,7 @@ class UpdateInfo extends Component {
     const personData = {};
     const { addPerson, currentUser } = this.props;
 		personData.firstName = document.getElementById('firstname').value ? document.getElementById('firstname').value : '';
+		personData.prevAvatar = currentUser.avatar
 		personData.avatar = this.state.croppedImage
 		personData.id = currentUser.id
     // eslint-disable-next-line no-shadow
@@ -48,10 +49,16 @@ class UpdateInfo extends Component {
   }
   
   handleCrop(data) {
-		this.setState({
-			croppedImage: data,
-			cropperOpen: false
-		})
+		if (data) {
+			this.setState({
+				croppedImage: data || placeholder,
+				cropperOpen: false
+			})
+		} else {
+			this.setState({
+				cropperOpen: false
+			})
+		}
 	}
 
 	backToProfile() {
@@ -61,12 +68,13 @@ class UpdateInfo extends Component {
 
   render() {
 		const { currentUser } = this.props;
-		const avatar = currentUser.avatar ? currentUser.avatar : placeholder
+		const avatar = currentUser.avatar ?`http://friendo2.s3-website-ap-northeast-1.amazonaws.com/200x200/${currentUser.avatar}` : placeholder
+
     return (
       <>
       <form className="auth-form" id="infoForm">
 				<img
-					className="avatar-img"
+					className="avatar-img update-avatar-img"
 					src={this.state.croppedImage || avatar}
 					alt="user avatar"
 					onClick={() => this.cropperToggle()}
@@ -84,12 +92,6 @@ class UpdateInfo extends Component {
 						required
 					/>
         </div>
-        {/* <div className="form-field form-field-label">
-          <label className="form-label" htmlFor="lastName">Last Name: </label>
-        </div>
-        <div className="form-field">
-          <input className="form-text-input" type="text" name="lastName" id="lastname" required />
-        </div> */}
         <div className="form-field">
           <input
 						className="btn form-button"

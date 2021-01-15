@@ -9,7 +9,6 @@
     }
     .header-li {
       display: none;
-      // pointer-events: none;
     }
   }
   .welcome-page {
@@ -20,8 +19,5 @@
 @media only screen and (min-width: 700px) { 
     .bm-burger-button {
       visibility: hidden;
-    }
-    .friend-item-avatar {
-      margin-left: 38px;
     }
 }

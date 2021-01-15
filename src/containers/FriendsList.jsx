@@ -24,33 +24,37 @@ class FriendsList extends Component {
 
   componentDidMount() {
     const { currentUser, getPerson, getFriends } = this.props;
-    if (currentUser.email && !currentUser.person_id) {
-      getPerson(currentUser.email);
-    }
-    if (!currentUser.email && window.localStorage.getItem('user')) {
-      getPerson(window.localStorage.getItem('user'));
-    }
-    if (currentUser.person_id) {
-      getFriends(currentUser.person_id);
-    }
+		if (currentUser.id) {
+			getFriends(currentUser.id)
+		} else {
+			const id = localStorage.getItem('user')
+			getPerson(id)
+		}
   }
 
   componentDidUpdate(prevProps) {
-    const { currentUser, getFriends } = this.props;
-    if (currentUser.person_id !== prevProps.currentUser.person_id) {
-      getFriends(currentUser.person_id);
-    }
+		const { currentUser, getFriends } = this.props;
+		if (prevProps.currentUser.id !== currentUser.id) {
+			getFriends(currentUser.id)
+		}
   }
 
   parseList(list) {
-    const { currentUser } = this.props;
+		const { currentUser } = this.props;
     list.forEach(item => {
-      switch (item.friend_status) {
+			// tag objects to identify which one is the 'friend'
+			if (item.personOne && item.personOne.id === currentUser.id) {
+				item.friendField = 'personTwo'
+			}
+			if (item.personTwo && item.personTwo.id === currentUser.id) {
+				item.friendField = 'personOne'
+			}
+      switch (item.status) {
         case 2:
           this.friends.push(item);
           break;
         case 1:
-          if (item.action_taker === currentUser.person_id) {
+          if (item.actionTaker === currentUser.id) {
             this.waitingForAccept.push(item);
           } else {
             this.incomingAccept.push(item);
@@ -63,11 +67,11 @@ class FriendsList extends Component {
   }
 
   render() {
-    const { friends } = this.props;
+		const { friends } = this.props;
     this.waitingForAccept = [];
     this.incomingAccept = [];
     this.friends = [];
-    this.parseList(friends);
+		this.parseList(friends);
     return (
       <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
         <div className="friends-list">
@@ -75,10 +79,10 @@ class FriendsList extends Component {
           {this.friends.length > 0 && (
             <ul>
               {this.friends.map(friend => (
-                <li key={friend.person_id}>
-                  {friend.friend_status === 2 && (
+                <li key={friend.id}>
+                  {friend.status === 2 && (
                     <Link to={`/friend/${friend.person_id}`}>
-                      <FriendItem friend={friend} actionType="friend" />
+                      <FriendItem friend={friend[friend.friendField]} actionType="friend" />
                     </Link>
                   )}
                   {friend.friend_status === 1 && <FriendItem friend={friend} />}
@@ -91,8 +95,8 @@ class FriendsList extends Component {
               <h2 className="friends-list-header">Waiting for them to accept</h2>
               <ul>
                 {this.waitingForAccept.map(friend => (
-                  <li key={friend.person_id}>
-                    <FriendItem friend={friend} actionType="waitingForAccept" />
+                  <li key={friend.id}>
+                    <FriendItem friend={friend[friend.friendField]} actionType="waitingForAccept" />
                   </li>
                 ))}
               </ul>
@@ -104,7 +108,7 @@ class FriendsList extends Component {
               <ul>
                 {this.incomingAccept.map(friend => (
                   <li key={friend.person_id}>
-                    <FriendItem friend={friend} actionType="incomingRequest" />
+                    <FriendItem friend={friend[friend.friendField]} actionType="incomingRequest" />
                   </li>
                 ))}
               </ul>

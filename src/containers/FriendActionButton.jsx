@@ -15,28 +15,28 @@ class FriendActionButton extends Component {
     super(props);
     this.state = {
       disabled: true,
-      option: 0,
-      optionText: ''
+      option: 1,
+      optionText: 'Add'
     };
   }
 
   componentDidMount() {
     const { friends, friend } = this.props;
-    const match = friends.filter(f => f.person_id === friend.person_id);
-    if (match.length === 0) {
-      this.setState({
-        disabled: false,
-        optionText: 'Add',
-        option: 1
-      });
-    }
-    if (match.length === 1) {
-      this.setState({
-        disabled: false,
-        optionText: 'Block',
-        option: 3
-      });
-    }
+    // const match = friends.filter(f => f.person_id === friend.person_id);
+    // if (match.length === 0) {
+    //   this.setState({
+    //     disabled: false,
+    //     optionText: 'Add',
+    //     option: 1
+    //   });
+    // }
+    // if (match.length === 1) {
+    //   this.setState({
+    //     disabled: false,
+    //     optionText: 'Block',
+    //     option: 3
+    //   });
+    // }
     this.determineOptionText();
   }
 
@@ -98,7 +98,7 @@ FriendActionButton.propTypes = {
   friend: PropTypes.object.isRequired,
   friends: PropTypes.array.isRequired,
   friendAction: PropTypes.func.isRequired,
-  actionTaker: PropTypes.number.isRequired,
+  actionTaker: PropTypes.number,
   actionType: PropTypes.string
 };
 

@@ -15,40 +15,72 @@ import getPerson from '../actions/getPerson';
 import updateSearch from '../actions/updateSearch';
 
 class UserSearch extends Component {
-  componentDidMount() {
-    const { currentUser, getFriends, getPerson, updateSearch } = this.props;
+	componentDidMount() {
+		const that = this
+    const { currentUser, getFriends, getPerson, updateSearch, friends } = this.props;
     updateSearch([]);
-    if (currentUser.email && !currentUser.person_id) {
-      getPerson(currentUser.email);
+    if (!currentUser.id) {
+      getPerson(localStorage.getItem('user'));
     }
-    if (!currentUser.email && window.localStorage.getItem('user')) {
-      getPerson(window.localStorage.getItem('user'));
-    }
-    if (currentUser.person_id) {
-      getFriends(currentUser.person_id);
-    }
+    if (currentUser.id) {
+      getFriends(currentUser.id);
+		}
+		const searchform = document.getElementById('searchform')
+		searchform.addEventListener('keypress', function(e) {
+			if (e.key === 'Enter') {
+				e.preventDefault()
+				that.handleSearch()
+			}
+		})
   }
 
   componentDidUpdate(prevProps) {
     const { currentUser, getFriends } = this.props;
-    if (currentUser.person_id !== prevProps.currentUser.person_id) {
-      getFriends(currentUser.person_id);
+    if (currentUser.id !== prevProps.currentUser.id) {
+      getFriends(currentUser.id);
     }
   }
 
   handleSearch() {
     const { searchUsers } = this.props;
-    const searchInput = document.getElementById('searchInput').value;
+		const searchInput = document.getElementById('searchInput').value;
     searchUsers(searchInput);
   }
 
   render() {
-    const { searchResults } = this.props;
+		const { searchResults, friends, currentUser } = this.props;
+	
+		// check search results to see if they're already on user's friendlist
+		// also remove the current user from any search results
+		searchResults.forEach((sr, i) => {
+			if (sr.id === currentUser.id) searchResults.splice(i, 1)
+			const eff = friends.find(f => f.personOne.id === sr.id || f.personTwo.id === sr.id)
+			if (eff) {
+				if (eff.personOne.id === currentUser.id) {
+					eff.friendField = 'personTwo'
+				}
+				if (eff.personTwo && eff.personTwo.id === currentUser.id) {
+					eff.friendField = 'personOne'
+				}
+				sr.friend = eff
+				if (sr.friend.status === 1) {
+					if (sr.friend.actionTaker === currentUser.id) {
+						sr.actionType = 'waitingForAccept'
+					} else {
+						sr.actionType = 'incomingRequest'
+					}
+				}
+				if (sr.friend.status === 2) {
+					sr.actionType = 'friend'
+				}
+			}
+		})
+
     return (
       <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
         <div className="search-page">
           <h2 className="friends-list-header">Search for friends</h2>
-          <form className="search-form">
+          <form id="searchform" className="search-form">
             <input className="form-text-input search-input" id="searchInput" type="text" />
             <button
               className="btn form-button search-button"
@@ -60,9 +92,9 @@ class UserSearch extends Component {
           </form>
           {searchResults.length > 0 && (
             <ul>
-              {searchResults.map(friend => (
-                <li key={friend.person_id}>
-                  <FriendItem friend={friend} />
+              {searchResults.map(sr => (
+                <li key={sr.id}>
+                  <FriendItem friend={sr} actionType={sr.actionType || null} />
                 </li>
               ))}
             </ul>
@@ -84,7 +116,8 @@ UserSearch.propTypes = {
 
 const mapStateToProps = state => ({
   searchResults: state.searchResults,
-  currentUser: state.currentUser
+	currentUser: state.currentUser,
+	friends: state.friends
 });
 
 const mapDispatchToProps = dispatch =>
