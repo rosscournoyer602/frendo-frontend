@@ -7,19 +7,19 @@ import placeholder from '../assets/avatar.jpg';
 import FriendActionButton from '../containers/FriendActionButton';
 
 const FriendItem = props => {
-	const { friend } = props;
-	console.log('FRIEND', friend)
+	const { friend, actionTaker, friendship } = props;
   const avatarSrc = !friend.avatar ? placeholder :
 	`http://friendo2.s3-website-ap-northeast-1.amazonaws.com/64x64/${props.friend.avatar}`;
 
-  const firstName = friend.firstName;
+	const firstName = friend.firstName;
+	console.log('FIAT', actionTaker)
   return (
     <div className="friend-item-container">
       <img className="friend-item-avatar" src={avatarSrc} alt={`${firstName}`} />
       <div className="friend-info-section">
         <h2 className="friend-item-name">{`${firstName}`}</h2>
       </div>
-      <FriendActionButton friend={friend.friend || friend} actionType={props.actionType} />
+      <FriendActionButton friend={friend.friend || friend} actionType={props.actionType} actionTaker={actionTaker} friendship={friendship}/>
     </div>
   );
 };
@@ -28,5 +28,6 @@ export default FriendItem;
 
 FriendItem.propTypes = {
   friend: PropTypes.object.isRequired,
-  actionType: PropTypes.string
+	actionType: PropTypes.string,
+	actionTaker: PropTypes.number
 };

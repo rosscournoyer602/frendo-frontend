@@ -67,7 +67,7 @@ class FriendsList extends Component {
   }
 
   render() {
-		const { friends } = this.props;
+		const { friends, currentUser } = this.props;
     this.waitingForAccept = [];
     this.incomingAccept = [];
     this.friends = [];
@@ -81,8 +81,8 @@ class FriendsList extends Component {
               {this.friends.map(friend => (
                 <li key={friend.id}>
                   {friend.status === 2 && (
-                    <Link to={`/friend/${friend.person_id}`}>
-                      <FriendItem friend={friend[friend.friendField]} actionType="friend" />
+                    <Link to={`/friend/${friend[friend.friendField].id}`}>
+                      <FriendItem friend={friend[friend.friendField]} actionType="friend" actionTaker={currentUser.id} friendship={friend} />
                     </Link>
                   )}
                   {friend.friend_status === 1 && <FriendItem friend={friend} />}
@@ -96,7 +96,7 @@ class FriendsList extends Component {
               <ul>
                 {this.waitingForAccept.map(friend => (
                   <li key={friend.id}>
-                    <FriendItem friend={friend[friend.friendField]} actionType="waitingForAccept" />
+                    <FriendItem friend={friend[friend.friendField]} actionType="waitingForAccept" actionTaker={currentUser.id} friendship={friend} />
                   </li>
                 ))}
               </ul>
@@ -108,7 +108,7 @@ class FriendsList extends Component {
               <ul>
                 {this.incomingAccept.map(friend => (
                   <li key={friend.person_id}>
-                    <FriendItem friend={friend[friend.friendField]} actionType="incomingRequest" />
+                    <FriendItem friend={friend[friend.friendField]} actionType="incomingRequest" actionTaker={currentUser.id} friendship={friend} />
                   </li>
                 ))}
               </ul>

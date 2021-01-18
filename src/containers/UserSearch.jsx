@@ -94,7 +94,7 @@ class UserSearch extends Component {
             <ul>
               {searchResults.map(sr => (
                 <li key={sr.id}>
-                  <FriendItem friend={sr} actionType={sr.actionType || null} />
+                  <FriendItem friend={sr} actionType={sr.actionType || null} actionTaker={currentUser.id} />
                 </li>
               ))}
             </ul>

@@ -16,51 +16,60 @@ import Chatbox from './Chatbox';
 class FriendDisplay extends Component {
   componentDidMount() {
     const { currentUser, getPerson, getFriends } = this.props;
-    if (currentUser.email && !currentUser.person_id) {
-      getPerson(currentUser.email);
-    }
-    if (!currentUser.email && window.localStorage.getItem('user')) {
-      getPerson(window.localStorage.getItem('user'));
-    }
-    if (currentUser.person_id) {
-      getFriends(currentUser.person_id);
-    }
+		if (currentUser.id) {
+			getFriends(currentUser.id)
+		} else {
+			const id = localStorage.getItem('user')
+			getPerson(id)
+		}
   }
 
   componentDidUpdate(prevProps) {
     const { currentUser, getFriends } = this.props;
-    if (currentUser.person_id !== prevProps.currentUser.person_id) {
-      getFriends(currentUser.person_id);
+    if (currentUser.id !== prevProps.currentUser.id) {
+      getFriends(currentUser.id);
     }
   }
 
   render() {
     const { location, friends, currentUser } = this.props;
-    const displayedFriendId = location.pathname.split('/')[2];
+		const displayedFriendId = location.pathname.split('/')[2];
     const friendData = friends.filter(
-      friend => friend.person_id === parseInt(displayedFriendId, 10)
-    );
+      friend => friend.personOne.id === parseInt(displayedFriendId, 10) || friend.person2.id === parseInt(displayedFriendId, 10)
+		);
+		let friend
+		if (friendData[0]) {
+			friend = friendData[0]
+			if (friend.personOne && friend.personOne.id === currentUser.id) {
+				friend.friendField = 'personTwo'
+			}
+			if (friend.personTwo && friend.personTwo.id === currentUser.id) {
+				friend.friendField = 'personOne'
+			}
+		}
+		console.log('FREEEUNDSS', friend)
     const avatarSrc =
-      !friendData[0] || friendData[0].avatar_url === '' || !friendData[0].avatar_url
-        ? placeholder
-        : `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/100x100/${friendData[0].avatar_url}`;
+			!friend || !friend[friend.friendField].avatar
+			? placeholder
+			: `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/100x100/${friend[friend.friendField].avatar}`;
+
     return (
       <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
         <div className="friend-page">
-          <WebSocketHOC userID={currentUser.person_id} friendID={displayedFriendId}>
+          <WebSocketHOC userID={currentUser.id} friendID={displayedFriendId}>
             <div className="friend-display">
               <img className="friend-avatar-img" src={avatarSrc} alt="user avatar" />
-              {friendData[0] && friendData[0].first_name && (
+              {friend && friend.firstName && (
                 <h3 className="friend-field">
-                  {`${friendData[0].first_name} ${friendData[0].last_name}`}
+                  {`${friend.firstName}`}
                 </h3>
               )}
-              {!friendData[0] ||
-                (!friendData[0].first_name && (
-                  <h3 className="friend-field">Update your information!</h3>
-                ))}
+              {/* {!friendData[0] ||
+							(!friendData[0].first_name && (
+								<h3 className="friend-field">Update your information!</h3>
+							))} */}
             </div>
-            <Chatbox friendship={friendData.length > 0 ? friendData[0] : null} />
+            <Chatbox friendship={friend} />
           </WebSocketHOC>
         </div>
       </CSSTransition>

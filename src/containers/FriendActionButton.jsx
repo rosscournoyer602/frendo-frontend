@@ -21,22 +21,6 @@ class FriendActionButton extends Component {
   }
 
   componentDidMount() {
-    const { friends, friend } = this.props;
-    // const match = friends.filter(f => f.person_id === friend.person_id);
-    // if (match.length === 0) {
-    //   this.setState({
-    //     disabled: false,
-    //     optionText: 'Add',
-    //     option: 1
-    //   });
-    // }
-    // if (match.length === 1) {
-    //   this.setState({
-    //     disabled: false,
-    //     optionText: 'Block',
-    //     option: 3
-    //   });
-    // }
     this.determineOptionText();
   }
 
@@ -65,7 +49,9 @@ class FriendActionButton extends Component {
   }
 
   performFriendAction() {
-    const { friendAction, actionTaker, friend } = this.props;
+		console.log(this.props)
+		const { friendAction, actionTaker, friend, friendship } = this.props;
+
     const { option } = this.state;
     if (this.state.optionText === 'Accept') {
       this.setState({
@@ -76,8 +62,8 @@ class FriendActionButton extends Component {
       this.setState({
         optionText: 'Added'
       });
-    }
-    friendAction({ id1: actionTaker, id2: friend.person_id, option, actionTaker });
+		}
+    friendAction({ id1: friendship.personOne.id, id2: friendship.personTwo.id, status: option, actionTaker });
   }
 
   render() {
@@ -104,8 +90,7 @@ FriendActionButton.propTypes = {
 
 const mapStateToProps = state => ({
   searchResults: state.searchResults,
-  friends: state.friends,
-  actionTaker: state.currentUser.person_id
+  friends: state.friends
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ friendAction }, dispatch);

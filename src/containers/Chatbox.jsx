@@ -24,7 +24,8 @@ class Chatbox extends Component {
   }
 
   componentDidMount() {
-    const { messages } = this.props;
+		const { messages, friendship } = this.props;
+		console.log('FRIENDSHIP', friendship)
     if (messages && messages.messages) {
       const newMessages = JSON.parse(messages.messages);
       this.setState({
@@ -36,9 +37,8 @@ class Chatbox extends Component {
 
   componentDidUpdate(prevProps) {
     const { friendship, getChat, messages } = this.props;
-    const friendshipId = friendship ? friendship.friendship_id : null;
-    const prevFriendshipId = prevProps.friendship ? prevProps.friendship.friendship_id : null;
-
+    const friendshipId = friendship ? friendship.id : null;
+    const prevFriendshipId = prevProps.friendship ? prevProps.friendship.id : null;
     this.updateScroll();
     if (friendshipId && prevFriendshipId !== friendshipId) {
       getChat(friendshipId);
