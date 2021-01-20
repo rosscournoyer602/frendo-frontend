@@ -54,9 +54,9 @@ function* getChatSaga(action) {
         id
       }
     };
-    const getChatResult = yield apiClient.relations.getChat(config);
-    if (getChatResult.status === 200 && getChatResult.data.rows[0]) {
-      yield put({ type: actionTypes.UPDATE_MESSAGES, payload: getChatResult.data.rows[0] });
+		const getChatResult = yield apiClient.relations.getChat(config);
+    if (getChatResult.status === 200 && getChatResult.data) {
+      yield put({ type: actionTypes.UPDATE_MESSAGES, payload: { id: getChatResult.data.id, messages: JSON.parse(getChatResult.data.messages) }});
     }
   } catch (error) {
     console.log(error);

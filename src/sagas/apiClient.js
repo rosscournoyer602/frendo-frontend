@@ -19,6 +19,6 @@ export default {
     getFriends: config => apiClient.get('/friends', config),
     updateFriends: (data, config) => apiClient.put('/friends', data, config),
     getChat: config => apiClient.get('/chat', config),
-    updateChat: (data, config) => apiClient.post('/updatechat', data, config)
+    updateChat: (data, config) => apiClient.put('/chat', data, config)
   }
 };

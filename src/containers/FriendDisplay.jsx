@@ -47,7 +47,7 @@ class FriendDisplay extends Component {
 				friend.friendField = 'personOne'
 			}
 		}
-		console.log('FREEEUNDSS', friend)
+
     const avatarSrc =
 			!friend || !friend[friend.friendField].avatar
 			? placeholder
