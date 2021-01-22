@@ -1,9 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable react/jsx-no-bind */
-/* eslint-disable react/no-string-refs */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Cropper from 'react-cropper';
