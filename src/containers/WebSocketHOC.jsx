@@ -10,8 +10,20 @@ class WebSocketHOC extends Component {
     super(props);
 
     this.friendShipId = null;
-    this.socket = io(process.env.REACT_APP_API_URL);
-  }
+    this.socket = io(process.env.REACT_APP_API_URL, {
+			withCredentials: true
+		});
+	}
+	
+	componentDidMount() {
+		this.socket.on('connect', () => {
+			console.log('CLIENTCONNECT')
+			this.socket.emit('message', 'Hello Server!')
+		})
+		this.socket.on('message', (args) => {
+			console.log('MESSAGE', args)
+		})
+	}
 
   componentDidUpdate() {
     const { messages, updateChat } = this.props;

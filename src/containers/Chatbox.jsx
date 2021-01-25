@@ -53,7 +53,7 @@ class Chatbox extends Component {
     if (input.value) {
       const newMessage = {
         sender: currentUser.id,
-        receiver: friendship.person_id,
+
         content: inputValue
       };
       input.value = '';
@@ -91,7 +91,7 @@ class Chatbox extends Component {
               type = 'outgoing';
               image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${currentUser.avatar}`;
             }
-            if (message.receiver === currentUser.id) {
+            if (message.sender ==+ friendship[friendship.friendField].id) {
               type = 'incoming';
               image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${friendship[friendship.friendField].avatar}`;
             }

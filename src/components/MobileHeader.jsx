@@ -1,8 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-shadow */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { slide as Menu } from 'react-burger-menu';

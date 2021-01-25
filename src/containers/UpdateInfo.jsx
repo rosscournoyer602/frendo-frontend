@@ -1,10 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-shadow */
-/* eslint-disable no-undef */
-/* eslint-disable prettier/prettier */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

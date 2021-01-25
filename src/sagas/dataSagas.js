@@ -1,8 +1,3 @@
-/* eslint-disable require-yield */
-/* eslint-disable no-alert */
-/* eslint-disable no-console */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable no-undef */
 import { takeEvery, put } from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionTypes';
 import apiClient from './apiClient';

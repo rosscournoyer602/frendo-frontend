@@ -35,7 +35,7 @@ class FriendDisplay extends Component {
     const { location, friends, currentUser } = this.props;
 		const displayedFriendId = location.pathname.split('/')[2];
     const friendData = friends.filter(
-      friend => friend.personOne.id === parseInt(displayedFriendId, 10) || friend.person2.id === parseInt(displayedFriendId, 10)
+      friend => friend.personOne.id === parseInt(displayedFriendId, 10) || friend.personTwo.id === parseInt(displayedFriendId, 10)
 		);
 		let friend
 		if (friendData[0]) {
@@ -47,7 +47,7 @@ class FriendDisplay extends Component {
 				friend.friendField = 'personOne'
 			}
 		}
-
+		console.log('FRIEND', friend)
     const avatarSrc =
 			!friend || !friend[friend.friendField].avatar
 			? placeholder

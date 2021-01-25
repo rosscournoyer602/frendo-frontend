@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable import/prefer-default-export */
 import { takeEvery, put } from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionTypes';
 import apiClient from './apiClient';

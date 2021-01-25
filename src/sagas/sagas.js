@@ -1,4 +1,3 @@
-/* eslint-disable import/named */
 import { all } from 'redux-saga/effects';
 import { trySignInUserSaga, trySignUpUserSaga } from './authSagas';
 import {
