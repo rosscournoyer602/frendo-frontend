@@ -18,7 +18,7 @@ const ChatBubble = props => {
 ChatBubble.propTypes = {
   content: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired
+  image: PropTypes.string
 };
 
 export default ChatBubble;

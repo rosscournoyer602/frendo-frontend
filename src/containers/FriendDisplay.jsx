@@ -56,7 +56,7 @@ class FriendDisplay extends Component {
     return (
       <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>
         <div className="friend-page">
-          <WebSocketHOC userID={currentUser.id} friendID={displayedFriendId}>
+          <WebSocketHOC userID={currentUser.id} friendID={displayedFriendId} friend={friend}>
             <div className="friend-display">
               <img className="friend-avatar-img" src={avatarSrc} alt="user avatar" />
               {friend && friend.firstName && (

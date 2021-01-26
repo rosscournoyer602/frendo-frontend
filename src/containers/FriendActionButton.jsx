@@ -14,7 +14,7 @@ class FriendActionButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disabled: true,
+      disabled: false,
       option: 1,
       optionText: 'Add'
     };
@@ -50,8 +50,7 @@ class FriendActionButton extends Component {
 
   performFriendAction() {
 		console.log(this.props)
-		const { friendAction, actionTaker, friend, friendship } = this.props;
-
+		const { friendAction, actionTaker, friendship, currentUser, friend } = this.props;
     const { option } = this.state;
     if (this.state.optionText === 'Accept') {
       this.setState({
@@ -63,7 +62,11 @@ class FriendActionButton extends Component {
         optionText: 'Added'
       });
 		}
-    friendAction({ id1: friendship.personOne.id, id2: friendship.personTwo.id, status: option, actionTaker });
+		if (friendship) {
+			friendAction({ id1: friendship.personOne.id, id2: friendship.personTwo.id, status: option, actionTaker });
+		} else {
+			friendAction({ id1: currentUser.id, id2: friend.id, status: option, actionTaker });
+		}
   }
 
   render() {
@@ -90,7 +93,8 @@ FriendActionButton.propTypes = {
 
 const mapStateToProps = state => ({
   searchResults: state.searchResults,
-  friends: state.friends
+	friends: state.friends,
+	currentUser: state.currentUser
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ friendAction }, dispatch);

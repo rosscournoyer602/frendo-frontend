@@ -39,9 +39,9 @@ class Chatbox extends Component {
       getChat(friendshipId);
     }
     if (prevProps.messages.messages !== messages.messages) {
-      this.setState({
-        messages: messages.messages
-      });
+			this.setState({
+				messages: messages.messages
+			})
     }
   }
 
@@ -53,13 +53,13 @@ class Chatbox extends Component {
     if (input.value) {
       const newMessage = {
         sender: currentUser.id,
-
         content: inputValue
       };
       input.value = '';
       sendMessage({
-        id: chatMessages.id,
-        messages: JSON.stringify([...chatMessages.messages, newMessage])
+				id: chatMessages.id,
+				messages: JSON.stringify([...chatMessages.messages, newMessage]),
+				friendshipId: friendship.id
 			});
     }
   }
@@ -91,7 +91,7 @@ class Chatbox extends Component {
               type = 'outgoing';
               image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${currentUser.avatar}`;
             }
-            if (message.sender ==+ friendship[friendship.friendField].id) {
+            if (message.sender === friendship[friendship.friendField].id) {
               type = 'incoming';
               image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${friendship[friendship.friendField].avatar}`;
             }
@@ -120,7 +120,7 @@ class Chatbox extends Component {
 
 Chatbox.propTypes = {
   friendship: PropTypes.object,
-  messages: PropTypes.object,
+  messages: PropTypes.any,
   getChat: PropTypes.func.isRequired,
   sendMessage : PropTypes.func.isRequired,
   currentUser: PropTypes.object.isRequired

@@ -17,7 +17,7 @@ import updateSearch from '../actions/updateSearch';
 class UserSearch extends Component {
 	componentDidMount() {
 		const that = this
-    const { currentUser, getFriends, getPerson, updateSearch, friends } = this.props;
+    const { currentUser, getFriends, getPerson, updateSearch } = this.props;
     updateSearch([]);
     if (!currentUser.id) {
       getPerson(localStorage.getItem('user'));

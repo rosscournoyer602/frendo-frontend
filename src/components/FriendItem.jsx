@@ -12,6 +12,7 @@ const FriendItem = props => {
 	`http://friendo2.s3-website-ap-northeast-1.amazonaws.com/64x64/${props.friend.avatar}`;
 
 	const firstName = friend.firstName;
+	console.log(props)
   return (
     <div className="friend-item-container">
       <img className="friend-item-avatar" src={avatarSrc} alt={`${firstName}`} />
