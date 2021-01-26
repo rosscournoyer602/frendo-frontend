@@ -21,53 +21,46 @@ class Chatbox extends Component {
     this.state = {
       messages: []
     }
-  }
+	}
 
-  componentDidMount() {
-    const { messages } = this.props;
-    if (messages && messages.messages) {
-      const newMessages = JSON.parse(messages.messages);
-      this.setState({
-        messages: newMessages
-      });
-    }
-    this.updateScroll();
-  }
+	componentDidMount() {
+		const { friendship, getChat } = this.props
+		if (friendship) {
+			getChat(friendship.id);
+		}
+	}
 
   componentDidUpdate(prevProps) {
-    const { friendship, getChat, messages } = this.props;
-    const friendshipId = friendship ? friendship.friendship_id : null;
-    const prevFriendshipId = prevProps.friendship ? prevProps.friendship.friendship_id : null;
-
+		const { friendship, getChat, messages } = this.props;
+    const friendshipId = friendship ? friendship.id : null;
+    const prevFriendshipId = prevProps.friendship ? prevProps.friendship.id : null;
     this.updateScroll();
     if (friendshipId && prevFriendshipId !== friendshipId) {
       getChat(friendshipId);
     }
-    if (friendshipId && Object.keys(messages).length === 0) {
-      getChat(friendshipId);
-    }
     if (prevProps.messages.messages !== messages.messages) {
-      const newMessages = JSON.parse(messages.messages);
-      this.setState({
-        messages: newMessages
-      });
+			this.setState({
+				messages: messages.messages
+			})
     }
   }
 
   handleChatSubmit(inputValue, chatMessages) {
-    const { currentUser, friendship, sendMessage } = this.props;
-    const input = document.getElementById('userinput');
+		const { currentUser, friendship, sendMessage } = this.props;
+		if (!chatMessages) return
+		const input = document.getElementById('userinput');
+
     if (input.value) {
       const newMessage = {
-        sender: currentUser.person_id,
-        receiver: friendship.person_id,
+        sender: currentUser.id,
         content: inputValue
       };
       input.value = '';
       sendMessage({
-        friendship: friendship.friendship_id,
-        messages: JSON.stringify([...chatMessages, newMessage])
-      });
+				id: chatMessages.id,
+				messages: JSON.stringify([...chatMessages.messages, newMessage]),
+				friendshipId: friendship.id
+			});
     }
   }
 
@@ -77,31 +70,30 @@ class Chatbox extends Component {
   }
 
   handleKeyDown(e) {
-    if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+    if (e.key === 'Enter') {  //checks whether the pressed key is "Enter"
       e.preventDefault();
       const { messages } = this.props;
       const input = document.getElementById('userinput').value;
-      const parsedMessages = JSON.parse(messages.messages)
-      this.handleChatSubmit(input, parsedMessages);
+      this.handleChatSubmit(input, messages);
     }
   }
 
   render() {
     const { friendship, currentUser } = this.props;
-    const { messages } = this.state;
+		const { messages } = this.state;
     return (
       <div className="chatbox-container">
         <div id="chat" className="chatbox-messages">
-          {messages.map((message, index) => {
+          {messages.length > 0 && messages.map((message, index) => {
             let type = 'system';
             let image;
-            if (message.sender === currentUser.person_id) {
+            if (message.sender === currentUser.id) {
               type = 'outgoing';
-              image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${currentUser.avatar_url}`;
+              image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${currentUser.avatar}`;
             }
-            if (message.receiver === currentUser.person_id) {
+            if (message.sender === friendship[friendship.friendField].id) {
               type = 'incoming';
-              image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${friendship.avatar_url}`;
+              image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${friendship[friendship.friendField].avatar}`;
             }
             return (
               <ChatBubble
@@ -128,7 +120,7 @@ class Chatbox extends Component {
 
 Chatbox.propTypes = {
   friendship: PropTypes.object,
-  messages: PropTypes.object,
+  messages: PropTypes.any,
   getChat: PropTypes.func.isRequired,
   sendMessage : PropTypes.func.isRequired,
   currentUser: PropTypes.object.isRequired

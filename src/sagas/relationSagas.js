@@ -8,7 +8,7 @@ function* getFriendsSaga(action) {
     const userToken = window.localStorage.getItem('token');
     const config = {
       headers: {
-        Authorization: userToken
+        Authorization: `Bearer ${userToken}`
       },
       params: {
         id
@@ -16,7 +16,7 @@ function* getFriendsSaga(action) {
     };
     const getFriendResult = yield apiClient.relations.getFriends(config);
     if (getFriendResult.status === 200 && getFriendResult.data) {
-      yield put({ type: actionTypes.UPDATE_FRIENDS, payload: getFriendResult.data.rows });
+      yield put({ type: actionTypes.UPDATE_FRIENDS, payload: getFriendResult.data });
     }
   } catch (error) {
     console.log(error);
@@ -28,7 +28,7 @@ function* friendActionSaga(action) {
     const userToken = window.localStorage.getItem('token');
     const config = {
       headers: {
-        Authorization: userToken
+        Authorization: `Bearer ${userToken}`
       }
     };
     const updateFriendResult = yield apiClient.relations.updateFriends(action.payload, config);
@@ -46,15 +46,15 @@ function* getChatSaga(action) {
     const id = action.payload;
     const config = {
       headers: {
-        Authorization: userToken
+        Authorization: `Bearer ${userToken}`
       },
       params: {
         id
       }
     };
-    const getChatResult = yield apiClient.relations.getChat(config);
-    if (getChatResult.status === 200 && getChatResult.data.rows[0]) {
-      yield put({ type: actionTypes.UPDATE_MESSAGES, payload: getChatResult.data.rows[0] });
+		const getChatResult = yield apiClient.relations.getChat(config);
+    if (getChatResult.status === 200 && getChatResult.data) {
+      yield put({ type: actionTypes.UPDATE_MESSAGES, payload: { id: getChatResult.data.id, messages: JSON.parse(getChatResult.data.messages) }});
     }
   } catch (error) {
     console.log(error);
@@ -66,7 +66,7 @@ function* updateChatSaga(action) {
     const userToken = window.localStorage.getItem('token');
     const config = {
       headers: {
-        Authorization: userToken
+        Authorization: `Bearer ${userToken}`
       }
     };
     yield apiClient.relations.updateChat(action.payload, config);

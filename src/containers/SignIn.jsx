@@ -18,12 +18,19 @@ class SignIn extends Component {
     document.getElementById("signInForm").reset();
     // TODO - More strict field validation
     trySignIn(email, password);
-  }
+	}
+
+	componentDidMount() {
+		const that = this
+		document.getElementById('signInForm').addEventListener('keypress', function(e) {
+			if (e.key === 'Enter') {
+				that.getFormValues()
+			}
+		})
+	}
 
   render() {
-    console.log('APIURL', process.env.REACT_APP_API_URL)
     const { authStatus, updateStatus } = this.props;
-    console.log(updateStatus);
     if (authStatus) return <Redirect to="/" />;
 
     return (

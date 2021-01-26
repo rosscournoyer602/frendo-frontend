@@ -10,15 +10,15 @@ export default {
     signInUser: payload => apiClient.post('/signin', payload)
   },
   data: {
-    addPerson: (data, config) => apiClient.post('/addperson', data, config),
+    addPerson: (data, config) => apiClient.put('/person', data, config),
     getPerson: config => apiClient.get('/person', config),
     updateAvatar: (data, config) => apiClient.put('/avatar', data, config),
     searchUser: config => apiClient.get('/search', config)
   },
   relations: {
     getFriends: config => apiClient.get('/friends', config),
-    updateFriends: (data, config) => apiClient.put('/friendupdate', data, config),
-    getChat: config => apiClient.get('/getchat', config),
-    updateChat: (data, config) => apiClient.post('/updatechat', data, config)
+    updateFriends: (data, config) => apiClient.put('/friends', data, config),
+    getChat: config => apiClient.get('/chat', config),
+    updateChat: (data, config) => apiClient.put('/chat', data, config)
   }
 };

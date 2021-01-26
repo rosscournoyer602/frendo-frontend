@@ -14,29 +14,13 @@ class FriendActionButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disabled: true,
-      option: 0,
-      optionText: ''
+      disabled: false,
+      option: 1,
+      optionText: 'Add'
     };
   }
 
   componentDidMount() {
-    const { friends, friend } = this.props;
-    const match = friends.filter(f => f.person_id === friend.person_id);
-    if (match.length === 0) {
-      this.setState({
-        disabled: false,
-        optionText: 'Add',
-        option: 1
-      });
-    }
-    if (match.length === 1) {
-      this.setState({
-        disabled: false,
-        optionText: 'Block',
-        option: 3
-      });
-    }
     this.determineOptionText();
   }
 
@@ -65,7 +49,8 @@ class FriendActionButton extends Component {
   }
 
   performFriendAction() {
-    const { friendAction, actionTaker, friend } = this.props;
+		console.log(this.props)
+		const { friendAction, actionTaker, friendship, currentUser, friend } = this.props;
     const { option } = this.state;
     if (this.state.optionText === 'Accept') {
       this.setState({
@@ -76,8 +61,12 @@ class FriendActionButton extends Component {
       this.setState({
         optionText: 'Added'
       });
-    }
-    friendAction({ id1: actionTaker, id2: friend.person_id, option, actionTaker });
+		}
+		if (friendship) {
+			friendAction({ id1: friendship.personOne.id, id2: friendship.personTwo.id, status: option, actionTaker });
+		} else {
+			friendAction({ id1: currentUser.id, id2: friend.id, status: option, actionTaker });
+		}
   }
 
   render() {
@@ -98,14 +87,14 @@ FriendActionButton.propTypes = {
   friend: PropTypes.object.isRequired,
   friends: PropTypes.array.isRequired,
   friendAction: PropTypes.func.isRequired,
-  actionTaker: PropTypes.number.isRequired,
+  actionTaker: PropTypes.number,
   actionType: PropTypes.string
 };
 
 const mapStateToProps = state => ({
   searchResults: state.searchResults,
-  friends: state.friends,
-  actionTaker: state.currentUser.person_id
+	friends: state.friends,
+	currentUser: state.currentUser
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ friendAction }, dispatch);

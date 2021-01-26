@@ -22,17 +22,16 @@ class Profile extends Component {
 
   componentDidMount() {
     const { currentUser, getPerson } = this.props;
-    if (currentUser.email) {
-      getPerson(currentUser.email);
-    }
-    if (!currentUser.email && window.localStorage.getItem('user')) {
+    if (!currentUser.id) {
       getPerson(window.localStorage.getItem('user'));
     }
   }
 
   componentDidUpdate() {
-    const { currentUser } = this.props;
-    getPerson(currentUser.email);
+		const { currentUser } = this.props;
+		if (currentUser.id) {
+			getPerson(currentUser.id);
+		}
   }
 
   toggleDisplay(displayMode) {
@@ -77,7 +76,7 @@ class Profile extends Component {
             classNames="right"
             unmountOnExit
           >
-            <UpdateInfo />
+            <UpdateInfo backToProfile={() => this.toggleDisplay('profile')} />
           </CSSTransition>
         </div>
       </CSSTransition>

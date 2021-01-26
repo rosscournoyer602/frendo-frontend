@@ -27,17 +27,17 @@
     position: absolute;
     left: 25px;
     display: inline-block;
-    border-radius: 50%;
+		border-radius: 50%;
+		height: 64px;
   }
   .friend-info-section {
     display: inline-block;
     position: absolute;
     top: 50%;
-    right: 100px;
+    left: 100px;
     transform: translateY(-50%);
   }
   .friend-status-text {
-
     text-transform: uppercase;
   }
   &:hover {
