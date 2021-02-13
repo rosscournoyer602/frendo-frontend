@@ -11,6 +11,7 @@ class WebSocketHOC extends Component {
 
     this.friendShipId = null;
     this.socket = io(process.env.REACT_APP_API_URL, {
+			path: '/',
 			withCredentials: true
 		});
 
@@ -32,7 +33,6 @@ class WebSocketHOC extends Component {
 			this.friendShipId = friend.id
 			this.socketReady = true
 			this.socket.on(`message${this.friendShipId}`, (messages) => {
-				console.log('MESSAGES', messages)
 				updateChat({id: messages.id, messages: JSON.parse(messages.messages)})
 			})
 		}
