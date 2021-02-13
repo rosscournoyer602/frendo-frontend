@@ -61,7 +61,7 @@ class UpdateInfo extends Component {
 
   render() {
 		const { currentUser } = this.props;
-		const avatar = currentUser.avatar ?`http://friendo2.s3-website-ap-northeast-1.amazonaws.com/200x200/${currentUser.avatar}` : placeholder
+		const avatar = currentUser.avatar ?`https://d24tnhvewxeba9.cloudfront.net${currentUser.avatar}` : placeholder
 
     return (
       <>

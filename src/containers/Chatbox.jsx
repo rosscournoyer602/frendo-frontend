@@ -89,11 +89,11 @@ class Chatbox extends Component {
             let image;
             if (message.sender === currentUser.id) {
               type = 'outgoing';
-              image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${currentUser.avatar}`;
+              image = `https://d24tnhvewxeba9.cloudfront.net/${currentUser.avatar}`;
             }
             if (message.sender === friendship[friendship.friendField].id) {
               type = 'incoming';
-              image = `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/32x32/${friendship[friendship.friendField].avatar}`;
+              image = `https://d24tnhvewxeba9.cloudfront.net/${friendship[friendship.friendField].avatar}`;
             }
             return (
               <ChatBubble
