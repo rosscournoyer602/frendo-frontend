@@ -2,7 +2,7 @@
   "name": "friendofrontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://friendo.herokuapp.com",
+  "homepage": "https://friendo-frontend.herokuapp.com",
   "engines": {
     "npm": "6.9.0",
     "node": "11.6.0"

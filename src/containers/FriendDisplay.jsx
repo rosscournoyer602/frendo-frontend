@@ -51,7 +51,7 @@ class FriendDisplay extends Component {
     const avatarSrc =
 			!friend || !friend[friend.friendField].avatar
 			? placeholder
-			: `http://friendo2.s3-website-ap-northeast-1.amazonaws.com/100x100/${friend[friend.friendField].avatar}`;
+			: `https://d24tnhvewxeba9.cloudfront.net/${friend[friend.friendField].avatar}`;
 
     return (
       <CSSTransition in appear timeout={500} classNames="fade" unmountOnExit>

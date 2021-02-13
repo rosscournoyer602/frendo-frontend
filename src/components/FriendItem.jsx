@@ -9,7 +9,7 @@ import FriendActionButton from '../containers/FriendActionButton';
 const FriendItem = props => {
 	const { friend, actionTaker, friendship } = props;
   const avatarSrc = !friend.avatar ? placeholder :
-	`http://friendo2.s3-website-ap-northeast-1.amazonaws.com/64x64/${props.friend.avatar}`;
+	`https://d24tnhvewxeba9.cloudfront.net/${props.friend.avatar}`;
 
 	const firstName = friend.firstName;
 	console.log(props)
