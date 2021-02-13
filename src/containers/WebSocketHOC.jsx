@@ -11,8 +11,8 @@ class WebSocketHOC extends Component {
 
     this.friendShipId = null;
     this.socket = io(process.env.REACT_APP_API_URL, {
-			path: '/',
-			withCredentials: true
+			// path: '/',
+			// withCredentials: true
 		});
 
 		this.socketReady = false
